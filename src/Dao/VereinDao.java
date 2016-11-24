@@ -3,6 +3,8 @@ package Dao;
 import java.sql.Connection;
 import java.sql.Statement;
 
+import tabellenklassen.Halle;
+
 public class VereinDao {
 
 	private final String Classname = ("org.sqlite.JDBC");

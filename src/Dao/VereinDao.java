@@ -3,27 +3,18 @@ package Dao;
 import java.sql.Connection;
 import java.sql.Statement;
 
-import tabellenklassen.Halle;
-
 public class VereinDao {
 
-	private final String Classname = ("org.sqlite.JDBC");
-	private String datei;
-	private final String CONNECTIONSSTRING = ("jdbc:sqlite:");
-	private static String path = null;
-	private static Halle halle;
-	private static Connection connection;
-	private static Statement statement;
+	private String CLASSNAME = "org.sqlite.JDBC";
+	private static String datei;
+	public static String CONNECTIONSTRING = "jdbc:sqlite:";
 
-	public VereinDao() {
-		try {
-			Class.forName(Classname);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		path = CONNECTIONSSTRING + this.getClass().getResource("mittelstufenprojekt_datenbank.db").getPath();
+	public VereinDao() throws ClassNotFoundException {
+		Class.forName(CLASSNAME);
+		datei = this.getClass().getResource("mittelstufenprojekt_datenbank.db").getPath();
 	}
+
+	//Methoden
+	
 }
 
-	

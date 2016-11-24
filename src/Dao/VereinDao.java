@@ -9,6 +9,7 @@ public class VereinDao {
 	private String datei;
 	private final String CONNECTIONSSTRING = ("jdbc:sqlite:");
 	private static String path = null;
+	private static Halle halle;
 	private static Connection connection;
 	private static Statement statement;
 
@@ -22,3 +23,5 @@ public class VereinDao {
 		path = CONNECTIONSSTRING + this.getClass().getResource("mittelstufenprojekt_datenbank.db").getPath();
 	}
 }
+
+	

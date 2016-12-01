@@ -132,7 +132,7 @@ public class Angemeldet extends JFrame {
 		{
 
 			Icon _icon = new ImageIcon("Unbenannt.png");
-			JLabel labelNewLabel = new JLabel(_icon);
+			JLabel labelNewLabel = new JLabel(new ImageIcon("F:\\workspace\\MP\\src\\gui\\Unbenannt.png"));
 			labelNewLabel.setToolTipText("Sport");
 			labelNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			//labelNewLabel.setIcon(new ImageIcon("Unbenannt.png"));

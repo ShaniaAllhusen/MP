@@ -2,11 +2,19 @@ package tabellenklassen;
 
 public class Halle {
 	
+	private int id;
 	private String name;
 	private String strasse;
 	private String plz;
 	private String ort;
-	private int id;
+	
+	public Halle(int id, String name, String strasse, String plz, String ort) {
+		this.id = id;
+		this.name = name;
+		this.strasse = strasse;
+		this.plz = plz;
+		this.ort = ort;
+	}
 	
 	public int getId() {
 		return id;

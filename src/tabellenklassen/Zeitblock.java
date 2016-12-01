@@ -8,6 +8,14 @@ public class Zeitblock {
 	private String uhrzeit_beginn;
 	private String uhrzeit_ende;
 	
+	public Zeitblock(int id, String datum, String wochentag, String uhrzeit_beginn, String uhrzeit_ende) {
+		this.id = id;
+		this.datum = datum;
+		this.wochentag = wochentag;
+		this.uhrzeit_beginn = uhrzeit_beginn;
+		this.uhrzeit_ende = uhrzeit_ende;
+	}
+	
 	public int getId() {
 		return id;
 	}

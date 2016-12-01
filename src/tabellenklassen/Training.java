@@ -3,8 +3,14 @@ package tabellenklassen;
 public class Training {
 
 	private int id;
-	private int mannschaft_id;
-	private int halle_id;
+	private Mannschaft mannschaft;
+	private Halle halle;
+	
+	public Training(int id, Mannschaft mannschaft, Halle halle) {
+		this.id = id;
+		this.mannschaft = mannschaft;
+		this.halle = halle;
+	}
 
 	public int getId() {
 		return id;
@@ -12,16 +18,16 @@ public class Training {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getMannschaft_id() {
-		return mannschaft_id;
+	public Mannschaft getMannschaft() {
+		return mannschaft;
 	}
-	public void setMannschaft_id(int mannschaft_id) {
-		this.mannschaft_id = mannschaft_id;
+	public void setMannschaft(Mannschaft mannschaft) {
+		this.mannschaft = mannschaft;
 	}
-	public int getHalle_id() {
-		return halle_id;
+	public Halle getHalle() {
+		return halle;
 	}
-	public void setHalle_id(int halle_id) {
-		this.halle_id = halle_id;
+	public void setHalle(Halle halle) {
+		this.halle = halle;
 	}
 }

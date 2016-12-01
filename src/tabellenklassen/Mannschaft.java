@@ -4,7 +4,13 @@ public class Mannschaft {
 	
 	private int id;
 	private String name;
-	private int sportart_id;
+	private Sportart sportart;
+	
+	public Mannschaft(int id, String name, Sportart sportart) {
+		this.id = id;
+		this.name = name;
+		this.sportart = sportart;
+	}
 	
 	public int getId() {
 		return id;
@@ -18,11 +24,12 @@ public class Mannschaft {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getSportart_id() {
-		return sportart_id;
-	}
-	public void setSportart_id(int sportart_id) {
-		this.sportart_id = sportart_id;
+
+	public Sportart getSportart() {
+		return sportart;
 	}
 
+	public void setSportart(Sportart sportart) {
+		this.sportart = sportart;
+	}
 }

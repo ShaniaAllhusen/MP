@@ -9,7 +9,18 @@ public class Mitglied {
 	private String strasse;
 	private String plz;
 	private String ort;
-	private int benutzer_id;
+	private Benutzer benutzer;
+	
+	public Mitglied(int id, String vorname, String nachname, String geburtsdatum, String strasse, String plz, String ort, Benutzer benutzer) {
+		this.id = id;
+		this.vorname = vorname;
+		this.nachname = nachname;
+		this.geburtsdatum = geburtsdatum;
+		this.strasse = strasse;
+		this.plz = plz;
+		this.ort = ort;
+		this.benutzer = benutzer;
+	}
 	
 	public int getId() {
 		return id;
@@ -53,11 +64,10 @@ public class Mitglied {
 	public void setOrt(String ort) {
 		this.ort = ort;
 	}
-	public int getBenutzer_id() {
-		return benutzer_id;
+	public Benutzer getBenutzer() {
+		return benutzer;
 	}
-	public void setBenutzer_id(int benutzer_id) {
-		this.benutzer_id = benutzer_id;
+	public void setBenutzer(Benutzer benutzer) {
+		this.benutzer = benutzer;
 	}
-	
 }

@@ -8,6 +8,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JScrollBar;
@@ -130,10 +131,12 @@ public class Angemeldet extends JFrame {
 			contentPane.add(table);
 		}
 		{
-			labelNewLabel = new JLabel("New label");
+
+			Icon _icon = new ImageIcon("Unbenannt.png");
+			JLabel labelNewLabel = new JLabel(_icon);
 			labelNewLabel.setToolTipText("Sport");
 			labelNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			labelNewLabel.setIcon(new ImageIcon("F:\\Mittelstufenprojekt\\Unbenannt.png"));
+			//labelNewLabel.setIcon(new ImageIcon("Unbenannt.png"));
 			labelNewLabel.setBounds(543, 203, 206, 150);
 			contentPane.add(labelNewLabel);
 		}

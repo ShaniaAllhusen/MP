@@ -1,7 +1,5 @@
 package gui;
 
-
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -55,6 +53,7 @@ public class Angemeldet extends JFrame {
 	 */
 	public Angemeldet() {
 		initGUI();
+		this.setLocationRelativeTo(null);
 	}
 	private void initGUI() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\Mittelstufenprojekt\\sport.jpg"));
@@ -153,5 +152,7 @@ public class Angemeldet extends JFrame {
 	protected void button_AbmeldenActionPerformed(ActionEvent e) { //Ende GUI 1 anzeigen
 		HallenPlan frame1 = new HallenPlan();
 		frame1.setVisible(true);
+		this.dispose();
+		frame1.setLocationRelativeTo(null);
 	}
 }

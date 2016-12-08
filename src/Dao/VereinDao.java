@@ -21,7 +21,7 @@ public class VereinDao {
 
 	public VereinDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
-		datei = this.getClass().getResource("mittelstufenprojekt_datenbank.db").getPath();
+		datei = this.getClass().getResource("datenbank.db").getPath();
 	}
 
 	//Methoden

@@ -6,11 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import tabellenklassen.Halle;
 import tabellenklassen.Mannschaft;
 import tabellenklassen.Sportart;
 import tabellenklassen.Training;
+
 
 public class VereinDao {
 
@@ -24,6 +24,47 @@ public class VereinDao {
 	}
 
 	//Methoden
+
+	private Connection getConnection() {
+		Connection conn = null;
+		try{
+			conn = DriverManager.getConnection(datei);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return conn;
+	}
+
+	public boolean login(String name , String password) {
+		Connection conn = null;
+		boolean loggedIn = false;
+		try {
+			conn = getConnection();
+			String sql = "SELECT * FROM benutzer WHERE username = ? ";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, name);
+			ResultSet rs = statement.executeQuery();
+			System.out.println(rs.getString("passwort"));
+			if(rs.getString("passwort").equals(password)) {
+				loggedIn = true;
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try{
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		{
+		}
+		return loggedIn;
+	}
+
+
+
 	public ArrayList<Training> select(){
 		ArrayList<Training> arrayListTraining = new ArrayList<Training>(); 
 		Connection conn = null;
@@ -57,3 +98,4 @@ public class VereinDao {
 		return arrayListTraining; 
 	}
 }
+

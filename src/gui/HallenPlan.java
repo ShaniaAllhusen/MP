@@ -94,6 +94,7 @@ public class HallenPlan extends JFrame {
 		panel.add(lblPassword);
 
 		btnLogin = new JButton("Login");
+		btnLogin.setMnemonic('a');
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean strFrame = false;

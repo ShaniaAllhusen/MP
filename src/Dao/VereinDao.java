@@ -35,7 +35,7 @@ public class VereinDao {
 		return conn;
 	}
 
-	public boolean login(String name , String password) {
+	public boolean login(String name, String password) {
 		Connection conn = null;
 		boolean loggedIn = false;
 		try {

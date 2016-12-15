@@ -1,25 +1,23 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JScrollBar;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JTable;
-import javax.swing.ImageIcon;
-
 import java.awt.Toolkit;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
 
 public class Angemeldet extends JFrame {
 
@@ -72,12 +70,12 @@ public class Angemeldet extends JFrame {
 					button_löschenActionPerformed(e);
 				}
 			});
-			button_löschen.setToolTipText("Mit einem Klich auf diesen Button k\u00F6nnen Sie den ausgew\u00E4hlten Datensatz l\u00F6schen");
+			button_löschen.setToolTipText("Mit einem Klick auf diesen Button k\u00F6nnen Sie den ausgew\u00E4hlten Datensatz l\u00F6schen");
 			button_löschen.setBounds(544, 91, 205, 23);
 			contentPane.add(button_löschen);
 		}
 		{
-			button_Mannschaft = new JButton("Mannschaft hinzuf\u00FCgen/entfernen");
+			button_Mannschaft = new JButton("?");
 			button_Mannschaft.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button_MannschaftActionPerformed(e);
@@ -102,7 +100,7 @@ public class Angemeldet extends JFrame {
 			button_speichern = new JButton("\u00C4nderungen speichern");
 			button_speichern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					button_speichernActionPerformed(e);
+//					button_speichernActionPerformed(e);
 				}
 			});
 			button_speichern.setToolTipText("Wenn Sie hier klicken, werden Ihre \u00C4nderungen abgespeichert");
@@ -124,25 +122,35 @@ public class Angemeldet extends JFrame {
 			contentPane.add(labelHerzlichWillkommen);
 		}
 		{
+			String[] titles = new String[]{ "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag" };
+
 			table = new JTable();
 			table.setToolTipText("Der Hallenplan");
-			table.setBounds(10, 47, 524, 306);
+			table.setBounds(10, 47, 509, 306);
 			contentPane.add(table);
 		}
 		{
 
 			Icon _icon = new ImageIcon("Unbenannt.png");
-			JLabel labelNewLabel = new JLabel(new ImageIcon("F:\\workspace\\MP\\src\\gui\\Unbenannt.png"));
-			labelNewLabel.setToolTipText("Sport");
-			labelNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			JLabel labelBild = new JLabel(new ImageIcon("F:\\workspace\\MP\\src\\gui\\Unbenannt.png"));
+			labelBild.setToolTipText("Sport");
+			labelBild.setHorizontalAlignment(SwingConstants.CENTER);
 			//labelNewLabel.setIcon(new ImageIcon("Unbenannt.png"));
-			labelNewLabel.setBounds(543, 203, 206, 150);
-			contentPane.add(labelNewLabel);
+			labelBild.setBounds(543, 203, 206, 150);
+			contentPane.add(labelBild);
 		}
 	}
-	protected void button_speichernActionPerformed(ActionEvent e) { //Update
-		
-	}
+//	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update
+//		ArrayList<Training> arrayListTraining = VereinDao.select(vereinDao);
+//		try{
+//			Training = Dao.VereinDao.select();
+//			
+//			
+//		}catch(Exception d){
+//			showErrorPane(d);
+//		}
+//	
+//	}
 	
 	protected void button_löschenActionPerformed(ActionEvent e) { //Delete		
 		

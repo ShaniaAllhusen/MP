@@ -5,12 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-import java.util.jar.Attributes.Name;
-
 import java.util.ArrayList;
-
 import tabellenklassen.Halle;
 import tabellenklassen.Mannschaft;
 import tabellenklassen.Sportart;
@@ -26,10 +21,14 @@ public class VereinDao {
 	public VereinDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
 		datei = this.getClass().getResource("datenbank.db").getPath();
+		datei = datei.substring(1, datei.length());
+		datei = "jdbc:sqlite:" + datei;
+		System.out.println(datei);
+	
 	}
 
 	//Methoden
-
+	
 	private Connection getConnection() {
 		Connection conn = null;
 		try{
@@ -45,13 +44,16 @@ public class VereinDao {
 		boolean loggedIn = false;
 		try {
 			conn = getConnection();
-			String sql = "SELECT * FROM benutzer WHERE username = ? ";
+			String sql = "SELECT * FROM benutzer";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, name);
+			// statement.setString(1, name);
 			ResultSet rs = statement.executeQuery();
-			System.out.println(rs.getString("passwort"));
-			if(rs.getString("passwort").equals(password)) {
-				loggedIn = true;
+			if (rs.next()) {				
+				System.out.println(rs.getString("passwort"));
+				System.out.println("password");
+				if(rs.getString("passwort").equals(password)) {
+					loggedIn = true;
+				}
 			}
 			
 		} catch(SQLException e) {
@@ -65,6 +67,7 @@ public class VereinDao {
 		}
 		{
 		}
+		System.out.println(loggedIn);
 		return loggedIn;
 	}
 

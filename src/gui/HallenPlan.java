@@ -25,6 +25,7 @@ import Dao.VereinDao;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 public class HallenPlan extends JFrame {
 
@@ -47,6 +48,7 @@ public class HallenPlan extends JFrame {
 				try {
 					HallenPlan frame = new HallenPlan();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -94,7 +96,7 @@ public class HallenPlan extends JFrame {
 		panel.add(lblPassword);
 
 		btnLogin = new JButton("Login");
-		btnLogin.setMnemonic('a');
+		btnLogin.setMnemonic(KeyEvent.VK_ENTER);
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean strFrame = false;
@@ -107,6 +109,9 @@ public class HallenPlan extends JFrame {
 				if(strFrame) {
 					Angemeldet wrkframe = new Angemeldet();
 					wrkframe.setVisible(true);
+					HallenPlan frame2 = new HallenPlan();
+					dispose();
+		
 				}
 			}
 		});

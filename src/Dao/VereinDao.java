@@ -106,7 +106,7 @@ public class VereinDao {
 	}
 	
 	
-	public ArrayList<Training> select (String halleId, String tag) {
+	public ArrayList<Training> select (int halleId, String tag) {
 		ArrayList<Training> arrayListTraining = new ArrayList<Training>(); 
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
@@ -116,8 +116,12 @@ public class VereinDao {
 					+ "JOIN mannschaft m ON t.mannschaft_id = m.id "
 					+ "JOIN sportart s ON m.sportart_id = s.id "
 					+ "JOIN halle h ON t.halle_id = h.id"
-					+ "WHERE h.id = ? AND ";
+					+ "JOIN training_zeitblock tz ON t.id = tz.training_id"
+					+ "JOIN zeitblock z ON tz.zeitblock_id = z.id"
+					+ "WHERE h.id = ? AND z.wochentag = ?";
 			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setInt(1, halleId); 
+			preparedStatement.setString(2, tag); 
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Sportart sportart = new Sportart(resultSet.getInt("s.id"),resultSet.getString("s.name"));

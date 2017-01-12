@@ -18,6 +18,10 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class Angemeldet extends JFrame {
 
@@ -28,8 +32,15 @@ public class Angemeldet extends JFrame {
 	private JButton button_speichern;
 	private JComboBox comboBox_Halle;
 	private JLabel labelHerzlichWillkommen;
-	private JTable table;
 	private JLabel labelNewLabel;
+	private JTable table;
+	private JLabel labelMontag;
+	private JLabel labelDienstag;
+	private JLabel labelMittwoch;
+	private JLabel labelDonnerstag;
+	private JLabel labelFreitag;
+	private JLabel labelSamstag;
+	private JLabel labelSonntag;
 
 	/**
 	 * Launch the application.
@@ -123,11 +134,6 @@ public class Angemeldet extends JFrame {
 		}
 		{
 			String[] titles = new String[]{ "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag" };
-
-			table = new JTable();
-			table.setToolTipText("Der Hallenplan");
-			table.setBounds(10, 47, 509, 306);
-			contentPane.add(table);
 		}
 		{
 
@@ -138,6 +144,70 @@ public class Angemeldet extends JFrame {
 			//labelNewLabel.setIcon(new ImageIcon("Unbenannt.png"));
 			labelBild.setBounds(543, 203, 206, 150);
 			contentPane.add(labelBild);
+		}
+		{
+			table = new JTable();
+			table.setBorder(new LineBorder(new Color(0, 0, 0)));
+			table.setModel(new DefaultTableModel(
+				new Object[][] {
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null},
+				},
+				new String[] {
+					"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
+				}
+			));
+			table.setBounds(10, 91, 524, 262);
+			contentPane.add(table);
+		}
+		{
+			labelMontag = new JLabel("Montag");
+			labelMontag.setBounds(20, 66, 46, 14);
+			contentPane.add(labelMontag);
+		}
+		{
+			labelDienstag = new JLabel("Dienstag");
+			labelDienstag.setBounds(97, 66, 46, 14);
+			contentPane.add(labelDienstag);
+		}
+		{
+			labelMittwoch = new JLabel("Mittwoch");
+			labelMittwoch.setBounds(170, 66, 46, 14);
+			contentPane.add(labelMittwoch);
+		}
+		{
+			labelDonnerstag = new JLabel("Donnerstag");
+			labelDonnerstag.setBounds(245, 66, 56, 14);
+			contentPane.add(labelDonnerstag);
+		}
+		{
+			labelFreitag = new JLabel("Freitag");
+			labelFreitag.setBounds(321, 66, 46, 14);
+			contentPane.add(labelFreitag);
+		}
+		{
+			labelSamstag = new JLabel("Samstag");
+			labelSamstag.setBounds(395, 66, 46, 14);
+			contentPane.add(labelSamstag);
+		}
+		{
+			labelSonntag = new JLabel("Sonntag");
+			labelSonntag.setBounds(468, 66, 46, 14);
+			contentPane.add(labelSonntag);
 		}
 	}
 //	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update

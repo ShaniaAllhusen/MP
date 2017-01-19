@@ -211,16 +211,7 @@ public class Angemeldet extends JFrame {
 			btnZeitBloeckeAendern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				
-					EventQueue.invokeLater(new Runnable() {
-						public void run() {
-							try {
-								ZeitBloecke frame = new ZeitBloecke();
-								frame.setVisible(true);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
-					});}
+				}
 			});
 			btnZeitBloeckeAendern.setBounds(544, 23, 205, 23);
 			contentPane.add(btnZeitBloeckeAendern);

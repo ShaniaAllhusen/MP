@@ -48,6 +48,7 @@ public class Angemeldet extends JFrame {
 	private JLabel labelSonntag;
 
 	private VereinDao vereinDao;
+	private JButton btnZeitBloeckeAendern;
 
 	/**
 	 * Launch the application.
@@ -204,6 +205,25 @@ public class Angemeldet extends JFrame {
 			labelSonntag = new JLabel("Sonntag");
 			labelSonntag.setBounds(468, 66, 46, 14);
 			contentPane.add(labelSonntag);
+		}
+		{
+			btnZeitBloeckeAendern = new JButton("ZeitBl\u00F6cke \u00C4ndern");
+			btnZeitBloeckeAendern.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {
+								ZeitBloecke frame = new ZeitBloecke();
+								frame.setVisible(true);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					});}
+			});
+			btnZeitBloeckeAendern.setBounds(544, 23, 205, 23);
+			contentPane.add(btnZeitBloeckeAendern);
 		}
 	}
 	//	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update

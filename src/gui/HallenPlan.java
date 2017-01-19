@@ -106,6 +106,7 @@ public class HallenPlan extends JFrame {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
+				
 				if(strFrame) {
 					Angemeldet wrkframe = new Angemeldet();
 					wrkframe.setVisible(true);

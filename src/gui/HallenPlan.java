@@ -1,31 +1,25 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.JMenuBar;
-import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
-import javax.swing.UIManager;
-
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
-import javax.swing.JPasswordField;
-import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import Dao.VereinDao;
-
-import java.awt.Component;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 
 public class HallenPlan extends JFrame {
 
@@ -101,7 +95,8 @@ public class HallenPlan extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				boolean strFrame = false;
 				try{
-					strFrame =	new VereinDao().login(textFieldUser.getText(), textFieldpassword.getText());
+					VereinDao vereinDao = new VereinDao();
+					strFrame =	vereinDao.login(textFieldUser.getText(), new String(textFieldpassword.getPassword()));
 					System.out.println(strFrame);
 				} catch (Exception ex) {
 					ex.printStackTrace();

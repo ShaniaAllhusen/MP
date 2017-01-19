@@ -20,7 +20,7 @@ public class VereinDao {
 
 	public VereinDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
-		datei = this.getClass().getResource("datenbank.db").getPath();
+		datei = this.getClass().getResource("testdatenbank.db").getPath();
 		datei = "jdbc:sqlite:" + datei;
 		System.out.println(datei);
 	
@@ -43,9 +43,10 @@ public class VereinDao {
 		boolean loggedIn = false;
 		try {
 			conn = getConnection();
-			String sql = "SELECT * FROM benutzer WHERE username =?";
+			// String sql = "SELECT * FROM benutzer WHERE username =?";
+			String sql = "SELECT * FROM benutzer";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, name);
+			// statement.setString(1, name);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {				
 				System.out.println(rs.getString("passwort"));
@@ -55,7 +56,9 @@ public class VereinDao {
 				}
 			}
 			
-		} catch(SQLException e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try{

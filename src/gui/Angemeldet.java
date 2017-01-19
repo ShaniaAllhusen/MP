@@ -21,6 +21,11 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
+import oop.IO;
+import tabellenklassen.Training;
+import Dao.VereinDao;
+
 import java.awt.Color;
 
 public class Angemeldet extends JFrame {
@@ -41,6 +46,8 @@ public class Angemeldet extends JFrame {
 	private JLabel labelFreitag;
 	private JLabel labelSamstag;
 	private JLabel labelSonntag;
+
+	private VereinDao vereinDao;
 
 	/**
 	 * Launch the application.
@@ -111,7 +118,7 @@ public class Angemeldet extends JFrame {
 			button_speichern = new JButton("\u00C4nderungen speichern");
 			button_speichern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-//					button_speichernActionPerformed(e);
+					//					button_speichernActionPerformed(e);
 				}
 			});
 			button_speichern.setToolTipText("Wenn Sie hier klicken, werden Ihre \u00C4nderungen abgespeichert");
@@ -132,9 +139,7 @@ public class Angemeldet extends JFrame {
 			labelHerzlichWillkommen.setBounds(78, 1, 304, 23);
 			contentPane.add(labelHerzlichWillkommen);
 		}
-		{
-			String[] titles = new String[]{ "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag" };
-		}
+		
 		{
 
 			Icon _icon = new ImageIcon("Unbenannt.png");
@@ -146,31 +151,22 @@ public class Angemeldet extends JFrame {
 			contentPane.add(labelBild);
 		}
 		{
-			table = new JTable();
-			table.setBorder(new LineBorder(new Color(0, 0, 0)));
-			table.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-				},
-				new String[] {
-					"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
+			
+			String[] columnName = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
+			String[][] data = new String[7][22];
+			String test = null;
+			ArrayList <Training> ArrayListTraining = new ArrayList<Training>();
+			for (int i = 0; i < 7; i++) {
+				for ( int j = 8; j <= 22; j++){
+					ArrayListTraining = vereinDao.select(comboBox_Halle.getSelectedIndex(),columnName[i], j);
+					for(Training t : ArrayListTraining) {
+						   test = t.getMannschaft().getName() + t.getMannschaft().getSportart().getName();
+						}
+					data[i][j] = test;
 				}
-			));
+			}
+			table = new JTable(data, columnName);
+			table.setBorder(new LineBorder(new Color(0, 0, 0)));
 			table.setBounds(10, 91, 524, 262);
 			contentPane.add(table);
 		}
@@ -210,26 +206,26 @@ public class Angemeldet extends JFrame {
 			contentPane.add(labelSonntag);
 		}
 	}
-//	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update
-//		ArrayList<Training> arrayListTraining = VereinDao.select(vereinDao);
-//		try{
-//			Training = Dao.VereinDao.select();
-//			
-//			
-//		}catch(Exception d){
-//			showErrorPane(d);
-//		}
-//	
-//	}
-	
+	//	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update
+	//		ArrayList<Training> arrayListTraining = VereinDao.select(vereinDao);
+	//		try{
+	//			Training = Dao.VereinDao.select();
+	//			
+	//			
+	//		}catch(Exception d){
+	//			showErrorPane(d);
+	//		}
+	//	
+	//	}
+
 	protected void button_löschenActionPerformed(ActionEvent e) { //Delete		
-		
+
 	}
-	
+
 	protected void button_MannschaftActionPerformed(ActionEvent e) { //Update
-		
+
 	}
-	
+
 	protected void button_AbmeldenActionPerformed(ActionEvent e) { //Ende GUI 1 anzeigen
 		HallenPlan frame1 = new HallenPlan();
 		frame1.setVisible(true);

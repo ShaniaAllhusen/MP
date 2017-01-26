@@ -152,19 +152,19 @@ public class Angemeldet extends JFrame {
 		{
 
 
-			String[] columnName = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
-			String[][] data = new String[7][22];
-			String test = null;
-			ArrayList <Training> ArrayListTraining = new ArrayList<Training>();
-			for (int i = 0; i < 7; i++) {
-				for ( int j = 8; j <= 22; j++){
-					ArrayListTraining = vereinDao.select(comboBox_Halle.getSelectedIndex(),columnName[i], j);
-					for(Training t : ArrayListTraining) {
-						test = t.getMannschaft().getName() + t.getMannschaft().getSportart().getName();
-					}
-					data[i][j] = test;
-				}
-			}
+//			String[] columnName = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
+//			String[][] data = new String[7][22];
+//			String test = null;
+//			ArrayList <Training> ArrayListTraining = new ArrayList<Training>();
+//			for (int i = 0; i < 7; i++) {
+//				for ( int j = 8; j <= 22; j++){
+//					ArrayListTraining = vereinDao.select(comboBox_Halle.getSelectedIndex(),columnName[i], j);
+//					for(Training t : ArrayListTraining) {
+//						test = t.getMannschaft().getName() + t.getMannschaft().getSportart().getName();
+//					}
+//					data[i][j] = test;
+//				}
+//			}
 
 		}
 		{

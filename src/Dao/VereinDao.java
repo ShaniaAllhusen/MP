@@ -43,10 +43,9 @@ public class VereinDao {
 		boolean loggedIn = false;
 		try {
 			conn = getConnection();
-			// String sql = "SELECT * FROM benutzer WHERE username =?";
-			String sql = "SELECT * FROM benutzer";
+			String sql = "SELECT * FROM benutzer WHERE username =?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			// statement.setString(1, name);
+			statement.setString(1, name);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {				
 				System.out.println(rs.getString("passwort"));
@@ -56,9 +55,7 @@ public class VereinDao {
 				}
 			}
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
+		} catch(SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try{
@@ -120,8 +117,8 @@ public class VereinDao {
 					+ "JOIN sportart s ON m.sportart_id = s.id "
 					+ "JOIN halle h ON t.halle_id = h.id"
 					+ "JOIN training_zeitblock tz ON t.id = tz.training_id"
-					+ "JOIN zeitblock z ON tz.zeitblock_id = z.id"
-					+ "WHERE h.id = ? AND z.wochentag = ? AND z.uhrzeit_beginn LIKE ?";
+					+ "JOIN zeitblock z ON tz.zeitblock_id = z.id AND uhrzeit_beginn LIKE '?*'"
+					+ "WHERE h.id = ? AND z.wochentag = ? ";
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setInt(1, halleId); 
 			preparedStatement.setString(2, wochentag);

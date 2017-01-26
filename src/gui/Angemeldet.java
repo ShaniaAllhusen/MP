@@ -17,12 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-import oop.IO;
 import tabellenklassen.Training;
 import Dao.VereinDao;
 
@@ -30,12 +26,16 @@ import java.awt.Color;
 
 public class Angemeldet extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JButton button_löschen;
+	private JButton button_loeschen;
 	private JButton button_Mannschaft;
 	private JButton button_Abmelden;
 	private JButton button_speichern;
-	private JComboBox comboBox_Halle;
+	private JComboBox<String> comboBox_Halle;
 	private JLabel labelHerzlichWillkommen;
 	private JLabel labelNewLabel;
 	private JTable table;
@@ -83,15 +83,15 @@ public class Angemeldet extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		{
-			button_löschen = new JButton("L\u00F6schen");
-			button_löschen.addActionListener(new ActionListener() {
+			button_loeschen = new JButton("L\u00F6schen");
+			button_loeschen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					button_löschenActionPerformed(e);
+					button_loeschenActionPerformed(e);
 				}
 			});
-			button_löschen.setToolTipText("Mit einem Klick auf diesen Button k\u00F6nnen Sie den ausgew\u00E4hlten Datensatz l\u00F6schen");
-			button_löschen.setBounds(544, 91, 205, 23);
-			contentPane.add(button_löschen);
+			button_loeschen.setToolTipText("Mit einem Klick auf diesen Button k\u00F6nnen Sie den ausgew\u00E4hlten Datensatz l\u00F6schen");
+			button_loeschen.setBounds(544, 91, 205, 23);
+			contentPane.add(button_loeschen);
 		}
 		{
 			button_Mannschaft = new JButton("?");
@@ -127,9 +127,9 @@ public class Angemeldet extends JFrame {
 			contentPane.add(button_speichern);
 		}
 		{
-			comboBox_Halle = new JComboBox();
+			comboBox_Halle = new JComboBox<String>();
 			comboBox_Halle.setToolTipText("Hier k\u00F6nnen Sie die Halle ausw\u00E4hlen, von welcher Sie den Plan angezeigt bekommen wollen");
-			comboBox_Halle.setModel(new DefaultComboBoxModel(new String[] {"Halle 1", "Halle 2", "Halle 3"}));
+			comboBox_Halle.setModel(new DefaultComboBoxModel<String>(new String[] {"Halle 1", "Halle 2", "Halle 3"}));
 			comboBox_Halle.setBounds(10, 23, 522, 20);
 			contentPane.add(comboBox_Halle);
 		}
@@ -210,7 +210,16 @@ public class Angemeldet extends JFrame {
 			btnZeitBloeckeAendern = new JButton("ZeitBl\u00F6cke \u00C4ndern");
 			btnZeitBloeckeAendern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-				
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {
+								ZeitBloecke frame = new ZeitBloecke();
+								frame.setVisible(true);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					});
 				}
 			});
 			btnZeitBloeckeAendern.setBounds(544, 23, 205, 23);
@@ -229,7 +238,7 @@ public class Angemeldet extends JFrame {
 	//	
 	//	}
 
-	protected void button_löschenActionPerformed(ActionEvent e) { //Delete		
+	protected void button_loeschenActionPerformed(ActionEvent e) { //Delete		
 
 	}
 

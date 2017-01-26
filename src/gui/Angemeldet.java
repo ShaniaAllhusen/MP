@@ -17,8 +17,12 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import oop.IO;
 import tabellenklassen.Training;
 import Dao.VereinDao;
 
@@ -26,16 +30,12 @@ import java.awt.Color;
 
 public class Angemeldet extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JButton button_loeschen;
+	private JButton button_löschen;
 	private JButton button_Mannschaft;
 	private JButton button_Abmelden;
 	private JButton button_speichern;
-	private JComboBox<String> comboBox_Halle;
+	private JComboBox comboBox_Halle;
 	private JLabel labelHerzlichWillkommen;
 	private JLabel labelNewLabel;
 	private JTable table;
@@ -48,11 +48,14 @@ public class Angemeldet extends JFrame {
 	private JLabel labelSonntag;
 
 	private VereinDao vereinDao;
-	private JButton btnZeitBloeckeAendern;
+	private JButton buttonAktualisieren;
 
 	/**
 	 * Launch the application.
 	 */
+	
+
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -81,94 +84,85 @@ public class Angemeldet extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		{
-			button_loeschen = new JButton("L\u00F6schen");
-			button_loeschen.addActionListener(new ActionListener() {
+			button_löschen = new JButton("L\u00F6schen");
+			button_löschen.setBounds(544, 91, 205, 23);
+			button_löschen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					button_loeschenActionPerformed(e);
+					button_löschenActionPerformed(e);
 				}
 			});
-			button_loeschen.setToolTipText("Mit einem Klick auf diesen Button k\u00F6nnen Sie den ausgew\u00E4hlten Datensatz l\u00F6schen");
-			button_loeschen.setBounds(544, 91, 205, 23);
-			contentPane.add(button_loeschen);
+			contentPane.setLayout(null);
+			button_löschen.setToolTipText("Mit einem Klick auf diesen Button k\u00F6nnen Sie den ausgew\u00E4hlten Datensatz l\u00F6schen");
+			contentPane.add(button_löschen);
 		}
 		{
 			button_Mannschaft = new JButton("?");
+			button_Mannschaft.setBounds(544, 125, 205, 23);
 			button_Mannschaft.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button_MannschaftActionPerformed(e);
 				}
 			});
 			button_Mannschaft.setToolTipText("Hier k\u00F6nnen Sie eine Mannschaft hinzuf\u00FCgen oder entfernen");
-			button_Mannschaft.setBounds(544, 125, 205, 23);
 			contentPane.add(button_Mannschaft);
 		}
 		{
 			button_Abmelden = new JButton("Abmelden");
+			button_Abmelden.setBounds(544, 159, 205, 23);
 			button_Abmelden.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button_AbmeldenActionPerformed(e);
 				}
 			});
 			button_Abmelden.setToolTipText("Hier k\u00F6nnen sie sich wieder abmelden");
-			button_Abmelden.setBounds(544, 159, 205, 23);
 			contentPane.add(button_Abmelden);
 		}
 		{
 			button_speichern = new JButton("\u00C4nderungen speichern");
+			button_speichern.setBounds(544, 57, 205, 23);
 			button_speichern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//					button_speichernActionPerformed(e);
 				}
 			});
 			button_speichern.setToolTipText("Wenn Sie hier klicken, werden Ihre \u00C4nderungen abgespeichert");
-			button_speichern.setBounds(544, 57, 205, 23);
 			contentPane.add(button_speichern);
 		}
 		{
-			comboBox_Halle = new JComboBox<String>();
-			comboBox_Halle.setToolTipText("Hier k\u00F6nnen Sie die Halle ausw\u00E4hlen, von welcher Sie den Plan angezeigt bekommen wollen");
-			comboBox_Halle.setModel(new DefaultComboBoxModel<String>(new String[] {"Halle 1", "Halle 2", "Halle 3"}));
+			comboBox_Halle = new JComboBox();
 			comboBox_Halle.setBounds(10, 23, 522, 20);
+			comboBox_Halle.setToolTipText("Hier k\u00F6nnen Sie die Halle ausw\u00E4hlen, von welcher Sie den Plan angezeigt bekommen wollen");
+			comboBox_Halle.setModel(new DefaultComboBoxModel(new String[] {"Halle 1", "Halle 2", "Halle 3"}));
+			comboBox_Halle.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+				}
+			});
 			contentPane.add(comboBox_Halle);
 		}
 		{
 			labelHerzlichWillkommen = new JLabel("Herzlich Willkommen!");
+			labelHerzlichWillkommen.setBounds(78, 1, 304, 23);
 			labelHerzlichWillkommen.setHorizontalAlignment(SwingConstants.CENTER);
 			labelHerzlichWillkommen.setToolTipText("Sch\u00F6n, dass sie da sind!");
-			labelHerzlichWillkommen.setBounds(78, 1, 304, 23);
 			contentPane.add(labelHerzlichWillkommen);
 		}
-		
+
 		{
 
 			Icon _icon = new ImageIcon("Unbenannt.png");
 			JLabel labelBild = new JLabel(new ImageIcon("F:\\workspace\\MP\\src\\gui\\Unbenannt.png"));
+			labelBild.setBounds(543, 203, 206, 150);
 			labelBild.setToolTipText("Sport");
 			labelBild.setHorizontalAlignment(SwingConstants.CENTER);
-			//labelNewLabel.setIcon(new ImageIcon("Unbenannt.png"));
-			labelBild.setBounds(543, 203, 206, 150);
 			contentPane.add(labelBild);
 		}
 		{
-			
-			String[] columnName = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
-			String[][] data = new String[7][22];
-			String test = null;
-			ArrayList <Training> ArrayListTraining = new ArrayList<Training>();
-			for (int i = 0; i < 7; i++) {
-				for ( int j = 8; j <= 22; j++){
-					ArrayListTraining = vereinDao.select(comboBox_Halle.getSelectedIndex(),columnName[i], j);
-					for(Training t : ArrayListTraining) {
-						   test = t.getMannschaft().getName() + t.getMannschaft().getSportart().getName();
-						}
-					data[i][j] = test;
-				}
-			}
-			table = new JTable(data, columnName);
-			table.setBorder(new LineBorder(new Color(0, 0, 0)));
+
+			table = new JTable();
 			table.setBounds(10, 91, 524, 262);
+			table.setBorder(new LineBorder(new Color(0, 0, 0)));
 			contentPane.add(table);
 		}
 		{
@@ -207,23 +201,15 @@ public class Angemeldet extends JFrame {
 			contentPane.add(labelSonntag);
 		}
 		{
-			btnZeitBloeckeAendern = new JButton("ZeitBl\u00F6cke \u00C4ndern");
-			btnZeitBloeckeAendern.addActionListener(new ActionListener() {
+			buttonAktualisieren = new JButton("Aktualisieren");
+			buttonAktualisieren.setBounds(544, 193, 205, 23);
+			buttonAktualisieren.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					EventQueue.invokeLater(new Runnable() {
-						public void run() {
-							try {
-								ZeitBloecke frame = new ZeitBloecke();
-								frame.setVisible(true);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
-					});
+					System.out.println(comboBox_Halle.getSelectedIndex()+1);
+					anzeigenJTable();
 				}
 			});
-			btnZeitBloeckeAendern.setBounds(544, 23, 205, 23);
-			contentPane.add(btnZeitBloeckeAendern);
+			contentPane.add(buttonAktualisieren);
 		}
 	}
 	//	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update
@@ -237,8 +223,25 @@ public class Angemeldet extends JFrame {
 	//		}
 	//	
 	//	}
-
-	protected void button_loeschenActionPerformed(ActionEvent e) { //Delete		
+	public void anzeigenJTable() { //JTable füllen
+		String[][] data = new String[7][22];;
+		String[] columnName = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
+		String test = null;
+		ArrayList <Training> ArrayListTraining = new ArrayList<Training>();
+		for (int i = 0; i < 7; i++) {
+			for ( int j = 8; j <= 22; j++){
+				ArrayListTraining = vereinDao.select(comboBox_Halle.getSelectedIndex()+1,columnName[i], j);
+				for(Training t : ArrayListTraining) {
+					test = t.getMannschaft().getName() + t.getMannschaft().getSportart().getName();
+				}
+				data[i][j] = test;
+			}
+		}
+		table = new JTable(data, columnName);
+		anzeigen(data);
+	}
+	
+	protected void button_löschenActionPerformed(ActionEvent e) { //Delete		
 
 	}
 
@@ -251,5 +254,21 @@ public class Angemeldet extends JFrame {
 		frame1.setVisible(true);
 		this.dispose();
 		frame1.setLocationRelativeTo(null);
+	}
+
+
+	static void anzeigen(String[][] table){
+		System.out.print("\n\t\t");
+		for (int i=0; i < table[0].length; i++) {
+			System.out.print((i+1)+ "\t");
+		}
+		System.out.print("\n");
+		for ( int zeile=0; zeile < table.length; zeile++) {
+			System.out.print("Reihe " +(zeile+1) +":\t");
+			for ( int spalte = 0; spalte < table[0].length; spalte++){
+				System.out.print(table[zeile][spalte] +"\t");
+			}
+			System.out.print("\n");
+		}
 	}
 }

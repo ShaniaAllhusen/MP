@@ -23,6 +23,11 @@ import tabellenklassen.Training;
 import Dao.VereinDao;
 
 import java.awt.Color;
+import javax.swing.JScrollBar;
+import javax.swing.JSeparator;
+import javax.swing.JProgressBar;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 
 public class Angemeldet extends JFrame {
 
@@ -39,13 +44,6 @@ public class Angemeldet extends JFrame {
 	private JLabel labelHerzlichWillkommen;
 	private JLabel labelNewLabel;
 	private JTable table;
-	private JLabel labelMontag;
-	private JLabel labelDienstag;
-	private JLabel labelMittwoch;
-	private JLabel labelDonnerstag;
-	private JLabel labelFreitag;
-	private JLabel labelSamstag;
-	private JLabel labelSonntag;
 
 	private VereinDao vereinDao;
 	private JButton btnZeitBloeckeAendern;
@@ -166,45 +164,6 @@ public class Angemeldet extends JFrame {
 					data[i][j] = test;
 				}
 			}
-			table = new JTable(data, columnName);
-			table.setBorder(new LineBorder(new Color(0, 0, 0)));
-			table.setBounds(10, 91, 524, 262);
-			contentPane.add(table);
-		}
-		{
-			labelMontag = new JLabel("Montag");
-			labelMontag.setBounds(20, 66, 46, 14);
-			contentPane.add(labelMontag);
-		}
-		{
-			labelDienstag = new JLabel("Dienstag");
-			labelDienstag.setBounds(97, 66, 46, 14);
-			contentPane.add(labelDienstag);
-		}
-		{
-			labelMittwoch = new JLabel("Mittwoch");
-			labelMittwoch.setBounds(170, 66, 46, 14);
-			contentPane.add(labelMittwoch);
-		}
-		{
-			labelDonnerstag = new JLabel("Donnerstag");
-			labelDonnerstag.setBounds(245, 66, 56, 14);
-			contentPane.add(labelDonnerstag);
-		}
-		{
-			labelFreitag = new JLabel("Freitag");
-			labelFreitag.setBounds(321, 66, 46, 14);
-			contentPane.add(labelFreitag);
-		}
-		{
-			labelSamstag = new JLabel("Samstag");
-			labelSamstag.setBounds(395, 66, 46, 14);
-			contentPane.add(labelSamstag);
-		}
-		{
-			labelSonntag = new JLabel("Sonntag");
-			labelSonntag.setBounds(468, 66, 46, 14);
-			contentPane.add(labelSonntag);
 		}
 		{
 			btnZeitBloeckeAendern = new JButton("ZeitBl\u00F6cke \u00C4ndern");
@@ -225,6 +184,44 @@ public class Angemeldet extends JFrame {
 			btnZeitBloeckeAendern.setBounds(544, 23, 205, 23);
 			contentPane.add(btnZeitBloeckeAendern);
 		}
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 54, 522, 299);
+		contentPane.add(scrollPane);
+		table = new JTable(data, columnName);
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"Zeit", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
+			}
+		));
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 	}
 	//	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update
 	//		ArrayList<Training> arrayListTraining = VereinDao.select(vereinDao);
@@ -251,5 +248,8 @@ public class Angemeldet extends JFrame {
 		frame1.setVisible(true);
 		this.dispose();
 		frame1.setLocationRelativeTo(null);
+	}
+	public JTable getTable() {
+		return table;
 	}
 }

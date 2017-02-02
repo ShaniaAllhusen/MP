@@ -57,7 +57,7 @@ public class VereinDao {
 				loggedIn = true;
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "Bitte nur Zahlen erfassen!", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Benutzername oder Passwort ist falsch.", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
 			}
 			
 		} catch(SQLException e) {

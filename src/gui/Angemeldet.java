@@ -182,7 +182,7 @@ public class Angemeldet extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 54, 522, 299);
 		contentPane.add(scrollPane);
-		//table = new JTable(data, columnName);
+		table = new JTable();
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 				new Object[][] {

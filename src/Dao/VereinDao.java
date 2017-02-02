@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 import tabellenklassen.Halle;
 import tabellenklassen.Mannschaft;
 import tabellenklassen.Sportart;
@@ -43,16 +46,16 @@ public class VereinDao {
 		boolean loggedIn = false;
 		try {
 			conn = getConnection();
-			String sql = "SELECT * FROM benutzer WHERE username =?";
+			String sql = "SELECT * FROM benutzer WHERE username = ? AND passwort = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, name);
+			statement.setString(2, password);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {				
-				System.out.println(rs.getString("passwort"));
-				System.out.println("password");
-				if(rs.getString("passwort").equals(password)) {
-					loggedIn = true;
-				}
+				loggedIn = true;
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Bitte nur Zahlen erfassen!", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
 			}
 			
 		} catch(SQLException e) {

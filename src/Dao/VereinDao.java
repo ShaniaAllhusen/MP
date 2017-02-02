@@ -28,6 +28,7 @@ public class VereinDao {
 		datei = "jdbc:sqlite:" + datei;
 		System.out.println(datei);
 	
+		
 	}
 
 	//Methoden

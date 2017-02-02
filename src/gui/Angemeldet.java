@@ -144,7 +144,7 @@ public class Angemeldet extends JFrame {
 
 			Icon _icon = new ImageIcon("Unbenannt.png");
 			JLabel labelBild = new JLabel(new ImageIcon("F:\\workspace\\MP\\src\\gui\\Unbenannt.png"));
-			labelBild.setBounds(543, 203, 206, 150);
+			labelBild.setBounds(543, 225, 206, 128);
 			labelBild.setToolTipText("Sport");
 			labelBild.setHorizontalAlignment(SwingConstants.CENTER);
 			contentPane.add(labelBild);

@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -184,37 +185,20 @@ public class Angemeldet extends JFrame {
 		contentPane.add(scrollPane);
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-				new Object[][] {
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-						{null, null, null, null, null, null, null, null},
-				},
-				new String[] {
-						"Zeit", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
-				}
-				));
+		String[] columns = new String[] {
+				"Zeit", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
+		};
+		try {
+			table.setModel(new DefaultTableModel(new VereinDao().getTable(), columns));
+			table.updateUI();
+			repaint();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 	}
 	//	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update
@@ -228,8 +212,8 @@ public class Angemeldet extends JFrame {
 	//		}
 	//	
 	//	}
-	public void anzeigenJTable() { //JTable füllen
-		String[][] data = new String[7][22];;
+	public void anzeigenJTable()  { //JTable füllen
+		String[][] data = new String[7][22];
 		String[] columnName = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
 		String test = null;
 		ArrayList <Training> ArrayListTraining = new ArrayList<Training>();

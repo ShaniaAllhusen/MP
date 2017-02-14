@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import tabellenklassen.Halle;
 import tabellenklassen.Mannschaft;
@@ -24,11 +26,10 @@ public class VereinDao {
 
 	public VereinDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
-		datei = this.getClass().getResource("testdatenbank.db").getPath();
-		datei = "jdbc:sqlite:" + datei;
+		datei = this.getClass().getResource("testdatenbank.db").toString();
+//		datei = "F:\\workspace\\MP\\bin\\dao\\testdatenbank.db";
+//		datei = "jdbc:sqlite:" + datei;
 		System.out.println(datei);
-	
-		
 	}
 
 	//Methoden
@@ -77,26 +78,32 @@ public class VereinDao {
 
 
 
-	public ArrayList<Training> select(){
+//	public ArrayList<Training> select(){
+	public DefaultTableModel select() {
+		JTable data = new JTable();
+		DefaultTableModel dataStorage = new DefaultTableModel();
 		ArrayList<Training> arrayListTraining = new ArrayList<Training>(); 
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		try {
 			conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
-			String sql = "SELECT t.id, t.halle_id, m.id, m.name , s.id , s.name, h.id, h.name, h.strasse, h.plz, h.ort FROM training t "
+			String sql = "SELECT  m.name AS 'Mannschaft' , s.name AS 'Sportart',  h.name AS 'Halle', h.strasse AS 'Strasse', h.plz AS 'PLZ',"
+					+ "  h.ort AS 'Ort' FROM training t "
 					+ "JOIN mannschaft m ON t.mannschaft_id = m.id "
 					+ "JOIN sportart s ON m.sportart_id = s.id "
 					+ "JOIN halle h ON t.halle_id = h.id";
+			//t.id as 'training', t.halle_id as 'halle', m.id as 'mannschaft',s.id as 'sportart',h.id,
 			preparedStatement = conn.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				Sportart sportart = new Sportart(resultSet.getInt("s.id"),resultSet.getString("s.name"));
-				Mannschaft mannschaft = new Mannschaft(resultSet.getInt("m.id"), resultSet.getString("m.name"), sportart);
-				Halle halle = new Halle(resultSet.getInt("h.id"), resultSet.getString("h.name"), resultSet.getString("h.strasse"), 
-						resultSet.getString("h.plz"), resultSet.getString("h.ort"));
-				Training training = new Training(resultSet.getInt("t.id"), mannschaft, halle);
-				arrayListTraining.add(training); 
-			} 
+//			Sportart sportart = new Sportart(resultSet.getInt("id"),resultSet.getString("name"));
+//				Mannschaft mannschaft = new Mannschaft(resultSet.getInt("id"), resultSet.getString("name"), sportart);
+//				Halle halle = new Halle(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("strasse"), 
+//						resultSet.getString("plz"), resultSet.getString("ort"));
+//				Training training = new Training(resultSet.getInt("id"), mannschaft, halle);
+//				arrayListTraining.add(training);
+				dataStorage.addRow(new Object[] {resultSet.getString("Mannschaft"), resultSet.getString("Sportart")});
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -107,9 +114,28 @@ public class VereinDao {
 				e.printStackTrace();
 			}
 		}
-		return arrayListTraining; 
+		return dataStorage;
+//		return arrayListTraining; 
 	}
 	
+	public String[][] getTable() throws SQLException {
+		PreparedStatement preparedStatement = null;
+		Connection conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
+		
+		ArrayList<String[]> list = new ArrayList<String[]>();
+		
+		String sql = "select m.name as 'mannschaft', s.name as 'sportart' from mannschaft m "
+				+ "left join sportart s on s.id = m.sportart_id";
+		preparedStatement = conn.prepareStatement(sql);
+		
+		ResultSet rs = preparedStatement.executeQuery(); //Ändern für Reihenfolge
+		while (rs.next()) {
+			String[] data = {rs.getString("mannschaft"), rs.getString("sportart")};
+			list.add(data);
+		}
+		
+		return list.toArray(new String[list.size()][list.get(0).length]);
+	}
 	
 	public ArrayList<Training> select (int halleId, String wochentag, int uhrzeit) {
 		ArrayList<Training> arrayListTraining = new ArrayList<Training>(); 

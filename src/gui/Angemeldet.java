@@ -186,7 +186,7 @@ public class Angemeldet extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		String[] columns = new String[] {
-				"Zeit", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
+				 "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
 		};
 		try {
 			table.setModel(new DefaultTableModel(new VereinDao().getTable(), columns));

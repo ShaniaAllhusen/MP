@@ -29,7 +29,6 @@ public class VereinDao {
 		datei = this.getClass().getResource("testdatenbank.db").toString();
 //		datei = "F:\\workspace\\MP\\bin\\dao\\testdatenbank.db";
 //		datei = "jdbc:sqlite:" + datei;
-		System.out.println(datei);
 	}
 
 	//Methoden
@@ -37,7 +36,7 @@ public class VereinDao {
 	private Connection getConnection() {
 		Connection conn = null;
 		try{
-			conn = DriverManager.getConnection(datei);
+		 conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -125,7 +124,11 @@ public class VereinDao {
 		ArrayList<String[]> list = new ArrayList<String[]>();
 		
 		String sql = "select m.name as 'mannschaft', s.name as 'sportart' from mannschaft m "
-				+ "left join sportart s on s.id = m.sportart_id";
+				+ " join sportart s on s.id = m.sportart_id "
+				+ " join training_zeitblock tz on tz.id = tz.zeitblock_id "
+				+ " join training t on t.id = t.mannschaft_id "
+				+ " join zeitblock z on z.id = tz.zeitblock_id "
+				+ "where z.wochentag = 'Montag'";
 		preparedStatement = conn.prepareStatement(sql);
 		
 		ResultSet rs = preparedStatement.executeQuery(); //Ändern für Reihenfolge

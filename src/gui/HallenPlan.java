@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -13,11 +14,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import Dao.VereinDao;
 
@@ -61,9 +65,26 @@ public class HallenPlan extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 54, 522, 299);
+		contentPane.add(scrollPane);
 		table = new JTable();
-		table.setBounds(0, 23, 576, 399);
-		contentPane.add(table);
+		scrollPane.setViewportView(table);
+		String[] columns = new String[] {
+				 "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
+		};
+		try {
+			table.setModel(new DefaultTableModel(new VereinDao().getTable(), columns));
+			table.updateUI();
+			repaint();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Anmeldung", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -118,5 +139,8 @@ public class HallenPlan extends JFrame {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Halle 1", "Halle 2", "Halle 3"}));
 		comboBox.setBounds(0, 0, 576, 20);
 		contentPane.add(comboBox);
+	}
+	public JTable getTable() {
+		return table;
 	}
 }

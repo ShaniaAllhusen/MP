@@ -34,7 +34,7 @@ public class HallenPlan extends JFrame {
 	private JLabel lblUser;
 	private JLabel lblPassword;
 	private JPanel panel;
-	private JComboBox comboBox;
+	private JComboBox comboBox_Halle;
 	private JButton btnLogin;
 
 	/**
@@ -66,6 +66,7 @@ public class HallenPlan extends JFrame {
 		contentPane.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgew\u00E4hlten Halle");
 		scrollPane.setBounds(10, 54, 522, 299);
 		contentPane.add(scrollPane);
 		table = new JTable();
@@ -87,17 +88,20 @@ public class HallenPlan extends JFrame {
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		panel = new JPanel();
+		panel.setToolTipText("Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein und dr\u00FCcken Sie dann auf den Button \"Login\", f\u00FCr die Anmeldung. Wenn Sie angemeldet sind, k\u00F6nnen Sie  die Tabelle ver\u00E4ndern.");
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Anmeldung", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(591, 23, 164, 184);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		textFieldUser = new JTextField();
+		textFieldUser.setToolTipText("Bitte geben Sie hier Ihren Benutzernamen ein");
 		textFieldUser.setBounds(6, 40, 152, 28);
 		panel.add(textFieldUser);
 		textFieldUser.setColumns(10);
 
 		textFieldpassword = new JPasswordField();
+		textFieldpassword.setToolTipText("Bitte geben Sie hier Ihr Passwort ein");
 		textFieldpassword.setBounds(6, 108, 152, 28);
 		panel.add(textFieldpassword);
 		textFieldpassword.setColumns(10);
@@ -111,6 +115,7 @@ public class HallenPlan extends JFrame {
 		panel.add(lblPassword);
 
 		btnLogin = new JButton("Login");
+		btnLogin.setToolTipText("Bet\u00E4tigen Sie diesen Button um sich anzumelden.");
 		btnLogin.setMnemonic(KeyEvent.VK_ENTER);
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -135,10 +140,11 @@ public class HallenPlan extends JFrame {
 		btnLogin.setBounds(28, 145, 113, 28);
 		panel.add(btnLogin);
 
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Halle 1", "Halle 2", "Halle 3"}));
-		comboBox.setBounds(0, 0, 576, 20);
-		contentPane.add(comboBox);
+		comboBox_Halle = new JComboBox();
+		comboBox_Halle.setToolTipText("Hier k\u00F6nnen Sie die Halle ausw\u00E4hlen, von welcher Sie den Plan angezeigt bekommen wollen");
+		comboBox_Halle.setModel(new DefaultComboBoxModel(new String[] {"Halle 1", "Halle 2", "Halle 3"}));
+		comboBox_Halle.setBounds(10, 20, 522, 20);
+		contentPane.add(comboBox_Halle);
 	}
 	public JTable getTable() {
 		return table;

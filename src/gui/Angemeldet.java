@@ -31,7 +31,6 @@ public class Angemeldet extends JFrame {
 
 	private JPanel contentPane;
 	private JButton button_löschen;
-	private JButton button_Mannschaft;
 	private JButton button_Abmelden;
 	private JButton button_speichern;
 	private JComboBox comboBox_Halle;
@@ -89,19 +88,9 @@ public class Angemeldet extends JFrame {
 			contentPane.add(button_löschen);
 		}
 		{
-			button_Mannschaft = new JButton("?");
-			button_Mannschaft.setBounds(544, 125, 205, 23);
-			button_Mannschaft.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					button_MannschaftActionPerformed(e);
-				}
-			});
-			button_Mannschaft.setToolTipText("Hier k\u00F6nnen Sie eine Mannschaft hinzuf\u00FCgen oder entfernen");
-			contentPane.add(button_Mannschaft);
-		}
-		{
 			button_Abmelden = new JButton("Abmelden");
-			button_Abmelden.setBounds(544, 159, 205, 23);
+			button_Abmelden.setMnemonic('l');
+			button_Abmelden.setBounds(544, 125, 205, 23);
 			button_Abmelden.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button_AbmeldenActionPerformed(e);
@@ -145,7 +134,7 @@ public class Angemeldet extends JFrame {
 
 			Icon _icon = new ImageIcon("Unbenannt.png");
 			JLabel labelBild = new JLabel(new ImageIcon("F:\\workspace\\MP\\src\\gui\\Unbenannt.png"));
-			labelBild.setBounds(543, 225, 206, 128);
+			labelBild.setBounds(544, 205, 206, 148);
 			labelBild.setToolTipText("Sport");
 			labelBild.setHorizontalAlignment(SwingConstants.CENTER);
 			contentPane.add(labelBild);
@@ -170,7 +159,8 @@ public class Angemeldet extends JFrame {
 		}
 		{
 			buttonAktualisieren = new JButton("Aktualisieren");
-			buttonAktualisieren.setBounds(544, 193, 205, 23);
+			buttonAktualisieren.setToolTipText("Wenn Sie hier klicken wird die Tabelle aktualisiert");
+			buttonAktualisieren.setBounds(544, 159, 205, 23);
 			buttonAktualisieren.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println(comboBox_Halle.getSelectedIndex()+1);
@@ -181,6 +171,7 @@ public class Angemeldet extends JFrame {
 		}
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgew\u00E4hlten Halle");
 		scrollPane.setBounds(10, 54, 522, 299);
 		contentPane.add(scrollPane);
 		table = new JTable();
@@ -231,10 +222,6 @@ public class Angemeldet extends JFrame {
 	}
 
 	protected void button_löschenActionPerformed(ActionEvent e) { //Delete		
-
-	}
-
-	protected void button_MannschaftActionPerformed(ActionEvent e) { //Update
 
 	}
 

@@ -80,7 +80,7 @@ public class VereinDao {
 //	public ArrayList<Training> select(){
 	public DefaultTableModel select() {
 		JTable data = new JTable();
-		DefaultTableModel dataStorage = new DefaultTableModel();
+		DefaultTableModel model = new DefaultTableModel();
 		ArrayList<Training> arrayListTraining = new ArrayList<Training>(); 
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
@@ -101,7 +101,7 @@ public class VereinDao {
 //						resultSet.getString("plz"), resultSet.getString("ort"));
 //				Training training = new Training(resultSet.getInt("id"), mannschaft, halle);
 //				arrayListTraining.add(training);
-				dataStorage.addRow(new Object[] {resultSet.getString("Mannschaft"), resultSet.getString("Sportart")});
+				model.addRow(new Object[] {resultSet.getString("Mannschaft"), resultSet.getString("Sportart")});
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,7 +113,7 @@ public class VereinDao {
 				e.printStackTrace();
 			}
 		}
-		return dataStorage;
+		return model;
 //		return arrayListTraining; 
 	}
 	

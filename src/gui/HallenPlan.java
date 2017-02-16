@@ -66,7 +66,7 @@ public class HallenPlan extends JFrame {
 		contentPane.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgew\u00E4hlten Halle");
+		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
 		scrollPane.setBounds(10, 54, 522, 299);
 		contentPane.add(scrollPane);
 		table = new JTable();
@@ -88,7 +88,7 @@ public class HallenPlan extends JFrame {
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		panel = new JPanel();
-		panel.setToolTipText("Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein und dr\u00FCcken Sie dann auf den Button \"Login\", f\u00FCr die Anmeldung. Wenn Sie angemeldet sind, k\u00F6nnen Sie  die Tabelle ver\u00E4ndern.");
+		panel.setToolTipText("Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein und druecken Sie dann auf den Button \"Login\", fuer die Anmeldung. Wenn Sie angemeldet sind, koennen Sie  die Tabelle veraendern.");
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Anmeldung", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(591, 23, 164, 184);
 		contentPane.add(panel);
@@ -141,7 +141,7 @@ public class HallenPlan extends JFrame {
 		panel.add(btnLogin);
 
 		comboBox_Halle = new JComboBox();
-		comboBox_Halle.setToolTipText("Hier k\u00F6nnen Sie die Halle ausw\u00E4hlen, von welcher Sie den Plan angezeigt bekommen wollen");
+		comboBox_Halle.setToolTipText("Hier koennen Sie die Halle auswaehlen, von welcher Sie den Plan angezeigt bekommen wollen");
 		comboBox_Halle.setModel(new DefaultComboBoxModel(new String[] {"Halle 1", "Halle 2", "Halle 3"}));
 		comboBox_Halle.setBounds(10, 20, 522, 20);
 		contentPane.add(comboBox_Halle);

@@ -124,12 +124,13 @@ public class VereinDao {
 		ArrayList<String[]> list = new ArrayList<String[]>();
 		
 		String sql = "select m.name as 'mannschaft', s.name as 'sportart' from mannschaft m "
-				+ " join sportart s on s.id = m.sportart_id "
-				+ " join training_zeitblock tz on tz.id = tz.zeitblock_id "
-				+ " join training t on t.id = t.mannschaft_id "
-				+ " join zeitblock z on z.id = tz.zeitblock_id "
-				+ "where z.wochentag = 'Montag'";
+				+ "join sportart s on s.id = m.sportart_id "
+				+ "join training t on t.mannschaft_id = m.id "
+				+ "join training_zeitblock tz on tz.training_id = t.id "
+				+ "join zeitblock z on z.id = tz.zeitblock_id "
+				+ "where z.wochentag = 'Mittwoch'";
 		preparedStatement = conn.prepareStatement(sql);
+		//preparedStatement.setString(1, wochentag);
 		
 		ResultSet rs = preparedStatement.executeQuery(); //Ändern für Reihenfolge
 		while (rs.next()) {

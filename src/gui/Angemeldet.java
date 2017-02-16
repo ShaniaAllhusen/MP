@@ -30,7 +30,7 @@ import java.awt.Color;
 public class Angemeldet extends JFrame {
 
 	private JPanel contentPane;
-	private JButton button_löschen;
+	private JButton button_loeschen;
 	private JButton button_Abmelden;
 	private JButton button_speichern;
 	private JComboBox comboBox_Halle;
@@ -40,6 +40,7 @@ public class Angemeldet extends JFrame {
 
 	private VereinDao vereinDao;
 	private JButton buttonAktualisieren;
+	private JButton buttonHinzufuegen;
 
 	/**
 	 * Launch the application.
@@ -76,44 +77,44 @@ public class Angemeldet extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		{
-			button_löschen = new JButton("L\u00F6schen");
-			button_löschen.setBounds(544, 91, 205, 23);
-			button_löschen.addActionListener(new ActionListener() {
+			button_loeschen = new JButton("Loeschen");
+			button_loeschen.setBounds(542, 90, 205, 23);
+			button_loeschen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button_löschenActionPerformed(e);
 				}
 			});
 			contentPane.setLayout(null);
-			button_löschen.setToolTipText("Mit einem Klick auf diesen Button k\u00F6nnen Sie den ausgew\u00E4hlten Datensatz l\u00F6schen");
-			contentPane.add(button_löschen);
+			button_loeschen.setToolTipText("Mit einem Klick auf diesen Button koennen Sie den ausgewaehlten Datensatz loeschen");
+			contentPane.add(button_loeschen);
 		}
 		{
 			button_Abmelden = new JButton("Abmelden");
 			button_Abmelden.setMnemonic('l');
-			button_Abmelden.setBounds(544, 125, 205, 23);
+			button_Abmelden.setBounds(542, 158, 205, 23);
 			button_Abmelden.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button_AbmeldenActionPerformed(e);
 				}
 			});
-			button_Abmelden.setToolTipText("Hier k\u00F6nnen sie sich wieder abmelden");
+			button_Abmelden.setToolTipText("Hier koennen sie sich wieder abmelden");
 			contentPane.add(button_Abmelden);
 		}
 		{
 			button_speichern = new JButton("\u00C4nderungen speichern");
-			button_speichern.setBounds(544, 57, 205, 23);
+			button_speichern.setBounds(542, 124, 205, 23);
 			button_speichern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//					button_speichernActionPerformed(e);
 				}
 			});
-			button_speichern.setToolTipText("Wenn Sie hier klicken, werden Ihre \u00C4nderungen abgespeichert");
+			button_speichern.setToolTipText("Wenn Sie hier klicken, werden Ihre Aenderungen abgespeichert");
 			contentPane.add(button_speichern);
 		}
 		{
 			comboBox_Halle = new JComboBox();
 			comboBox_Halle.setBounds(10, 23, 522, 20);
-			comboBox_Halle.setToolTipText("Hier k\u00F6nnen Sie die Halle ausw\u00E4hlen, von welcher Sie den Plan angezeigt bekommen wollen");
+			comboBox_Halle.setToolTipText("Hier koennen Sie die Halle auswaehlen, von welcher Sie den Plan angezeigt bekommen wollen");
 			comboBox_Halle.setModel(new DefaultComboBoxModel(new String[] {"Halle 1", "Halle 2", "Halle 3"}));
 			comboBox_Halle.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -160,7 +161,7 @@ public class Angemeldet extends JFrame {
 		{
 			buttonAktualisieren = new JButton("Aktualisieren");
 			buttonAktualisieren.setToolTipText("Wenn Sie hier klicken wird die Tabelle aktualisiert");
-			buttonAktualisieren.setBounds(544, 159, 205, 23);
+			buttonAktualisieren.setBounds(544, 22, 205, 23);
 			buttonAktualisieren.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println(comboBox_Halle.getSelectedIndex()+1);
@@ -171,7 +172,7 @@ public class Angemeldet extends JFrame {
 		}
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgew\u00E4hlten Halle");
+		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
 		scrollPane.setBounds(10, 54, 522, 299);
 		contentPane.add(scrollPane);
 		table = new JTable();
@@ -191,6 +192,11 @@ public class Angemeldet extends JFrame {
 			e.printStackTrace();
 		}
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		{
+			buttonHinzufuegen = new JButton("Hinzufuegen");
+			buttonHinzufuegen.setBounds(542, 56, 205, 23);
+			contentPane.add(buttonHinzufuegen);
+		}
 	}
 	//	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update
 	//		ArrayList<Training> arrayListTraining = VereinDao.select(vereinDao);

@@ -132,7 +132,7 @@ public class VereinDao {
 		preparedStatement = conn.prepareStatement(sql);
 		//preparedStatement.setString(1, wochentag);
 		
-		ResultSet rs = preparedStatement.executeQuery(); //Ändern für Reihenfolge
+		ResultSet rs = preparedStatement.executeQuery(); //Ändern für Reihenfolge // Toolbar für Zeilenumbruch
 		while (rs.next()) {
 			String[] data = {rs.getString("mannschaft"), rs.getString("sportart")};
 			list.add(data);
@@ -180,4 +180,3 @@ public class VereinDao {
 		return arrayListTraining; 
 	}
 }
-

@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,12 +17,15 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import Dao.VereinDao;
 
@@ -75,7 +79,13 @@ public class HallenPlan extends JFrame {
 				 "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
 		};
 		try {
+			
 			table.setModel(new DefaultTableModel(new VereinDao().getTable(), columns));
+			for (String columnIdentifier : columns) {
+				TableColumn column = table.getColumn(columnIdentifier);
+				column.setCellRenderer(new WordWrapCellRenderer());
+			}
+			
 			table.updateUI();
 			repaint();
 		} catch (ClassNotFoundException e) {
@@ -115,7 +125,7 @@ public class HallenPlan extends JFrame {
 		panel.add(lblPassword);
 
 		btnLogin = new JButton("Login");
-		btnLogin.setToolTipText("Bet\u00E4tigen Sie diesen Button um sich anzumelden.");
+		btnLogin.setToolTipText("Betaetigen Sie diesen Button um sich anzumelden.");
 		btnLogin.setMnemonic(KeyEvent.VK_ENTER);
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -146,7 +156,24 @@ public class HallenPlan extends JFrame {
 		comboBox_Halle.setBounds(10, 20, 522, 20);
 		contentPane.add(comboBox_Halle);
 	}
+	
 	public JTable getTable() {
 		return table;
+	}
+	
+	static class WordWrapCellRenderer extends JTextArea implements TableCellRenderer {
+	    WordWrapCellRenderer() {
+	        setLineWrap(true);
+	        setWrapStyleWord(true);
+	    }
+
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	        setText((value == null) ? "" : value.toString());
+	        setSize(table.getColumnModel().getColumn(column).getWidth(), getPreferredSize().height);
+	        if (table.getRowHeight(row) != getPreferredSize().height) {
+	            table.setRowHeight(row, getPreferredSize().height);
+	        }
+	        return this;
+	    }
 	}
 }

@@ -194,6 +194,11 @@ public class Angemeldet extends JFrame {
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		{
 			buttonHinzufuegen = new JButton("Hinzufuegen");
+			buttonHinzufuegen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					buttonHinzufuegenActionPerformed(e);
+				}
+			});
 			buttonHinzufuegen.setBounds(542, 56, 205, 23);
 			contentPane.add(buttonHinzufuegen);
 		}
@@ -240,5 +245,8 @@ public class Angemeldet extends JFrame {
 
 	public JTable getTable() {
 		return table;
+	}
+	protected void buttonHinzufuegenActionPerformed(ActionEvent e) {
+		
 	}
 }

@@ -27,16 +27,16 @@ public class VereinDao {
 	public VereinDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
 		datei = this.getClass().getResource("testdatenbank.db").toString();
-//		datei = "F:\\workspace\\MP\\bin\\dao\\testdatenbank.db";
-//		datei = "jdbc:sqlite:" + datei;
+		//		datei = "F:\\workspace\\MP\\bin\\dao\\testdatenbank.db";
+		//		datei = "jdbc:sqlite:" + datei;
 	}
 
 	//Methoden
-	
+
 	private Connection getConnection() {
 		Connection conn = null;
 		try{
-		 conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
+			conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -59,7 +59,7 @@ public class VereinDao {
 			else {
 				JOptionPane.showMessageDialog(null, "Benutzername oder Passwort ist falsch.", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
 			}
-			
+
 		} catch(SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -71,13 +71,13 @@ public class VereinDao {
 		}
 		{
 		}
-		
+
 		return loggedIn;
 	}
 
 
 
-//	public ArrayList<Training> select(){
+	//	public ArrayList<Training> select(){
 	public DefaultTableModel select() {
 		JTable data = new JTable();
 		DefaultTableModel model = new DefaultTableModel();
@@ -95,12 +95,12 @@ public class VereinDao {
 			preparedStatement = conn.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-//			Sportart sportart = new Sportart(resultSet.getInt("id"),resultSet.getString("name"));
-//				Mannschaft mannschaft = new Mannschaft(resultSet.getInt("id"), resultSet.getString("name"), sportart);
-//				Halle halle = new Halle(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("strasse"), 
-//						resultSet.getString("plz"), resultSet.getString("ort"));
-//				Training training = new Training(resultSet.getInt("id"), mannschaft, halle);
-//				arrayListTraining.add(training);
+				//			Sportart sportart = new Sportart(resultSet.getInt("id"),resultSet.getString("name"));
+				//				Mannschaft mannschaft = new Mannschaft(resultSet.getInt("id"), resultSet.getString("name"), sportart);
+				//				Halle halle = new Halle(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("strasse"), 
+				//						resultSet.getString("plz"), resultSet.getString("ort"));
+				//				Training training = new Training(resultSet.getInt("id"), mannschaft, halle);
+				//				arrayListTraining.add(training);
 				model.addRow(new Object[] {resultSet.getString("Mannschaft"), resultSet.getString("Sportart")});
 			}
 		} catch (SQLException e) {
@@ -114,15 +114,15 @@ public class VereinDao {
 			}
 		}
 		return model;
-//		return arrayListTraining; 
+		//		return arrayListTraining; 
 	}
-	
+
 	public String[][] getTable() throws SQLException {
 		PreparedStatement preparedStatement = null;
 		Connection conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
-		
+
 		ArrayList<String[]> list = new ArrayList<String[]>();
-		
+
 		String sql = "select m.name as 'mannschaft', s.name as 'sportart' from mannschaft m "
 				+ "join sportart s on s.id = m.sportart_id "
 				+ "join training t on t.mannschaft_id = m.id "
@@ -131,16 +131,16 @@ public class VereinDao {
 				+ "where z.wochentag = 'Mittwoch'";
 		preparedStatement = conn.prepareStatement(sql);
 		//preparedStatement.setString(1, wochentag);
-		
+
 		ResultSet rs = preparedStatement.executeQuery(); //Ändern für Reihenfolge // Toolbar für Zeilenumbruch
 		while (rs.next()) {
 			String[] data = {rs.getString("mannschaft"), rs.getString("sportart")};
 			list.add(data);
 		}
-		
+
 		return list.toArray(new String[list.size()][list.get(0).length]);
 	}
-	
+
 	public ArrayList<Training> select (int halleId, String wochentag, int uhrzeit) {
 		ArrayList<Training> arrayListTraining = new ArrayList<Training>(); 
 		Connection conn = null;
@@ -178,5 +178,34 @@ public class VereinDao {
 			}
 		}
 		return arrayListTraining; 
+	}
+	public Mannschaft insert (Mannschaft mannschaft) {
+		PreparedStatement ps= null;
+		String Mannschaft = null;
+		Connection connection = null;
+	
+		try{
+			
+			String sql = "Insert into Mannschaft (id, name, sportart_id) VALUES (?, ?, ?)";
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, mannschaft.getId());
+			ps.setString(2, mannschaft.getName());
+			//ps.setInt(3, mannschaft.getSportart_id());
+			ps.executeUpdate();
+			ResultSet resultSet = ps.getGeneratedKeys();
+			resultSet.next();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		finally{
+			try{
+				ps.close();
+				connection.close();
+
+			}catch (SQLException e){
+				e.printStackTrace();
+			}
+		}
+		return mannschaft;
 	}
 }

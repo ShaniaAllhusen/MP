@@ -101,7 +101,7 @@ public class Angemeldet extends JFrame {
 			contentPane.add(button_Abmelden);
 		}
 		{
-			button_speichern = new JButton("\u00C4nderungen speichern");
+			button_speichern = new JButton("Aenderungen speichern");
 			button_speichern.setBounds(542, 124, 205, 23);
 			button_speichern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -127,7 +127,7 @@ public class Angemeldet extends JFrame {
 			labelHerzlichWillkommen = new JLabel("Herzlich Willkommen!");
 			labelHerzlichWillkommen.setBounds(78, 1, 304, 23);
 			labelHerzlichWillkommen.setHorizontalAlignment(SwingConstants.CENTER);
-			labelHerzlichWillkommen.setToolTipText("Sch\u00F6n, dass sie da sind!");
+			labelHerzlichWillkommen.setToolTipText("Schoen, dass sie da sind!");
 			contentPane.add(labelHerzlichWillkommen);
 		}
 

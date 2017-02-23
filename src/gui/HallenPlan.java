@@ -70,10 +70,14 @@ public class HallenPlan extends JFrame {
 		contentPane.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setEnabled(false);
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
 		scrollPane.setBounds(10, 54, 522, 299);
 		contentPane.add(scrollPane);
 		table = new JTable();
+		table.setColumnSelectionAllowed(true);
+		table.setCellSelectionEnabled(true);
+		table.setEnabled(false);
 		scrollPane.setViewportView(table);
 		String[] columns = new String[] {
 				 "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"

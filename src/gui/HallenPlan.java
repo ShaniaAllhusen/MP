@@ -75,9 +75,10 @@ public class HallenPlan extends JFrame {
 		scrollPane.setBounds(10, 54, 522, 299);
 		contentPane.add(scrollPane);
 		table = new JTable();
-		table.setColumnSelectionAllowed(true);
-		table.setCellSelectionEnabled(true);
+		table.setColumnSelectionAllowed(false);
+		table.setCellSelectionEnabled(false);
 		table.setEnabled(false);
+        table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
 		String[] columns = new String[] {
 				 "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"

@@ -53,10 +53,16 @@ public class JFrameSportart extends JFrame {
 	 */
 	public JFrameSportart() {
 		initGUI();
+		try {
+			dao = new SportartDao();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	private void initGUI() {
 		setTitle("Sportarten verwalten");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 324, 250);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -101,6 +107,13 @@ public class JFrameSportart extends JFrame {
 			buttonAendern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonAendernActionPerformed(e);
+					sportart.setName(textFieldName.getText());
+					try {
+						dao.update(sportart);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 			buttonAendern.setBounds(10, 146, 141, 23);
@@ -111,13 +124,13 @@ public class JFrameSportart extends JFrame {
 			buttonHinzufuegen.setBounds(153, 146, 144, 23);
 			buttonHinzufuegen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int id = Integer.parseInt(textFieldId.getText());
 					String name = textFieldName.getText();
-					sportart = new Sportart(id, name);
-					sportart.setId(Integer.parseInt(textFieldId.getText()));
-					sportart.setName(textFieldName.getText());
+					sportart = new Sportart();
+					sportart.setName(name);
+					
 					try {
 						dao.insert(sportart);
+						textFieldId.setText(Integer.toString(sportart.getId()));
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -128,6 +141,17 @@ public class JFrameSportart extends JFrame {
 		}
 		{
 			buttonLoeschen = new JButton("Sportart l\u00F6schen");
+			buttonLoeschen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					sportart.setName((textFieldName.getText()));
+					try {
+						dao.delete(sportart);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
 			buttonLoeschen.setBounds(153, 180, 144, 23);
 			contentPane.add(buttonLoeschen);
 		}

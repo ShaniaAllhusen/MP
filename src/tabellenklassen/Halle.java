@@ -8,12 +8,7 @@ public class Halle {
 	private String plz;
 	private String ort;
 	
-	public Halle(int id, String name, String strasse, String plz, String ort) {
-		this.id = id;
-		this.name = name;
-		this.strasse = strasse;
-		this.plz = plz;
-		this.ort = ort;
+	public Halle() {
 	}
 	
 	public int getId() {

@@ -28,7 +28,7 @@ public class JFrameSportart extends JFrame {
 	private JButton buttonAendern;
 	private JButton buttonHinzufuegen;
 	private JButton buttonLoeschen;
-	
+
 	private SportartDao dao;
 	private Sportart sportart;
 
@@ -76,6 +76,19 @@ public class JFrameSportart extends JFrame {
 		}
 		{
 			buttonSuchen = new JButton("Suchen");
+			buttonSuchen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String name = textFieldName.getText(); 
+					try {
+						sportart = dao.select(name);
+						showSportart(sportart);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				
+			});
 			buttonSuchen.setBounds(216, 10, 89, 23);
 			contentPane.add(buttonSuchen);
 		}
@@ -127,7 +140,7 @@ public class JFrameSportart extends JFrame {
 					String name = textFieldName.getText();
 					sportart = new Sportart();
 					sportart.setName(name);
-					
+
 					try {
 						dao.insert(sportart);
 						textFieldId.setText(Integer.toString(sportart.getId()));
@@ -158,4 +171,11 @@ public class JFrameSportart extends JFrame {
 	}
 	protected void buttonAendernActionPerformed(ActionEvent e) {
 	}
+	
+	private void showSportart(Sportart sportart) {
+		textFieldId.setText(Integer.toString(sportart.getId()));
+		textFieldName.setText(sportart.getName());
+		
+	}
 }
+

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 import java.sql.Statement;
 
+
 import tabellenklassen.Sportart;
 
 public class SportartDao {
@@ -85,7 +86,7 @@ public class SportartDao {
 		Connection conn = null;
 		try { 
 			conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
-			String sql = "UPDATE speise SET name = ? WHERE nr = ?"; 
+			String sql = "UPDATE sportart SET name = ? WHERE id = ?"; 
 			PreparedStatement preparedStatement = conn.prepareStatement(sql); 
 			preparedStatement.setString(1, sportart.getName());  
 			preparedStatement.executeUpdate(); 
@@ -100,5 +101,28 @@ public class SportartDao {
 		}
 	}
 
+//Datensätze in der Tabelle suchen
+	public Sportart select(String name) {
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		Sportart sportart = null;
+		try {
+			conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
+			String sql = "SELECT * from sportart where name = ?";
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, name);
+			ResultSet resultSet = preparedStatement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				preparedStatement.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return sportart;
+	}
 
 }

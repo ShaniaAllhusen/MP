@@ -45,8 +45,13 @@ public class MannschaftDao {
 			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			resultSet.next(); 
-			sportart = new Sportart(resultSet.getInt("s.id"),resultSet.getString("s.name"));
-			mannschaft = new Mannschaft(resultSet.getInt("m.id"), resultSet.getString("m.name"), sportart);
+			sportart = new Sportart();
+			sportart.setId(resultSet.getInt("s.id"));
+			sportart.setName(resultSet.getString("s.name"));
+			mannschaft = new Mannschaft();
+			mannschaft.setId(resultSet.getInt("m.id"));
+			mannschaft.setName(resultSet.getString("m.name"));
+			mannschaft.setSportart(sportart);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -73,8 +78,13 @@ public class MannschaftDao {
 				preparedStatement.setString(1, name);
 				ResultSet resultSet = preparedStatement.executeQuery();
 				resultSet.next(); 
-				sportart = new Sportart(resultSet.getInt("s.id"),resultSet.getString("s.name"));
-				mannschaft = new Mannschaft(resultSet.getInt("m.id"), resultSet.getString("m.name"), sportart);
+				sportart = new Sportart();
+				sportart.setId(resultSet.getInt("s.id"));
+				sportart.setName(resultSet.getString("s.name"));
+				mannschaft = new Mannschaft();
+				mannschaft.setId(resultSet.getInt("m.id"));
+				mannschaft.setName(resultSet.getString("m.name"));
+				mannschaft.setSportart(sportart);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {

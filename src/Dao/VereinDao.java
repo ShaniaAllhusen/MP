@@ -164,11 +164,23 @@ public class VereinDao {
 			preparedStatement.setInt(1, uhrzeit); 
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				Sportart sportart = new Sportart(resultSet.getInt("s.id"),resultSet.getString("s.name"));
-				Mannschaft mannschaft = new Mannschaft(resultSet.getInt("m.id"), resultSet.getString("m.name"), sportart);
-				Halle halle = new Halle(resultSet.getInt("h.id"), resultSet.getString("h.name"), resultSet.getString("h.strasse"), 
-						resultSet.getString("h.plz"), resultSet.getString("h.ort"));
-				Training training = new Training(resultSet.getInt("t.id"), mannschaft, halle);
+				Sportart sportart = new Sportart();
+				sportart.setId(resultSet.getInt("s.id"));
+				sportart.setName(resultSet.getString("s.name"));
+				Mannschaft mannschaft = new Mannschaft();
+				mannschaft.setId(resultSet.getInt("m.id"));
+				mannschaft.setName(resultSet.getString("m.name"));
+				mannschaft.setSportart(sportart);
+				Halle halle = new Halle();
+				halle.setId(resultSet.getInt("h.id"));
+				halle.setName(resultSet.getString("h.name"));
+				halle.setStrasse(resultSet.getString("h.strasse"));
+				halle.setPlz(resultSet.getString("h.plz"));
+				halle.setOrt(resultSet.getString("h.ort"));
+				Training training = new Training();
+				training.setId(resultSet.getInt("t.id"));
+				training.setMannschaft(mannschaft);
+				training.setHalle(halle);
 				arrayListTraining.add(training); 
 			} 
 		} catch (SQLException e) {

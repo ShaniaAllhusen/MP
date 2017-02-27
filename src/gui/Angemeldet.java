@@ -46,6 +46,8 @@ public class Angemeldet extends JFrame {
 	private VereinDao vereinDao;
 	private JButton buttonAktualisieren;
 	private JButton buttonHinzufuegen;
+	private JButton buttonMannschaftenVerwalten;
+	private JButton buttonSportart;
 
 	/**
 	 * Launch the application.
@@ -139,8 +141,9 @@ public class Angemeldet extends JFrame {
 		{
 
 			Icon _icon = new ImageIcon("Unbenannt.png");
-			JLabel labelBild = new JLabel(new ImageIcon("F:\\workspace\\MP\\src\\gui\\Unbenannt.png"));
-			labelBild.setBounds(544, 224, 206, 129);
+
+			JLabel labelBild = new JLabel(new ImageIcon(Angemeldet.class.getResource("/gui/Unbenannt.png")));
+			labelBild.setBounds(541, 256, 206, 97);
 			labelBild.setToolTipText("Sport");
 			labelBild.setHorizontalAlignment(SwingConstants.CENTER);
 			contentPane.add(labelBild);
@@ -148,19 +151,19 @@ public class Angemeldet extends JFrame {
 		{
 
 
-//			String[] columnName = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
-//			String[][] data = new String[7][22];
-//			String test = null;
-//			ArrayList <Training> ArrayListTraining = new ArrayList<Training>();
-//			for (int i = 0; i < 7; i++) {
-//				for ( int j = 8; j <= 22; j++){
-//					ArrayListTraining = vereinDao.select(comboBox_Halle.getSelectedIndex(),columnName[i], j);
-//					for(Training t : ArrayListTraining) {
-//						test = t.getMannschaft().getName() + t.getMannschaft().getSportart().getName();
-//					}
-//					data[i][j] = test;
-//				}
-//			}
+			//			String[] columnName = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
+			//			String[][] data = new String[7][22];
+			//			String test = null;
+			//			ArrayList <Training> ArrayListTraining = new ArrayList<Training>();
+			//			for (int i = 0; i < 7; i++) {
+			//				for ( int j = 8; j <= 22; j++){
+			//					ArrayListTraining = vereinDao.select(comboBox_Halle.getSelectedIndex(),columnName[i], j);
+			//					for(Training t : ArrayListTraining) {
+			//						test = t.getMannschaft().getName() + t.getMannschaft().getSportart().getName();
+			//					}
+			//					data[i][j] = test;
+			//				}
+			//			}
 
 		}
 		{
@@ -183,7 +186,7 @@ public class Angemeldet extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		String[] columns = new String[] {
-				 "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
+				"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
 		};
 		try {
 			table.setModel(new DefaultTableModel(new VereinDao().getTable(), columns));
@@ -206,6 +209,32 @@ public class Angemeldet extends JFrame {
 			});
 			buttonHinzufuegen.setBounds(543, 88, 205, 23);
 			contentPane.add(buttonHinzufuegen);
+		}
+		{
+			buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
+			buttonMannschaftenVerwalten.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+						buttonMannschaftenVerwaltenActionPerformed(e);
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+			buttonMannschaftenVerwalten.setBounds(542, 192, 205, 23);
+			contentPane.add(buttonMannschaftenVerwalten);
+		}
+		{
+			buttonSportart = new JButton("Sportarten verwalten");
+			buttonSportart.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JFrameSportart jFrameSportart = new JFrameSportart();
+					jFrameSportart.setVisible(true);
+				}
+			});
+			buttonSportart.setBounds(542, 226, 205, 23);
+			contentPane.add(buttonSportart);
 		}
 		
 		JButton button = new JButton("Zeitblöcke ändern");
@@ -253,7 +282,7 @@ public class Angemeldet extends JFrame {
 			}
 		}
 		table = new JTable(data, columnName);
-		
+
 	}
 
 	protected void button_löschenActionPerformed(ActionEvent e) { //Delete		
@@ -271,6 +300,10 @@ public class Angemeldet extends JFrame {
 		return table;
 	}
 	protected void buttonHinzufuegenActionPerformed(ActionEvent e) {
-		
+
+	}
+	protected void buttonMannschaftenVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
+		JFrameMannschaft jFrameMannschaft = new JFrameMannschaft();
+		jFrameMannschaft.setVisible(true);
 	}
 }

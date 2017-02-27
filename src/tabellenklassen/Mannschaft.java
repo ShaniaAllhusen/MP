@@ -6,10 +6,7 @@ public class Mannschaft {
 	private String name;
 	private Sportart sportart;
 	
-	public Mannschaft(int id, String name, Sportart sportart) {
-		this.id = id;
-		this.name = name;
-		this.sportart = sportart;
+	public Mannschaft() {
 	}
 	
 	public int getId() {

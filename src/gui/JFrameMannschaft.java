@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JLabel;
 
+import tabellenklassen.Mannschaft;
+import tabellenklassen.Sportart;
 import Dao.MannschaftDao;
 
 public class JFrameMannschaft extends JFrame {
@@ -143,10 +145,13 @@ public class JFrameMannschaft extends JFrame {
 	}
 	protected void buttonSuchenActionPerformed(ActionEvent e) {
 		String eingabe = textFieldSuche.getText();
+		Mannschaft mannschaftAktiv;
 		int id;
 		try {
+			mannschaftAktiv = new Mannschaft();
 			id = Integer.parseInt(eingabe);
-			mannschaftDao.select(id);
+			mannschaftAktiv = mannschaftDao.select(id);
+			showMannschaft(mannschaftAktiv);
 		} catch (NumberFormatException e1) {
 			e1.printStackTrace();
 			mannschaftDao.select(eingabe);
@@ -156,5 +161,11 @@ public class JFrameMannschaft extends JFrame {
 	protected void buttonnderungenSpeichernActionPerformed(ActionEvent e) {
 	}
 	protected void buttonMannschaftLschenActionPerformed(ActionEvent e) {
+	}
+	
+	private void showMannschaft(Mannschaft mannschaft) {
+		textFieldID.setText(Integer.toString(mannschaft.getId()));
+		textFieldName.setText(mannschaft.getName());
+		textFieldSportart.setText(Integer.toString(mannschaft.getSportart().getId()));
 	}
 }

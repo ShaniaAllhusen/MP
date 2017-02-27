@@ -128,7 +128,7 @@ public class VereinDao {
 				+ "join training t on t.mannschaft_id = m.id "
 				+ "join training_zeitblock tz on tz.training_id = t.id "
 				+ "join zeitblock z on z.id = tz.zeitblock_id "
-				+ "where z.wochentag = 'Mittwoch'";
+				+ "where z.wochentag = 'Montag'";
 		preparedStatement = conn.prepareStatement(sql);
 		//preparedStatement.setString(1, wochentag);
 

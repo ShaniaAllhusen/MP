@@ -40,7 +40,7 @@ public class MannschaftDao {
 		PreparedStatement preparedStatement = null;
 		try {
 			conn = getConnection();
-			String sql = "SELECT m.id, m.name, s.name FROM mannschaft m JOIN sportart s ON m.sportart_id = s.id WHERE m.id = ?";
+			String sql = "SELECT m.id AS 'm.id', m.name AS 'm.name', s.name AS 's.name', s.id AS 's.id' FROM mannschaft m JOIN sportart s ON m.sportart_id = s.id WHERE m.id = ?";
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();

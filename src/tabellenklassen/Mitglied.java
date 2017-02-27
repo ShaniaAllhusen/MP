@@ -11,15 +11,7 @@ public class Mitglied {
 	private String ort;
 	private Benutzer benutzer;
 	
-	public Mitglied(int id, String vorname, String nachname, String geburtsdatum, String strasse, String plz, String ort, Benutzer benutzer) {
-		this.id = id;
-		this.vorname = vorname;
-		this.nachname = nachname;
-		this.geburtsdatum = geburtsdatum;
-		this.strasse = strasse;
-		this.plz = plz;
-		this.ort = ort;
-		this.benutzer = benutzer;
+	public Mitglied() {
 	}
 	
 	public int getId() {

@@ -6,10 +6,7 @@ public class Training {
 	private Mannschaft mannschaft;
 	private Halle halle;
 	
-	public Training(int id, Mannschaft mannschaft, Halle halle) {
-		this.id = id;
-		this.mannschaft = mannschaft;
-		this.halle = halle;
+	public Training() {
 	}
 
 	public int getId() {

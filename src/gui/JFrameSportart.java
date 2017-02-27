@@ -78,7 +78,7 @@ public class JFrameSportart extends JFrame {
 			buttonSuchen = new JButton("Suchen");
 			buttonSuchen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String name = textFieldName.getText(); 
+					String name = textField.getText(); 
 					try {
 						sportart = dao.select(name);
 						showSportart(sportart);

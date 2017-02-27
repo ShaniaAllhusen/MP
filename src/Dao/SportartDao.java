@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
+
 import tabellenklassen.Sportart;
 
 public class SportartDao {
@@ -22,6 +23,7 @@ public class SportartDao {
 	public SportartDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
 		datei = this.getClass().getResource("testdatenbank.db").getPath();
+		datei = "jdbc:sqlite:" + datei;
 		System.out.println(datei);
 	}
 
@@ -107,11 +109,15 @@ public class SportartDao {
 		PreparedStatement preparedStatement = null;
 		Sportart sportart = null;
 		try {
-			conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
-			String sql = "SELECT * from sportart where name = ?";
+			conn = getConnection();
+			String sql = "SELECT id, name from sportart where name = ?";
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, name);
 			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet.next();
+			sportart = new Sportart();
+			sportart.setId(resultSet.getInt("id"));
+			sportart.setName(resultSet.getString("name"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

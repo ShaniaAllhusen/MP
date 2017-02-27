@@ -6,10 +6,7 @@ public class Benutzer {
 	private String username;
 	private String passwort;
 	
-	public Benutzer(int id, String username, String passwort) {
-		this.id = id;
-		this.username = username;
-		this.passwort = passwort;
+	public Benutzer() {
 	}
 	
 	public int getId() {

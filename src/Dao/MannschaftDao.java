@@ -21,7 +21,7 @@ public class MannschaftDao {
 		datei = "jdbc:sqlite:" + datei;
 		System.out.println(datei);
 	}
-	
+
 	private Connection getConnection() {
 		Connection conn = null;
 		try{
@@ -31,8 +31,8 @@ public class MannschaftDao {
 		}
 		return conn;
 	}
-	
-	//select()
+
+	//select id
 	public Mannschaft select(int id) {
 		Connection conn = null;
 		Sportart sportart;
@@ -45,10 +45,10 @@ public class MannschaftDao {
 			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			resultSet.next(); 
-			sportart = new Sportart(id, sql);
+			sportart = new Sportart();
 			sportart.setId(resultSet.getInt("s.id"));
 			sportart.setName(resultSet.getString("s.name"));
-			mannschaft = new Mannschaft(id, sql, sportart);
+			mannschaft = new Mannschaft();
 			mannschaft.setId(resultSet.getInt("m.id"));
 			mannschaft.setName(resultSet.getString("m.name"));
 			mannschaft.setSportart(sportart);
@@ -64,40 +64,78 @@ public class MannschaftDao {
 		}
 		return mannschaft;
 	}
-	
-	//select()
-		public Mannschaft select(String name) {
-			Connection conn = null;
-			Sportart sportart;
-			Mannschaft mannschaft = null;
-			PreparedStatement preparedStatement = null;
+
+	//select name
+	public Mannschaft select(String name) {
+		Connection conn = null;
+		Sportart sportart;
+		Mannschaft mannschaft = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			conn = getConnection();
+			String sql = "SELECT m.id, m.name, s.name FROM mannschaft m JOIN sportart s ON m.sportart_id = s.id WHERE m.name = ?";
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, name);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet.next(); 
+			sportart = new Sportart();
+			sportart.setId(resultSet.getInt("s.id"));
+			sportart.setName(resultSet.getString("s.name"));
+			mannschaft = new Mannschaft();
+			mannschaft.setId(resultSet.getInt("m.id"));
+			mannschaft.setName(resultSet.getString("m.name"));
+			mannschaft.setSportart(sportart);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			try {
-				conn = getConnection();
-				String sql = "SELECT m.id, m.name, s.name FROM mannschaft m JOIN sportart s ON m.sportart_id = s.id WHERE m.name = ?";
-				preparedStatement = conn.prepareStatement(sql);
-				preparedStatement.setString(1, name);
-				ResultSet resultSet = preparedStatement.executeQuery();
-				resultSet.next(); 
-				sportart = new Sportart(0, sql);
-				sportart.setId(resultSet.getInt("s.id"));
-				sportart.setName(resultSet.getString("s.name"));
-				mannschaft = new Mannschaft(0, sql, sportart);
-				mannschaft.setId(resultSet.getInt("m.id"));
-				mannschaft.setName(resultSet.getString("m.name"));
-				mannschaft.setSportart(sportart);
+				preparedStatement.close();
+				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					preparedStatement.close();
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
 			}
-			return mannschaft;
 		}
+		return mannschaft;
+	}
+
+	//delete
+	public void delete(int id) {
+		Connection conn = null;
+		try { 
+			conn = getConnection();
+			String sql = "DELETE FROM mannschaft WHERE id = ?"; 
+			PreparedStatement preparedStatement = conn.prepareStatement(sql); 
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate(); 
+		} catch (SQLException e) { 
+			e.printStackTrace(); } 
+		finally { 
+			try { 
+				conn.close(); 
+			} catch (SQLException e) { 
+				e.printStackTrace(); 
+			} 
+		}
+	}
 	
-	//delete()
-	
+	//update
+	public void update(Mannschaft mannschaft) {
+		Connection conn = null;
+		try { 
+			conn = getConnection();
+			String sql = "UPDATE mannschaft SET name = ?, sportart = ? WHERE id = ?"; 
+			PreparedStatement preparedStatement = conn.prepareStatement(sql); 
+			preparedStatement.setString(1, mannschaft.getName());  
+			preparedStatement.setInt(2, mannschaft.getSportart().getId());  
+			preparedStatement.executeUpdate(); 
+		} catch (SQLException e) { 
+			e.printStackTrace(); } 
+		finally { 
+			try { 
+				conn.close(); 
+			} catch (SQLException e) { 
+				e.printStackTrace(); 
+			} 
+		}
+	}
 }

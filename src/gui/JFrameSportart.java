@@ -138,7 +138,7 @@ public class JFrameSportart extends JFrame {
 			buttonHinzufuegen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String name = textFieldName.getText();
-					sportart = new Sportart(0, name);
+					sportart = new Sportart();
 					sportart.setName(name);
 
 					try {

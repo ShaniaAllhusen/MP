@@ -79,6 +79,7 @@ public class HallenPlan extends JFrame {
 		table.setCellSelectionEnabled(false);
 		table.setEnabled(false);
         table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
+		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		scrollPane.setViewportView(table);
 		String[] columns = new String[] {
 				 "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
@@ -92,6 +93,7 @@ public class HallenPlan extends JFrame {
 			}
 			
 			table.updateUI();
+			repaint();
 			repaint();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -1,8 +1,10 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -10,9 +12,11 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 public class TestRenderer extends JTextArea 
 implements TableCellRenderer {
+	private static final boolean TableColumn = false;
 	private List<List<Integer>> rowColHeight = new ArrayList<List<Integer>>();
 
 	public TestRenderer() {
@@ -24,12 +28,12 @@ implements TableCellRenderer {
 	public Component getTableCellRendererComponent(
 			JTable table, Object value, boolean isSelected, boolean hasFocus,
 			int row, int column) {
+		isSelected = true;
 		if (isSelected) {
-			setForeground(table.getSelectionForeground());
-			setBackground(table.getSelectionBackground());
+			setBackground(Color.YELLOW);
+
 		} else {
-			setForeground(table.getForeground());
-			setBackground(table.getBackground());
+			setBackground(Color.RED);
 		}
 		setFont(table.getFont());
 		if (hasFocus) {
@@ -49,7 +53,8 @@ implements TableCellRenderer {
 		adjustRowHeight(table, row, column);
 		return this;
 	}
-
+	
+	
 	/**
 	 * Calculate the new preferred height for a given row, and sets the height on the table.
 	 */

@@ -146,15 +146,21 @@ public class JFrameMannschaft extends JFrame {
 	protected void buttonSuchenActionPerformed(ActionEvent e) {
 		String eingabe = textFieldSuche.getText();
 		Mannschaft mannschaftAktiv;
+		boolean prüfen;
 		int id;
 		try {
+			prüfen = mannschaftDao.eingabePruefen(eingabe);
 			mannschaftAktiv = new Mannschaft();
-			id = Integer.parseInt(eingabe);
-			mannschaftAktiv = mannschaftDao.select(id);
+			if(prüfen==true) {
+				id = Integer.parseInt(eingabe);
+				mannschaftAktiv = mannschaftDao.select(id);
+			}
+			else {
+				mannschaftAktiv = mannschaftDao.select(eingabe);
+			}
 			showMannschaft(mannschaftAktiv);
 		} catch (NumberFormatException e1) {
 			e1.printStackTrace();
-			mannschaftDao.select(eingabe);
 		}
 
 	}

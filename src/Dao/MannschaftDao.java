@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 import tabellenklassen.Mannschaft;
 import tabellenklassen.Sportart;
 
@@ -73,7 +76,7 @@ public class MannschaftDao {
 		PreparedStatement preparedStatement = null;
 		try {
 			conn = getConnection();
-			String sql = "SELECT m.id, m.name, s.name FROM mannschaft m JOIN sportart s ON m.sportart_id = s.id WHERE m.name = ?";
+			String sql = "SELECT m.id AS 'm.id', m.name AS 'm.name', s.name AS 's.name', s.id AS 's.id' FROM mannschaft m JOIN sportart s ON m.sportart_id = s.id WHERE m.name = ?";
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, name);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -136,6 +139,18 @@ public class MannschaftDao {
 			} catch (SQLException e) { 
 				e.printStackTrace(); 
 			} 
+		}
+	}
+	
+	public boolean eingabePruefen(String eingabe) {
+		try {
+			Integer.parseInt(eingabe);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return false;
 		}
 	}
 }

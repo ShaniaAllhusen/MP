@@ -1,11 +1,14 @@
 
 package Dao;
 
+import gui.ZeitBloecke;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -134,8 +137,9 @@ public class VereinDao {
 
 		ResultSet rs = preparedStatement.executeQuery(); //Ändern für Reihenfolge // Toolbar für Zeilenumbruch
 		while (rs.next()) {
-			String[] data = {rs.getString("mannschaft"), rs.getString("sportart")};
+			String[] data = {rs.getString("zeitblock"),rs.getString("mannschaft"), rs.getString("sportart")};
 			list.add(data);
+			
 		}
 
 		return list.toArray(new String[list.size()][list.get(0).length]);
@@ -208,4 +212,32 @@ public class VereinDao {
 		}
 		return mannschaft;
 	}
+	// ausrechnen der zeiten ^^
+	public static String zeitAusgabe(int z) {
+		DecimalFormat df = new DecimalFormat("00");
+		int minutenZaehler = 0;
+		int gesamtZeit = 0;
+		int zeitblock = ZeitBloecke.getAuswahlzeit();
+		int stundenZaehler = 0;
+		String[] zeit = new String[48];
+		
+		for (int i = 0; stundenZaehler < ZeitBloecke.vonbisdif; i++) {
+		
+			zeit[i] = String.valueOf(df.format(stundenZaehler))+":"+String.valueOf(df.format(minutenZaehler));
+			minutenZaehler = minutenZaehler + zeitblock;
+			gesamtZeit = gesamtZeit + zeitblock;
+			if (minutenZaehler%60 != 0) {
+				minutenZaehler = minutenZaehler%60;
+				stundenZaehler = gesamtZeit /60;
+
+			}else {
+				minutenZaehler = 0;
+				stundenZaehler++;
+			}
+			System.out.println(String.valueOf(df.format(stundenZaehler))+":"+String.valueOf(df.format(minutenZaehler)));
+		}
+	
+		return zeit[z];
+	}
 }
+

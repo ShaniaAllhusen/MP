@@ -27,8 +27,13 @@ import Dao.VereinDao;
 
 import java.awt.Color;
 
+
 public class Angemeldet extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton button_loeschen;
 	private JButton button_Abmelden;
@@ -78,7 +83,7 @@ public class Angemeldet extends JFrame {
 		setContentPane(contentPane);
 		{
 			button_loeschen = new JButton("Loeschen");
-			button_loeschen.setBounds(542, 90, 205, 23);
+			button_loeschen.setBounds(543, 122, 205, 23);
 			button_loeschen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button_löschenActionPerformed(e);
@@ -91,7 +96,7 @@ public class Angemeldet extends JFrame {
 		{
 			button_Abmelden = new JButton("Abmelden");
 			button_Abmelden.setMnemonic('l');
-			button_Abmelden.setBounds(542, 158, 205, 23);
+			button_Abmelden.setBounds(543, 190, 205, 23);
 			button_Abmelden.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button_AbmeldenActionPerformed(e);
@@ -102,7 +107,7 @@ public class Angemeldet extends JFrame {
 		}
 		{
 			button_speichern = new JButton("\u00C4nderungen speichern");
-			button_speichern.setBounds(542, 124, 205, 23);
+			button_speichern.setBounds(543, 156, 205, 23);
 			button_speichern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//					button_speichernActionPerformed(e);
@@ -135,7 +140,7 @@ public class Angemeldet extends JFrame {
 
 			Icon _icon = new ImageIcon("Unbenannt.png");
 			JLabel labelBild = new JLabel(new ImageIcon("F:\\workspace\\MP\\src\\gui\\Unbenannt.png"));
-			labelBild.setBounds(544, 205, 206, 148);
+			labelBild.setBounds(544, 224, 206, 129);
 			labelBild.setToolTipText("Sport");
 			labelBild.setHorizontalAlignment(SwingConstants.CENTER);
 			contentPane.add(labelBild);
@@ -161,7 +166,7 @@ public class Angemeldet extends JFrame {
 		{
 			buttonAktualisieren = new JButton("Aktualisieren");
 			buttonAktualisieren.setToolTipText("Wenn Sie hier klicken wird die Tabelle aktualisiert");
-			buttonAktualisieren.setBounds(544, 22, 205, 23);
+			buttonAktualisieren.setBounds(543, 57, 205, 23);
 			buttonAktualisieren.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println(comboBox_Halle.getSelectedIndex()+1);
@@ -199,9 +204,28 @@ public class Angemeldet extends JFrame {
 					buttonHinzufuegenActionPerformed(e);
 				}
 			});
-			buttonHinzufuegen.setBounds(542, 56, 205, 23);
+			buttonHinzufuegen.setBounds(543, 88, 205, 23);
 			contentPane.add(buttonHinzufuegen);
 		}
+		
+		JButton button = new JButton("Zeitblöcke ändern");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							ZeitBloecke frame = new ZeitBloecke();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+					}
+					}
+				});
+			}
+		});
+		button.setToolTipText("Wenn Sie hier klicken wird sich das fenster zeitblöcke öffnen");
+		button.setBounds(543, 22, 205, 23);
+		contentPane.add(button);
 	}
 	//	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update
 	//		ArrayList<Training> arrayListTraining = VereinDao.select(vereinDao);

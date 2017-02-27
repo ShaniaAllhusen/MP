@@ -41,6 +41,8 @@ public class Angemeldet extends JFrame {
 	private VereinDao vereinDao;
 	private JButton buttonAktualisieren;
 	private JButton buttonHinzufuegen;
+	private JButton buttonSportartVerwalten;
+	private JButton buttonMannschaftenVerwalten;
 
 	/**
 	 * Launch the application.
@@ -135,7 +137,7 @@ public class Angemeldet extends JFrame {
 
 			Icon _icon = new ImageIcon("Unbenannt.png");
 			JLabel labelBild = new JLabel(new ImageIcon("F:\\workspace\\MP\\src\\gui\\Unbenannt.png"));
-			labelBild.setBounds(544, 205, 206, 148);
+			labelBild.setBounds(544, 256, 206, 97);
 			labelBild.setToolTipText("Sport");
 			labelBild.setHorizontalAlignment(SwingConstants.CENTER);
 			contentPane.add(labelBild);
@@ -202,6 +204,31 @@ public class Angemeldet extends JFrame {
 			buttonHinzufuegen.setBounds(542, 56, 205, 23);
 			contentPane.add(buttonHinzufuegen);
 		}
+		{
+			buttonSportartVerwalten = new JButton("Sportarten verwalten");
+			buttonSportartVerwalten.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					buttonSportartVerwaltenActionPerformed(e);
+				}
+			});
+			buttonSportartVerwalten.setBounds(542, 192, 205, 23);
+			contentPane.add(buttonSportartVerwalten);
+		}
+		{
+			buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
+			buttonMannschaftenVerwalten.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+						buttonMannschaftenVerwaltenActionPerformed(e);
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+			buttonMannschaftenVerwalten.setBounds(542, 226, 205, 23);
+			contentPane.add(buttonMannschaftenVerwalten);
+		}
 	}
 	//	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update
 	//		ArrayList<Training> arrayListTraining = VereinDao.select(vereinDao);
@@ -248,5 +275,13 @@ public class Angemeldet extends JFrame {
 	}
 	protected void buttonHinzufuegenActionPerformed(ActionEvent e) {
 		
+	}
+	protected void buttonSportartVerwaltenActionPerformed(ActionEvent e) {
+		JFrameSportart jFrameSportart = new JFrameSportart();
+		jFrameSportart.setVisible(true);
+	}
+	protected void buttonMannschaftenVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
+		JFrameMannschaft jFrameMannschaft = new JFrameMannschaft();
+		jFrameMannschaft.setVisible(true);
 	}
 }

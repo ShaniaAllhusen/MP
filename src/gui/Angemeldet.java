@@ -141,10 +141,12 @@ public class Angemeldet extends JFrame {
 						panel.add(buttonHinzufuegen);
 						{
 							buttonSportartVerwalten = new JButton("Sportarten verwalten");
+							buttonSportartVerwalten.setToolTipText("Hier k\u00F6nnen Sie Sportarten anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
 							buttonSportartVerwalten.setBounds(6, 152, 205, 23);
 							panel.add(buttonSportartVerwalten);
 							{
 								buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
+								buttonMannschaftenVerwalten.setToolTipText("Hier k\u00F6nnen Sie Mannschaften anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
 								buttonMannschaftenVerwalten.setBounds(6, 179, 205, 23);
 								panel.add(buttonMannschaftenVerwalten);
 								

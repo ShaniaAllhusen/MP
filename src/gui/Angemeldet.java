@@ -116,11 +116,14 @@ public class Angemeldet extends JFrame {
 					{
 						{
 							buttonSportartVerwalten = new JButton("Sportarten verwalten");
-							buttonSportartVerwalten.setBounds(7, 50, 205, 23);
+							buttonSportartVerwalten.setToolTipText("Hier k\u00F6nnen Sie Sportarten anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
+							buttonSportartVerwalten.setBounds(6, 152, 205, 23);
+
 							panel.add(buttonSportartVerwalten);
 							{
 								buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
-								buttonMannschaftenVerwalten.setBounds(6, 84, 205, 23);
+								buttonMannschaftenVerwalten.setToolTipText("Hier k\u00F6nnen Sie Mannschaften anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
+								buttonMannschaftenVerwalten.setBounds(6, 179, 205, 23);
 								panel.add(buttonMannschaftenVerwalten);
 								
 								JButton btnNewButtonZeitblockaendern = new JButton("Zeitbl\u00F6cke verwalten");

@@ -30,8 +30,6 @@ public class VereinDao {
 	public VereinDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
 		datei = this.getClass().getResource("testdatenbank.db").toString();
-		//		datei = "F:\\workspace\\MP\\bin\\dao\\testdatenbank.db";
-		//		datei = "jdbc:sqlite:" + datei;
 	}
 
 	//Methoden
@@ -133,9 +131,8 @@ public class VereinDao {
 				+ "join zeitblock z on z.id = tz.zeitblock_id "
 				+ "where z.wochentag = 'Montag'";
 		preparedStatement = conn.prepareStatement(sql);
-		//preparedStatement.setString(1, wochentag);
 
-		ResultSet rs = preparedStatement.executeQuery(); //Ändern für Reihenfolge // Toolbar für Zeilenumbruch
+		ResultSet rs = preparedStatement.executeQuery();
 		while (rs.next()) {
 			String[] data = {rs.getString("mannschaft"), rs.getString("sportart")};
 			list.add(data);

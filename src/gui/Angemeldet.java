@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -21,8 +20,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 import javax.swing.border.LineBorder;
 
 import tabellenklassen.Training;
@@ -30,8 +27,14 @@ import Dao.VereinDao;
 
 import java.awt.Color;
 
+import javax.swing.border.TitledBorder;
+
 public class Angemeldet extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton button_loeschen;
 	private JButton button_Abmelden;
@@ -46,6 +49,7 @@ public class Angemeldet extends JFrame {
 	private JButton buttonHinzufuegen;
 	private JButton buttonSportartVerwalten;
 	private JButton buttonMannschaftenVerwalten;
+	private JPanel panel;
 
 	/**
 	 * Launch the application.
@@ -82,39 +86,116 @@ public class Angemeldet extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		{
-			button_loeschen = new JButton("Loeschen");
-			button_loeschen.setBounds(542, 90, 205, 23);
-			button_loeschen.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					button_löschenActionPerformed(e);
-				}
-			});
 			contentPane.setLayout(null);
-			button_loeschen.setToolTipText("Mit einem Klick auf diesen Button koennen Sie den ausgewaehlten Datensatz loeschen");
-			contentPane.add(button_loeschen);
-		}
-		{
-			button_Abmelden = new JButton("Abmelden");
-			button_Abmelden.setMnemonic('l');
-			button_Abmelden.setBounds(542, 158, 205, 23);
-			button_Abmelden.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					button_AbmeldenActionPerformed(e);
+			{
+				panel = new JPanel();
+				panel.setBorder(new TitledBorder(null, "JPanel title", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				panel.setBounds(542, 5, 217, 348);
+				contentPane.add(panel);
+				panel.setLayout(null);
+				button_loeschen = new JButton("Loeschen");
+				button_loeschen.setBounds(6, 70, 205, 23);
+				panel.add(button_loeschen);
+				button_loeschen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						button_löschenActionPerformed(e);
+					}
+				});
+				button_loeschen.setToolTipText("Mit einem Klick auf diesen Button koennen Sie den ausgewaehlten Datensatz loeschen");
+				JLabel labelBild = new JLabel(new ImageIcon(Angemeldet.class.getResource("/gui/Unbenannt.png")));
+				labelBild.setBounds(6, 239, 206, 109);
+				panel.add(labelBild);
+				labelBild.setToolTipText("Sport");
+				labelBild.setHorizontalAlignment(SwingConstants.CENTER);
+				{
+					button_Abmelden = new JButton("Abmelden");
+					button_Abmelden.setBounds(6, 124, 205, 23);
+					panel.add(button_Abmelden);
+					button_Abmelden.setMnemonic('l');
+					button_Abmelden.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							button_AbmeldenActionPerformed(e);
+						}
+					});
+					button_Abmelden.setToolTipText("Hier koennen sie sich wieder abmelden");
 				}
-			});
-			button_Abmelden.setToolTipText("Hier koennen sie sich wieder abmelden");
-			contentPane.add(button_Abmelden);
-		}
-		{
-			button_speichern = new JButton("Aenderungen speichern");
-			button_speichern.setBounds(542, 124, 205, 23);
-			button_speichern.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					//					button_speichernActionPerformed(e);
+				{
+					button_speichern = new JButton("Aenderungen speichern");
+					button_speichern.setBounds(6, 97, 205, 23);
+					panel.add(button_speichern);
+					button_speichern.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							//					button_speichernActionPerformed(e);
+						}
+					});
+					button_speichern.setToolTipText("Wenn Sie hier klicken, werden Ihre Aenderungen abgespeichert");
 				}
-			});
-			button_speichern.setToolTipText("Wenn Sie hier klicken, werden Ihre Aenderungen abgespeichert");
-			contentPane.add(button_speichern);
+				{
+					buttonAktualisieren = new JButton("Aktualisieren");
+					buttonAktualisieren.setBounds(6, 16, 205, 23);
+					panel.add(buttonAktualisieren);
+					buttonAktualisieren.setToolTipText("Wenn Sie hier klicken wird die Tabelle aktualisiert");
+					{
+						buttonHinzufuegen = new JButton("Hinzufuegen");
+						buttonHinzufuegen.setBounds(6, 43, 205, 23);
+						panel.add(buttonHinzufuegen);
+						{
+							buttonSportartVerwalten = new JButton("Sportarten verwalten");
+							buttonSportartVerwalten.setBounds(6, 152, 205, 23);
+							panel.add(buttonSportartVerwalten);
+							{
+								buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
+								buttonMannschaftenVerwalten.setBounds(6, 179, 205, 23);
+								panel.add(buttonMannschaftenVerwalten);
+								
+								JButton btnNewButtonZeitblockaendern = new JButton("Zeitbl\u00F6cke verwalten");
+								btnNewButtonZeitblockaendern.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										EventQueue.invokeLater(new Runnable() {
+											public void run() {
+												try {
+													ZeitBloecke frame = new ZeitBloecke();
+													frame.setVisible(true);
+												} catch (Exception e) {
+													e.printStackTrace();
+												}
+											}
+										});
+									}
+								});
+								btnNewButtonZeitblockaendern.setBounds(6, 207, 205, 23);
+								panel.add(btnNewButtonZeitblockaendern);
+								buttonMannschaftenVerwalten.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										try {
+											buttonMannschaftenVerwaltenActionPerformed(e);
+										} catch (ClassNotFoundException e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
+									}
+								});
+							}
+							buttonSportartVerwalten.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									buttonSportartVerwaltenActionPerformed(e);
+								}
+							});
+						}
+						buttonHinzufuegen.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								buttonHinzufuegenActionPerformed(e);
+							}
+						});
+					}
+					buttonAktualisieren.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							System.out.println(comboBox_Halle.getSelectedIndex()+1);
+							anzeigenJTable();
+						}
+					});
+				}
+			}
 		}
 		{
 			comboBox_Halle = new JComboBox();
@@ -139,11 +220,6 @@ public class Angemeldet extends JFrame {
 		{
 
 			Icon _icon = new ImageIcon("Unbenannt.png");
-			JLabel labelBild = new JLabel(new ImageIcon(Angemeldet.class.getResource("/gui/Unbenannt.png")));
-			labelBild.setBounds(544, 256, 206, 97);
-			labelBild.setToolTipText("Sport");
-			labelBild.setHorizontalAlignment(SwingConstants.CENTER);
-			contentPane.add(labelBild);
 		}
 		{
 
@@ -162,18 +238,6 @@ public class Angemeldet extends JFrame {
 //				}
 //			}
 
-		}
-		{
-			buttonAktualisieren = new JButton("Aktualisieren");
-			buttonAktualisieren.setToolTipText("Wenn Sie hier klicken wird die Tabelle aktualisiert");
-			buttonAktualisieren.setBounds(544, 22, 205, 23);
-			buttonAktualisieren.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					System.out.println(comboBox_Halle.getSelectedIndex()+1);
-					anzeigenJTable();
-				}
-			});
-			contentPane.add(buttonAktualisieren);
 		}
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
@@ -198,41 +262,6 @@ public class Angemeldet extends JFrame {
 			e.printStackTrace();
 		}
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		{
-			buttonHinzufuegen = new JButton("Hinzufuegen");
-			buttonHinzufuegen.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					buttonHinzufuegenActionPerformed(e);
-				}
-			});
-			buttonHinzufuegen.setBounds(542, 56, 205, 23);
-			contentPane.add(buttonHinzufuegen);
-		}
-		{
-			buttonSportartVerwalten = new JButton("Sportarten verwalten");
-			buttonSportartVerwalten.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					buttonSportartVerwaltenActionPerformed(e);
-				}
-			});
-			buttonSportartVerwalten.setBounds(542, 192, 205, 23);
-			contentPane.add(buttonSportartVerwalten);
-		}
-		{
-			buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
-			buttonMannschaftenVerwalten.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-						buttonMannschaftenVerwaltenActionPerformed(e);
-					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			});
-			buttonMannschaftenVerwalten.setBounds(542, 226, 205, 23);
-			contentPane.add(buttonMannschaftenVerwalten);
-		}
 	}
 	//	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update
 	//		ArrayList<Training> arrayListTraining = VereinDao.select(vereinDao);

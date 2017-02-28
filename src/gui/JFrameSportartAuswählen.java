@@ -71,12 +71,14 @@ public class JFrameSportartAuswählen extends JFrame {
 		contentPane.setLayout(null);
 		{
 			textFieldSuchen = new JTextField();
+			textFieldSuchen.setToolTipText("Geben Sie hier den Namen der Sportart ein, die Sie suchen wollen");
 			textFieldSuchen.setBounds(10, 22, 147, 20);
 			contentPane.add(textFieldSuchen);
 			textFieldSuchen.setColumns(10);
 		}
 		{
 			buttonSuchen = new JButton("Suchen");
+			buttonSuchen.setToolTipText("Sportart suchen");
 			buttonSuchen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonSuchenActionPerformed(e);
@@ -87,6 +89,7 @@ public class JFrameSportartAuswählen extends JFrame {
 		}
 		{
 			textFieldName = new JTextField();
+			textFieldName.setToolTipText("Name der Sportart");
 			textFieldName.setEditable(false);
 			textFieldName.setBounds(76, 115, 180, 20);
 			contentPane.add(textFieldName);
@@ -94,6 +97,7 @@ public class JFrameSportartAuswählen extends JFrame {
 		}
 		{
 			textFieldId = new JTextField();
+			textFieldId.setToolTipText("ID der Sportart");
 			textFieldId.setEditable(false);
 			textFieldId.setBounds(76, 84, 81, 20);
 			contentPane.add(textFieldId);
@@ -111,6 +115,7 @@ public class JFrameSportartAuswählen extends JFrame {
 		}
 		{
 			buttonFirst = new JButton("|<");
+			buttonFirst.setToolTipText("Erste Sportart");
 			buttonFirst.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonFirstActionPerformed(e);
@@ -121,6 +126,7 @@ public class JFrameSportartAuswählen extends JFrame {
 		}
 		{
 			buttonPrevious = new JButton("<<");
+			buttonPrevious.setToolTipText("Vorherige Sportart");
 			buttonPrevious.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonPreviousActionPerformed(e);
@@ -131,6 +137,7 @@ public class JFrameSportartAuswählen extends JFrame {
 		}
 		{
 			buttonNext = new JButton(">>");
+			buttonNext.setToolTipText("N\u00E4chste Sportart");
 			buttonNext.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonNextActionPerformed(e);
@@ -141,6 +148,7 @@ public class JFrameSportartAuswählen extends JFrame {
 		}
 		{
 			buttonLast = new JButton(">|");
+			buttonLast.setToolTipText("Letzte Sportart");
 			buttonLast.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonLastActionPerformed(e);
@@ -151,6 +159,7 @@ public class JFrameSportartAuswählen extends JFrame {
 		}
 		{
 			buttonSportartUebernehmen = new JButton("Sportart \u00FCbernehmen");
+			buttonSportartUebernehmen.setToolTipText("Die ausgew\u00E4hlte Sportart \u00FCbernehmen");
 			buttonSportartUebernehmen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonSportartUebernehmenActionPerformed(e);

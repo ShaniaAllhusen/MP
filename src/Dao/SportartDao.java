@@ -43,7 +43,7 @@ public class SportartDao {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		try{
-			conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
+			conn = getConnection();
 			String sql = "INSERT INTO sportart (name) VALUES (?)";
 			preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, sportart.getName());
@@ -67,7 +67,7 @@ public class SportartDao {
 	public void delete(Sportart sportart) {
 		Connection conn = null;
 		try { 
-			conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
+			conn = getConnection();
 			String sql = "DELETE FROM sportart WHERE name = ?"; 
 			PreparedStatement preparedStatement = conn.prepareStatement(sql); 
 			preparedStatement.setString(1, sportart.getName());
@@ -87,7 +87,7 @@ public class SportartDao {
 	public void update(Sportart sportart) {
 		Connection conn = null;
 		try { 
-			conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
+			conn = getConnection();
 			String sql = "UPDATE sportart SET name = ? WHERE id = ?"; 
 			PreparedStatement preparedStatement = conn.prepareStatement(sql); 
 			preparedStatement.setString(1, sportart.getName());  

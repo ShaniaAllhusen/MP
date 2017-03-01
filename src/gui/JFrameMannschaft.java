@@ -19,6 +19,8 @@ import javax.swing.JLabel;
 import tabellenklassen.Mannschaft;
 import tabellenklassen.Sportart;
 import Dao.MannschaftDao;
+import Dao.NoMannschaftFound;
+import Dao.NoSportartFoundException;
 import Dao.SportartDao;
 
 import javax.swing.border.TitledBorder;
@@ -356,8 +358,8 @@ public class JFrameMannschaft extends JFrame {
 				mannschaftAktiv = mannschaftDao.select(eingabe);
 			}
 			showMannschaft(mannschaftAktiv);
-		} catch (NumberFormatException e1) {
-			e1.printStackTrace();
+		} catch (NoMannschaftFound e1) {
+			showErrorPane(e1);
 		}
 
 	}
@@ -513,9 +515,8 @@ public class JFrameMannschaft extends JFrame {
 			sportart = new Sportart();
 			sportart = sportartDao.select(name);
 			showSportart(sportart);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (NoSportartFoundException e1) {
+			showErrorPane(e1);
 		}
 	}
 	protected void buttonSportartbernehmenActionPerformed(ActionEvent e) {
@@ -524,5 +525,9 @@ public class JFrameMannschaft extends JFrame {
 		textFieldSportartSucheName.setText("");
 		textFieldSportartSucheId.setText("");
 		textFieldSportartSuchen.setText("");
+	}
+	
+	private void showErrorPane(Exception e) {
+		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
 	}
 }

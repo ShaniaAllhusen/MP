@@ -37,7 +37,7 @@ public class MannschaftDao {
 	}
 
 	//select id
-	public Mannschaft select(int id) {
+	public Mannschaft select(int id) throws NoMannschaftFound {
 		Connection conn = null;
 		Mannschaft mannschaft = null;
 		PreparedStatement preparedStatement = null;
@@ -49,7 +49,7 @@ public class MannschaftDao {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			mannschaft = create(resultSet);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new NoMannschaftFound();
 		} finally {
 			try {
 				preparedStatement.close();
@@ -62,7 +62,7 @@ public class MannschaftDao {
 	}
 
 	//select name
-	public Mannschaft select(String name) {
+	public Mannschaft select(String name) throws NoMannschaftFound {
 		Connection conn = null;
 		Mannschaft mannschaft = null;
 		PreparedStatement preparedStatement = null;
@@ -74,7 +74,7 @@ public class MannschaftDao {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			mannschaft = create(resultSet);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new NoMannschaftFound();
 		} finally {
 			try {
 				preparedStatement.close();

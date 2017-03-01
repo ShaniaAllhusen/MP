@@ -36,9 +36,7 @@ public class Angemeldet extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JButton button_loeschen;
 	private JButton button_Abmelden;
-	private JButton button_speichern;
 	private JComboBox comboBox_Halle;
 	private JLabel labelHerzlichWillkommen;
 	private JLabel labelNewLabel;
@@ -46,7 +44,6 @@ public class Angemeldet extends JFrame {
 
 	private VereinDao vereinDao;
 	private JButton buttonAktualisieren;
-	private JButton buttonHinzufuegen;
 	private JButton buttonSportartVerwalten;
 	private JButton buttonMannschaftenVerwalten;
 	private JPanel panel;
@@ -89,27 +86,19 @@ public class Angemeldet extends JFrame {
 			contentPane.setLayout(null);
 			{
 				panel = new JPanel();
-				panel.setBorder(new TitledBorder(null, "JPanel title", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				panel.setBorder(new TitledBorder(null, "Verwaltung", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 				panel.setBounds(542, 5, 217, 348);
 				contentPane.add(panel);
 				panel.setLayout(null);
-				button_loeschen = new JButton("Loeschen");
-				button_loeschen.setBounds(6, 70, 205, 23);
-				panel.add(button_loeschen);
-				button_loeschen.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						button_löschenActionPerformed(e);
-					}
-				});
-				button_loeschen.setToolTipText("Mit einem Klick auf diesen Button koennen Sie den ausgewaehlten Datensatz loeschen");
 				JLabel labelBild = new JLabel(new ImageIcon(Angemeldet.class.getResource("/gui/Unbenannt.png")));
-				labelBild.setBounds(6, 239, 206, 109);
+				labelBild.setBounds(6, 197, 206, 140);
 				panel.add(labelBild);
 				labelBild.setToolTipText("Sport");
 				labelBild.setHorizontalAlignment(SwingConstants.CENTER);
 				{
 					button_Abmelden = new JButton("Abmelden");
-					button_Abmelden.setBounds(6, 124, 205, 23);
+					button_Abmelden.setVerifyInputWhenFocusTarget(false);
+					button_Abmelden.setBounds(6, 152, 205, 23);
 					panel.add(button_Abmelden);
 					button_Abmelden.setMnemonic('l');
 					button_Abmelden.addActionListener(new ActionListener() {
@@ -120,29 +109,16 @@ public class Angemeldet extends JFrame {
 					button_Abmelden.setToolTipText("Hier koennen sie sich wieder abmelden");
 				}
 				{
-					button_speichern = new JButton("Aenderungen speichern");
-					button_speichern.setBounds(6, 97, 205, 23);
-					panel.add(button_speichern);
-					button_speichern.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							//					button_speichernActionPerformed(e);
-						}
-					});
-					button_speichern.setToolTipText("Wenn Sie hier klicken, werden Ihre Aenderungen abgespeichert");
-				}
-				{
 					buttonAktualisieren = new JButton("Aktualisieren");
 					buttonAktualisieren.setBounds(6, 16, 205, 23);
 					panel.add(buttonAktualisieren);
 					buttonAktualisieren.setToolTipText("Wenn Sie hier klicken wird die Tabelle aktualisiert");
 					{
-						buttonHinzufuegen = new JButton("Hinzufuegen");
-						buttonHinzufuegen.setBounds(6, 43, 205, 23);
-						panel.add(buttonHinzufuegen);
 						{
 							buttonSportartVerwalten = new JButton("Sportarten verwalten");
 							buttonSportartVerwalten.setToolTipText("Hier k\u00F6nnen Sie Sportarten anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
 							buttonSportartVerwalten.setBounds(6, 152, 205, 23);
+
 							panel.add(buttonSportartVerwalten);
 							{
 								buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
@@ -165,7 +141,7 @@ public class Angemeldet extends JFrame {
 										});
 									}
 								});
-								btnNewButtonZeitblockaendern.setBounds(6, 207, 205, 23);
+								btnNewButtonZeitblockaendern.setBounds(7, 118, 205, 23);
 								panel.add(btnNewButtonZeitblockaendern);
 								buttonMannschaftenVerwalten.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
@@ -184,11 +160,6 @@ public class Angemeldet extends JFrame {
 								}
 							});
 						}
-						buttonHinzufuegen.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								buttonHinzufuegenActionPerformed(e);
-							}
-						});
 					}
 					buttonAktualisieren.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -294,10 +265,6 @@ public class Angemeldet extends JFrame {
 		
 	}
 
-	protected void button_löschenActionPerformed(ActionEvent e) { //Delete		
-
-	}
-
 	protected void button_AbmeldenActionPerformed(ActionEvent e) { //Ende GUI 1 anzeigen
 		HallenPlan frame1 = new HallenPlan();
 		frame1.setVisible(true);
@@ -307,9 +274,6 @@ public class Angemeldet extends JFrame {
 
 	public JTable getTable() {
 		return table;
-	}
-	protected void buttonHinzufuegenActionPerformed(ActionEvent e) {
-		
 	}
 	protected void buttonSportartVerwaltenActionPerformed(ActionEvent e) {
 		JFrameSportart jFrameSportart = new JFrameSportart();

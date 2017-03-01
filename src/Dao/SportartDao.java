@@ -6,6 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.swing.JOptionPane;
+
+import tabellenklassen.Mannschaft;
 import tabellenklassen.Sportart;
 
 public class SportartDao {
@@ -16,7 +20,7 @@ public class SportartDao {
 
 	public SportartDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
-		datei = this.getClass().getResource("Datenbank.db").getPath().toString().replaceFirst("MP/bin/", "MP/src/");
+		datei = this.getClass().getResource("testdatenbank.db").getPath().toString().replaceFirst("MP/bin/", "MP/src/");
 		datei = "jdbc:sqlite:" + datei;
 		System.out.println(datei);
 	}
@@ -97,8 +101,8 @@ public class SportartDao {
 		}
 	}
 
-	//Datensätze in der Tabelle suchen
-	public Sportart select(String name) {
+	//Datensätze in der Tabelle suchen (name)
+	public Sportart select(String name) throws NoSportartFoundException {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		Sportart sportart = null;
@@ -113,7 +117,7 @@ public class SportartDao {
 			sportart.setId(resultSet.getInt("id"));
 			sportart.setName(resultSet.getString("name"));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new NoSportartFoundException();
 		} finally {
 			try {
 				preparedStatement.close();
@@ -124,7 +128,37 @@ public class SportartDao {
 		}
 		return sportart;
 	}
-	
+
+	//Datensätze in der Tabelle suchen (id)
+	public Sportart select(int id) throws NoSportartFoundException {
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		Sportart sportart = null;
+		try {
+			conn = getConnection();
+			String sql = "SELECT id, name from sportart where id = ?";
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet.next();
+			sportart = new Sportart();
+			sportart.setId(resultSet.getInt("id"));
+			sportart.setName(resultSet.getString("name"));
+
+		} catch (SQLException e) {
+			throw new NoSportartFoundException();
+		} finally {
+			try {
+				preparedStatement.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return sportart;
+	}
+
+
 	//erste Sportart
 	public Sportart first() {
 		Sportart first = null;
@@ -237,5 +271,17 @@ public class SportartDao {
 			}
 		}
 		return last;
+	}
+
+	public boolean eingabePruefen(String eingabe) {
+		try {
+			Integer.parseInt(eingabe);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return false;
+		}
 	}
 }

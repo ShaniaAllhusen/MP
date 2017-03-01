@@ -44,10 +44,10 @@ public class JFrameMannschaft extends JFrame {
 	private JButton buttonnderungenSpeichern;
 	private JButton buttonMannschaftLschen;
 	private JButton buttonMannschaftHinzufgen;
-	
+
 	private MannschaftDao mannschaftDao;
 	private SportartDao sportartDao;
-	
+
 	private JButton buttonFirst;
 	private JButton buttonPrevious;
 	private JButton buttonNext;
@@ -64,7 +64,7 @@ public class JFrameMannschaft extends JFrame {
 	private JButton buttonSportartNext;
 	private JButton buttonSportartLast;
 	private JButton buttonSportartbernehmen;
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -364,46 +364,71 @@ public class JFrameMannschaft extends JFrame {
 
 	}
 	protected void buttonnderungenSpeichernActionPerformed(ActionEvent e) {
+		String name;
+		String sportartName;
+		String sportartId;
+		Mannschaft mannschaftAktiv;
+		Sportart sportart;
+		int id;
+
+		name = textFieldName.getText();
+		sportartName = textFieldSportartName.getText();
+		sportartId = textFieldSportartId.getText();
+		mannschaftAktiv = new Mannschaft();
+		sportart = new Sportart();
+		
+		id = Integer.parseInt(sportartId);
+		sportart.setId(id);
+		sportart.setName(sportartName);
+		mannschaftAktiv.setName(name);
+		mannschaftAktiv.setSportart(sportart);
+		mannschaftDao.insert(mannschaftAktiv);
 	}
 	protected void buttonMannschaftLschenActionPerformed(ActionEvent e) {
+		String mannschaftId;
+		int id;
+		
+		try {
+			mannschaftId = textFieldID.getText();
+			id = Integer.parseInt(mannschaftId);
+			mannschaftDao.delete(id);
+			textFieldID.setText("");
+			textFieldName.setText("");
+			textFieldSportartName.setText("");
+			textFieldSportartId.setText("");
+		} catch (NumberFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
-	
+
 	protected void buttonMannschaftHinzufgenActionPerformed(ActionEvent e) {
 		String name;
 		String sportartName;
 		String sportartId;
 		Mannschaft mannschaftAktiv;
 		Sportart sportart;
-		boolean prüfen;
 		int id;
-		
+
 		try {
 			name = textFieldName.getText();
 			sportartName = textFieldSportartName.getText();
 			sportartId = textFieldSportartId.getText();
 			mannschaftAktiv = new Mannschaft();
 			sportart = new Sportart();
-			prüfen = mannschaftDao.eingabePruefen(sportartId);
-			
-			if(prüfen == true) {
-				id = Integer.parseInt(sportartId);
-				sportart.setId(id);
-				sportart.setName(sportartName);
-				mannschaftAktiv.setName(name);
-				mannschaftAktiv.setSportart(sportart);
-				mannschaftDao.insert(mannschaftAktiv);
-				showMannschaft(mannschaftAktiv);
-			}
-			else {
-				JOptionPane.showMessageDialog(this, "Falsche Eingaben", "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
-			}
+
+			id = Integer.parseInt(sportartId);
+			sportart.setId(id);
+			sportart.setName(sportartName);
+			mannschaftAktiv.setName(name);
+			mannschaftAktiv.setSportart(sportart);
+			mannschaftDao.insert(mannschaftAktiv);
+			showMannschaft(mannschaftAktiv);
 		} catch (NumberFormatException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (HeadlessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
+
 	}
 	protected void buttonFirstActionPerformed(ActionEvent e) {
 		try {
@@ -415,7 +440,7 @@ public class JFrameMannschaft extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	protected void buttonPreviousActionPerformed(ActionEvent e) {
 		Mannschaft mannschaftAktiv = new Mannschaft();
 		mannschaftAktiv.setId(Integer.parseInt(textFieldID.getText()));
@@ -428,7 +453,7 @@ public class JFrameMannschaft extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	protected void buttonNextActionPerformed(ActionEvent e) {
 		Mannschaft mannschaftAktiv = new Mannschaft();
 		mannschaftAktiv.setId(Integer.parseInt(textFieldID.getText()));
@@ -441,7 +466,7 @@ public class JFrameMannschaft extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	protected void buttonLastActionPerformed(ActionEvent e) {
 		try {
 			Mannschaft mannschaftLast = mannschaftDao.last();
@@ -451,20 +476,20 @@ public class JFrameMannschaft extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	private void showMannschaft(Mannschaft mannschaft) {
 		textFieldID.setText(Integer.toString(mannschaft.getId()));
 		textFieldName.setText(mannschaft.getName());
 		textFieldSportartId.setText(Integer.toString(mannschaft.getSportart().getId()));
 		textFieldSportartName.setText(mannschaft.getSportart().getName());
 	}
-	
+
 	private void showSportart(Sportart sportart) {
 		textFieldSportartSucheId.setText(Integer.toString(sportart.getId()));
 		textFieldSportartSucheName.setText(sportart.getName());
-		
+
 	}
-	
+
 	protected void buttonSportartFirstActionPerformed(ActionEvent e) {
 		try {
 			Sportart sportartFirst = sportartDao.first();
@@ -486,7 +511,7 @@ public class JFrameMannschaft extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	protected void buttonSportartNextActionPerformed(ActionEvent e) {
 		Sportart sportartAktiv = new Sportart();
 		sportartAktiv.setId(Integer.parseInt(textFieldSportartSucheId.getText()));

@@ -78,13 +78,13 @@ public class VereinDao {
 
 		ArrayList<TwoLines> list = new ArrayList<TwoLines>();
 		
-		String sql = "select m.name as 'mannschaft', s.name as 'sportart' from mannschaft m "
+		String sql = "select m.name as 'mannschaft', s.name as 'sportart', z.zeitbeginn, z.dauer, z.wochentag from mannschaft m "
 				+ "join sportart s on s.id = m.sportart_id "
 				+ "join training t on t.mannschaft_id = m.id "
 				+ "join training_zeitblock tz on tz.training_id = t.id "
 				+ "join zeitblock z on z.id = tz.zeitblock_id "
 				+ "where z.wochentag = ?";
-
+		
 		ResultSet rs = preparedStatement.executeQuery();
 		while (rs.next()) {
 			TwoLines twoLines = new TwoLines(rs.getString("mannschaft"), rs.getString("sportart"));
@@ -95,7 +95,7 @@ public class VereinDao {
 		for (int i = 0; i < result.length; i++) {
 			result[i] = list.get(i).toString();
 		}
-		
+
 		return result;
 		
 	}

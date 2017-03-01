@@ -171,8 +171,7 @@ public class SportartDao {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			resultSet.next();
 			first = new Sportart();
-			first.setId(resultSet.getInt("id"));
-			first.setName(resultSet.getString("name"));
+			first = create(resultSet);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -185,7 +184,6 @@ public class SportartDao {
 		}
 		return first;
 	}
-
 	//vorherige Sportart 
 	public Sportart previous(Sportart sportart) {
 		Connection conn = null;
@@ -198,10 +196,14 @@ public class SportartDao {
 			preparedStatement = conn.prepareStatement(sql); 
 			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery(); 
-			resultSet.next();
-			previous = new Sportart();
-			previous.setId(resultSet.getInt("id"));
-			previous.setName(resultSet.getString("name"));
+			boolean prüfen = resultSetPruefen(resultSet);
+			System.out.println(prüfen);
+			if(prüfen==false) {
+				previous = sportart;
+			}
+			else {
+				previous = create(resultSet);
+			}
 		} 
 		catch (SQLException e) { 
 			e.printStackTrace(); 
@@ -228,10 +230,15 @@ public class SportartDao {
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setInt(1, id); 
 			ResultSet resultSet = preparedStatement.executeQuery();
-			resultSet.next();
-			next = new Sportart();
-			next.setId(resultSet.getInt("id"));
-			next.setName(resultSet.getString("name"));
+			boolean prüfen = resultSetPruefen(resultSet);
+			System.out.println(prüfen);
+			if(prüfen==false) {
+				next = sportart;
+			}
+			else {
+				next = create(resultSet);
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -245,7 +252,7 @@ public class SportartDao {
 		}
 		return next;
 	}
-
+	
 	//letzte Sportart
 	public Sportart last() {
 		Sportart last = null;
@@ -258,8 +265,7 @@ public class SportartDao {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			resultSet.next();
 			last = new Sportart();
-			last.setId(resultSet.getInt("id"));
-			last.setName(resultSet.getString("name"));
+			last = create(resultSet);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -283,5 +289,23 @@ public class SportartDao {
 			System.err.println(e.getMessage());
 			return false;
 		}
+	}
+	
+	private boolean resultSetPruefen(ResultSet resultSet) throws SQLException{
+		if (resultSet.next()){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private Sportart create(ResultSet resultSet) throws SQLException {
+		Sportart sportart = new Sportart();
+		//resultSet.next();
+		sportart = new Sportart();
+		sportart.setId(resultSet.getInt("id"));
+		sportart.setName(resultSet.getString("name"));
+		return sportart;
 	}
 }

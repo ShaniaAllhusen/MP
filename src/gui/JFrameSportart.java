@@ -85,7 +85,7 @@ public class JFrameSportart extends JFrame {
 		{
 			buttonSuchen = new JButton("Suchen");
 			buttonSuchen.setMnemonic('S');
-			buttonSuchen.setToolTipText("Sportart suchen");
+			buttonSuchen.setToolTipText("Sportart nach Namen oder Id suchen (Alt + S)");
 			buttonSuchen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				String eingabe = textField.getText();
@@ -141,7 +141,7 @@ public class JFrameSportart extends JFrame {
 		{
 			buttonAendern = new JButton("\u00C4nderung speichern");
 			buttonAendern.setMnemonic('Ä');
-			buttonAendern.setToolTipText("\u00C4nderungen an der Sportart speichern");
+			buttonAendern.setToolTipText("\u00C4nderungen an der Sportart speichern (Alt + \u00C4)");
 			buttonAendern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonAendernActionPerformed(e);
@@ -160,7 +160,7 @@ public class JFrameSportart extends JFrame {
 		{
 			buttonHinzufuegen = new JButton("Sportart hinzuf\u00FCgen");
 			buttonHinzufuegen.setMnemonic('h');
-			buttonHinzufuegen.setToolTipText("Eine neue Sportart hinzuf\u00FCgen");
+			buttonHinzufuegen.setToolTipText("Eine neue Sportart hinzuf\u00FCgen (Alt + H)");
 			buttonHinzufuegen.setBounds(315, 61, 141, 23);
 			buttonHinzufuegen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -182,7 +182,7 @@ public class JFrameSportart extends JFrame {
 		{
 			buttonLoeschen = new JButton("Sportart l\u00F6schen");
 			buttonLoeschen.setMnemonic('l');
-			buttonLoeschen.setToolTipText("Die ausgew\u00E4hlte Sportart l\u00F6schen");
+			buttonLoeschen.setToolTipText("Die ausgew\u00E4hlte Sportart l\u00F6schen (Alt + L)");
 			buttonLoeschen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					sportart.setName((textFieldName.getText()));

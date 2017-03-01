@@ -387,9 +387,13 @@ public class JFrameMannschaft extends JFrame {
 		int id;
 		
 		try {
-			mannschaftId = textFieldSportartId.getText();
+			mannschaftId = textFieldID.getText();
 			id = Integer.parseInt(mannschaftId);
 			mannschaftDao.delete(id);
+			textFieldID.setText("");
+			textFieldName.setText("");
+			textFieldSportartName.setText("");
+			textFieldSportartId.setText("");
 		} catch (NumberFormatException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

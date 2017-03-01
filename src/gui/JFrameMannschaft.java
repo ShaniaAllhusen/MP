@@ -98,7 +98,7 @@ public class JFrameMannschaft extends JFrame {
 		{
 			buttonSuchen = new JButton("Suchen");
 			buttonSuchen.setMnemonic('S');
-			buttonSuchen.setToolTipText("Mannschaft suchen");
+			buttonSuchen.setToolTipText("Mannschaft nach Name oder Id suchen (Alt + S)");
 			buttonSuchen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonSuchenActionPerformed(e);
@@ -155,7 +155,7 @@ public class JFrameMannschaft extends JFrame {
 		{
 			buttonnderungenSpeichern = new JButton("\u00C4nderungen speichern");
 			buttonnderungenSpeichern.setMnemonic('Ä');
-			buttonnderungenSpeichern.setToolTipText("\u00C4nderungen der Mannschaft speichern");
+			buttonnderungenSpeichern.setToolTipText("\u00C4nderungen der Mannschaft speichern (Alt + \u00C4)");
 			buttonnderungenSpeichern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonnderungenSpeichernActionPerformed(e);
@@ -167,7 +167,7 @@ public class JFrameMannschaft extends JFrame {
 		{
 			buttonMannschaftLschen = new JButton("Mannschaft l\u00F6schen");
 			buttonMannschaftLschen.setMnemonic('l');
-			buttonMannschaftLschen.setToolTipText("ausgew\u00E4hlte Mannschaft l\u00F6schen");
+			buttonMannschaftLschen.setToolTipText("ausgew\u00E4hlte Mannschaft l\u00F6schen (Alt + L)");
 			buttonMannschaftLschen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonMannschaftLschenActionPerformed(e);
@@ -179,7 +179,7 @@ public class JFrameMannschaft extends JFrame {
 		{
 			buttonMannschaftHinzufgen = new JButton("Mannschaft hinzuf\u00FCgen");
 			buttonMannschaftHinzufgen.setMnemonic('h');
-			buttonMannschaftHinzufgen.setToolTipText("Neue Mannschaft hinzuf\u00FCgen");
+			buttonMannschaftHinzufgen.setToolTipText("Neue Mannschaft hinzuf\u00FCgen (Alt + H)");
 			buttonMannschaftHinzufgen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonMannschaftHinzufgenActionPerformed(e);
@@ -268,7 +268,7 @@ public class JFrameMannschaft extends JFrame {
 				});
 				buttonSportartSuchen.setBounds(6, 47, 89, 23);
 				panel.add(buttonSportartSuchen);
-				buttonSportartSuchen.setToolTipText("Sportart suchen");
+				buttonSportartSuchen.setToolTipText("Sportart nach Namen oder nach Id suchen (Alt + U)");
 			}
 			{
 				labelSportartSucheName = new JLabel("Sportart");
@@ -342,7 +342,8 @@ public class JFrameMannschaft extends JFrame {
 			}
 			{
 				buttonSportartbernehmen = new JButton("Sportart \u00FCbernehmen");
-				buttonSportartbernehmen.setToolTipText("Die ausgew\u00E4hlte Sportart wird zu der Mannschaft hinzugef\u00FCgt");
+				buttonSportartbernehmen.setMnemonic('ü');
+				buttonSportartbernehmen.setToolTipText("Die ausgew\u00E4hlte Sportart wird zu der Mannschaft hinzugef\u00FCgt (Alt + \u00DC)");
 				buttonSportartbernehmen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						buttonSportartbernehmenActionPerformed(e);

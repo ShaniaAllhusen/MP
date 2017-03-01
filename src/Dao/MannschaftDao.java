@@ -37,7 +37,7 @@ public class MannschaftDao {
 	}
 
 	//select id
-	public Mannschaft select(int id) {
+	public Mannschaft select(int id) throws NoMannschaftFound {
 		Connection conn = null;
 		Mannschaft mannschaft = null;
 		PreparedStatement preparedStatement = null;
@@ -49,7 +49,7 @@ public class MannschaftDao {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			mannschaft = create(resultSet);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new NoMannschaftFound();
 		} finally {
 			try {
 				preparedStatement.close();
@@ -62,7 +62,7 @@ public class MannschaftDao {
 	}
 
 	//select name
-	public Mannschaft select(String name) {
+	public Mannschaft select(String name) throws NoMannschaftFound {
 		Connection conn = null;
 		Mannschaft mannschaft = null;
 		PreparedStatement preparedStatement = null;
@@ -74,7 +74,7 @@ public class MannschaftDao {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			mannschaft = create(resultSet);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new NoMannschaftFound();
 		} finally {
 			try {
 				preparedStatement.close();
@@ -105,7 +105,7 @@ public class MannschaftDao {
 			} 
 		}
 	}
-	
+
 	//update
 	public void update(Mannschaft mannschaft) {
 		Connection conn = null;
@@ -126,7 +126,7 @@ public class MannschaftDao {
 			} 
 		}
 	}
-	
+
 	//insert
 	public void insert(Mannschaft mannschaft) {
 		Connection conn = null;
@@ -151,132 +151,155 @@ public class MannschaftDao {
 			} 
 		}
 	}
-	
+
 	//erste Mannschaft
-		public Mannschaft first() {
-			Mannschaft first = null;
-			Connection conn = null;
-			PreparedStatement preparedStatement = null;
+	public Mannschaft first() {
+		Mannschaft first = null;
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			conn = getConnection();
+			String sql = "SELECT m.id AS 'm.id', m.name AS 'm.name', s.name AS 's.name', s.id AS 's.id' FROM mannschaft m "
+					+ "JOIN sportart s ON m.sportart_id = s.id "
+					+ "where m.id = (SELECT MIN(id) from mannschaft)";
+			preparedStatement = conn.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			first = create(resultSet);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			try {
-				conn = getConnection();
-				String sql = "SELECT m.id AS 'm.id', m.name AS 'm.name', s.name AS 's.name', s.id AS 's.id' FROM mannschaft m "
-						+ "JOIN sportart s ON m.sportart_id = s.id "
-						+ "where m.id = (SELECT MIN(id) from mannschaft)";
-				preparedStatement = conn.prepareStatement(sql);
-				ResultSet resultSet = preparedStatement.executeQuery();
-				first = create(resultSet);
+				preparedStatement.close();
+				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					preparedStatement.close();
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
 			}
-			return first;
 		}
+		return first;
+	}
 
-		//vorherige Mannschaft 
-		public Mannschaft previous(Mannschaft mannschaft) {
-			Connection conn = null;
-			PreparedStatement preparedStatement = null;
-			Mannschaft previous = null;
-			int id = mannschaft.getId();
-			try { 
-				conn = getConnection();
-				String sql = "SELECT m.id AS 'm.id', m.name AS 'm.name', s.name AS 's.name', s.id AS 's.id' "
-						+ "FROM mannschaft m "
-						+ "JOIN sportart s ON m.sportart_id = s.id "
-						+ "WHERE m.id < ? ORDER BY m.id DESC"; 
-				preparedStatement = conn.prepareStatement(sql); 
-				preparedStatement.setInt(1, id);
-				ResultSet resultSet = preparedStatement.executeQuery(); 
+	private boolean resultSetPruefen(ResultSet resultSet) throws SQLException{
+		if (resultSet.next()){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	//vorherige Mannschaft 
+	public Mannschaft previous(Mannschaft mannschaft) {
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		Mannschaft previous = null;
+		int id = mannschaft.getId();
+		try { 
+			conn = getConnection();
+			String sql = "SELECT m.id AS 'm.id', m.name AS 'm.name', s.name AS 's.name', s.id AS 's.id' "
+					+ "FROM mannschaft m "
+					+ "JOIN sportart s ON m.sportart_id = s.id "
+					+ "WHERE m.id < ? ORDER BY m.id DESC"; 
+			preparedStatement = conn.prepareStatement(sql); 
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery(); 
+			boolean prüfen = resultSetPruefen(resultSet);
+			System.out.println(prüfen);
+			if(prüfen==false) {
+				previous = mannschaft;
+			}
+			else {
 				previous = create(resultSet);
-			} 
-			catch (SQLException e) { 
+			}
+		} 
+		catch (SQLException e) { 
+			e.printStackTrace(); 
+		} finally { 
+			try { 
+				preparedStatement.close(); 
+				conn.close(); 
+			} catch (SQLException e) { 
 				e.printStackTrace(); 
-			} finally { 
-				try { 
-					preparedStatement.close(); 
-					conn.close(); 
-				} catch (SQLException e) { 
-					e.printStackTrace(); 
-				} 
 			} 
-			return previous; 
-		}
+		} 
+		return previous; 
+	}
 
-		//nächste Mannschaft
-		public Mannschaft next(Mannschaft mannschaft) {
-			Mannschaft next = null;
-			Connection conn = null;
-			PreparedStatement preparedStatement = null;
-			int id = mannschaft.getId();
-			try {
-				conn = getConnection();
-				String sql = "SELECT m.id AS 'm.id', m.name AS 'm.name', s.name AS 's.name', s.id AS 's.id' "
-						+ "FROM mannschaft m "
-						+ "JOIN sportart s ON m.sportart_id = s.id "
-						+ "WHERE m.id > ? ORDER BY m.id ASC";
-				preparedStatement = conn.prepareStatement(sql);
-				preparedStatement.setInt(1, id); 
-				ResultSet resultSet = preparedStatement.executeQuery();
+	//nächste Mannschaft
+	public Mannschaft next(Mannschaft mannschaft) {
+		Mannschaft next = null;
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		int id = mannschaft.getId();
+		try {
+			conn = getConnection();
+			String sql = "SELECT m.id AS 'm.id', m.name AS 'm.name', s.name AS 's.name', s.id AS 's.id' "
+					+ "FROM mannschaft m "
+					+ "JOIN sportart s ON m.sportart_id = s.id "
+					+ "WHERE m.id > ? ORDER BY m.id ASC";
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setInt(1, id); 
+			ResultSet resultSet = preparedStatement.executeQuery();
+			boolean prüfen = resultSetPruefen(resultSet);
+			System.out.println(prüfen);
+			if(prüfen==false) {
+				next = mannschaft;
+			}
+			else {
 				next = create(resultSet);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					preparedStatement.close();
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
-			return next;
-		}
-
-		//letzte Mannschaft
-		public Mannschaft last() {
-			Mannschaft last = null;
-			Connection conn = null;
-			PreparedStatement preparedStatement = null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			try {
-				conn = getConnection();
-				String sql = "SELECT m.id AS 'm.id', m.name AS 'm.name', s.name AS 's.name', s.id AS 's.id' "
-						+ "FROM mannschaft m "
-						+ "JOIN sportart s ON m.sportart_id = s.id "
-						+ "WHERE m.id = (SELECT MAX(id) FROM mannschaft)";
-				preparedStatement = conn.prepareStatement(sql);
-				ResultSet resultSet = preparedStatement.executeQuery();
-				last = create(resultSet);
+				preparedStatement.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return next;
+	}
+
+	//letzte Mannschaft
+	public Mannschaft last() {
+		Mannschaft last = null;
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			conn = getConnection();
+			String sql = "SELECT m.id AS 'm.id', m.name AS 'm.name', s.name AS 's.name', s.id AS 's.id' "
+					+ "FROM mannschaft m "
+					+ "JOIN sportart s ON m.sportart_id = s.id "
+					+ "WHERE m.id = (SELECT MAX(id) FROM mannschaft)";
+			preparedStatement = conn.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			last = create(resultSet);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				preparedStatement.close();
+				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					preparedStatement.close();
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
 			}
-			return last;
 		}
-		
-		public Mannschaft create(ResultSet resultSet) throws SQLException {
-			Sportart sportart = new Sportart();
-			Mannschaft mannschaft = new Mannschaft();
-			resultSet.next(); 
-			sportart.setId(resultSet.getInt("s.id"));
-			sportart.setName(resultSet.getString("s.name"));
-			mannschaft.setId(resultSet.getInt("m.id"));
-			mannschaft.setName(resultSet.getString("m.name"));
-			mannschaft.setSportart(sportart);
-			return mannschaft;
-		}
-	
+		return last;
+	}
+
+	public Mannschaft create(ResultSet resultSet) throws SQLException {
+		Sportart sportart = new Sportart();
+		Mannschaft mannschaft = new Mannschaft();
+		//resultSet.next();
+		sportart.setId(resultSet.getInt("s.id"));
+		sportart.setName(resultSet.getString("s.name"));
+		mannschaft.setId(resultSet.getInt("m.id"));
+		mannschaft.setName(resultSet.getString("m.name"));
+		mannschaft.setSportart(sportart);
+		return mannschaft;
+	}
+
 	public boolean eingabePruefen(String eingabe) {
 		try {
 			Integer.parseInt(eingabe);

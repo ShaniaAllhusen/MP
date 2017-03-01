@@ -97,6 +97,7 @@ public class JFrameMannschaft extends JFrame {
 		contentPane.setLayout(null);
 		{
 			buttonSuchen = new JButton("Suchen");
+			buttonSuchen.setMnemonic('S');
 			buttonSuchen.setToolTipText("Mannschaft suchen");
 			buttonSuchen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -153,6 +154,7 @@ public class JFrameMannschaft extends JFrame {
 		}
 		{
 			buttonnderungenSpeichern = new JButton("\u00C4nderungen speichern");
+			buttonnderungenSpeichern.setMnemonic('Ä');
 			buttonnderungenSpeichern.setToolTipText("\u00C4nderungen der Mannschaft speichern");
 			buttonnderungenSpeichern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -164,6 +166,7 @@ public class JFrameMannschaft extends JFrame {
 		}
 		{
 			buttonMannschaftLschen = new JButton("Mannschaft l\u00F6schen");
+			buttonMannschaftLschen.setMnemonic('l');
 			buttonMannschaftLschen.setToolTipText("ausgew\u00E4hlte Mannschaft l\u00F6schen");
 			buttonMannschaftLschen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -175,6 +178,7 @@ public class JFrameMannschaft extends JFrame {
 		}
 		{
 			buttonMannschaftHinzufgen = new JButton("Mannschaft hinzuf\u00FCgen");
+			buttonMannschaftHinzufgen.setMnemonic('h');
 			buttonMannschaftHinzufgen.setToolTipText("Neue Mannschaft hinzuf\u00FCgen");
 			buttonMannschaftHinzufgen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -249,12 +253,14 @@ public class JFrameMannschaft extends JFrame {
 			panel.setLayout(null);
 			{
 				textFieldSportartSuchen = new JTextField();
+				textFieldSportartSuchen.setToolTipText("Geben Sie hier den Namen oder die Id der Sportart ein, die Sie suchen wollen");
 				textFieldSportartSuchen.setBounds(6, 16, 158, 20);
 				panel.add(textFieldSportartSuchen);
 				textFieldSportartSuchen.setColumns(10);
 			}
 			{
 				buttonSportartSuchen = new JButton("Suchen");
+				buttonSportartSuchen.setMnemonic('u');
 				buttonSportartSuchen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						buttonSportartSuchenActionPerformed(e);
@@ -262,7 +268,7 @@ public class JFrameMannschaft extends JFrame {
 				});
 				buttonSportartSuchen.setBounds(6, 47, 89, 23);
 				panel.add(buttonSportartSuchen);
-				buttonSportartSuchen.setToolTipText("Mannschaft suchen");
+				buttonSportartSuchen.setToolTipText("Sportart suchen");
 			}
 			{
 				labelSportartSucheName = new JLabel("Sportart");
@@ -292,6 +298,7 @@ public class JFrameMannschaft extends JFrame {
 			}
 			{
 				buttonSportartFirst = new JButton("|<");
+				buttonSportartFirst.setToolTipText("Erste Sportart");
 				buttonSportartFirst.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						buttonSportartFirstActionPerformed(e);
@@ -302,6 +309,7 @@ public class JFrameMannschaft extends JFrame {
 			}
 			{
 				buttonSportartPrevious = new JButton("<<");
+				buttonSportartPrevious.setToolTipText("Vorherige Sportart");
 				buttonSportartPrevious.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						buttonSportartPreviousActionPerformed(e);
@@ -312,6 +320,7 @@ public class JFrameMannschaft extends JFrame {
 			}
 			{
 				buttonSportartNext = new JButton(">>");
+				buttonSportartNext.setToolTipText("N\u00E4chste Sportart");
 				buttonSportartNext.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						buttonSportartNextActionPerformed(e);
@@ -322,6 +331,7 @@ public class JFrameMannschaft extends JFrame {
 			}
 			{
 				buttonSportartLast = new JButton(">|");
+				buttonSportartLast.setToolTipText("Letzte Sportart");
 				buttonSportartLast.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						buttonSportartLastActionPerformed(e);
@@ -332,6 +342,7 @@ public class JFrameMannschaft extends JFrame {
 			}
 			{
 				buttonSportartbernehmen = new JButton("Sportart \u00FCbernehmen");
+				buttonSportartbernehmen.setToolTipText("Die ausgew\u00E4hlte Sportart wird zu der Mannschaft hinzugef\u00FCgt");
 				buttonSportartbernehmen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						buttonSportartbernehmenActionPerformed(e);

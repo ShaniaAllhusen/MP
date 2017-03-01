@@ -42,16 +42,16 @@ public class ZeitBloecke extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ZeitBloecke frame = new ZeitBloecke();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ZeitBloecke frame = new ZeitBloecke();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
@@ -145,9 +145,24 @@ public class ZeitBloecke extends JFrame {
 				bis = (int) spinnerUhrzeitBis.getValue();
 				von = (int) spinnerUhrzeitVon.getValue();
 				vonbisdif = bis-von;
-
 			}
 		});
+	}
+	
+	public int zeitberechnen() {
+		int anfang = Dao.Block.getDauer();
+		int min = 0; 
+		
+		for (int i = 0; i < vonbisdif; i++) {
+			min = min + anfang;
+		}
+		if(min%zeitblock != 0){
+			min = min - 15;
+		}
+			
+		
+		return min;
+		
 	}
 
 

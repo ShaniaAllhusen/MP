@@ -4,7 +4,7 @@ public class Block {
 	private String mannschaft;
 	private String sportart;
 	private int zeitbeginn;
-	private int dauer;
+	private static int dauer;
 	private int wochentag;
 	
 	public String getMannschaft() {
@@ -25,7 +25,7 @@ public class Block {
 	public void setZeitbeginn(int zeitbeginn) {
 		this.zeitbeginn = zeitbeginn;
 	}
-	public int getDauer() {
+	public static int getDauer() {
 		return dauer;
 	}
 	public void setDauer(int dauer) {

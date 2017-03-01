@@ -29,6 +29,9 @@ import Dao.VereinDao;
 import java.awt.Color;
 
 import javax.swing.border.TitledBorder;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Angemeldet extends JFrame {
 
@@ -48,6 +51,9 @@ public class Angemeldet extends JFrame {
 	private JButton buttonMannschaftenVerwalten;
 	private JPanel panel;
 	private JButton buttonNewButton;
+	private JTable table_1;
+	private JButton btnNewButtonZeitblockaendern;
+	private JLabel labelBild;
 
 	/**
 	 * Launch the application.
@@ -84,23 +90,15 @@ public class Angemeldet extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		{
-			contentPane.setLayout(null);
 			{
 				panel = new JPanel();
 				panel.setBorder(new TitledBorder(null, "Verwaltung", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-				panel.setBounds(542, 5, 217, 348);
-				contentPane.add(panel);
-				panel.setLayout(null);
-				JLabel labelBild = new JLabel(new ImageIcon(Angemeldet.class.getResource("/gui/Unbenannt.png")));
-				labelBild.setBounds(5, 197, 206, 140);
-				panel.add(labelBild);
+				labelBild = new JLabel(new ImageIcon(Angemeldet.class.getResource("/gui/Unbenannt.png")));
 				labelBild.setToolTipText("Sport");
 				labelBild.setHorizontalAlignment(SwingConstants.CENTER);
 				{
 					button_Abmelden = new JButton("Abmelden");
 					button_Abmelden.setVerifyInputWhenFocusTarget(false);
-					button_Abmelden.setBounds(6, 152, 205, 23);
-					panel.add(button_Abmelden);
 					button_Abmelden.setMnemonic('l');
 					button_Abmelden.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -111,23 +109,16 @@ public class Angemeldet extends JFrame {
 				}
 				{
 					buttonAktualisieren = new JButton("Aktualisieren");
-					buttonAktualisieren.setBounds(6, 16, 205, 23);
-					panel.add(buttonAktualisieren);
 					buttonAktualisieren.setToolTipText("Wenn Sie hier klicken wird die Tabelle aktualisiert");
 					{
 						{
 							buttonSportartVerwalten = new JButton("Sportarten verwalten");
 							buttonSportartVerwalten.setToolTipText("Hier k\u00F6nnen Sie Sportarten anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
-							buttonSportartVerwalten.setBounds(6, 152, 205, 23);
-
-							panel.add(buttonSportartVerwalten);
 							{
 								buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
 								buttonMannschaftenVerwalten.setToolTipText("Hier k\u00F6nnen Sie Mannschaften anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
-								buttonMannschaftenVerwalten.setBounds(6, 84, 205, 23);
-								panel.add(buttonMannschaftenVerwalten);
 
-								JButton btnNewButtonZeitblockaendern = new JButton("Zeitbl\u00F6cke verwalten");
+								btnNewButtonZeitblockaendern = new JButton("Zeitbl\u00F6cke verwalten");
 								btnNewButtonZeitblockaendern.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										EventQueue.invokeLater(new Runnable() {
@@ -142,12 +133,8 @@ public class Angemeldet extends JFrame {
 										});
 									}
 								});
-								btnNewButtonZeitblockaendern.setBounds(6, 50, 205, 23);
-								panel.add(btnNewButtonZeitblockaendern);
 								{
 									buttonNewButton = new JButton("Sportart verwalten");
-									buttonNewButton.setBounds(5, 118, 206, 23);
-									panel.add(buttonNewButton);
 								}
 								buttonMannschaftenVerwalten.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
@@ -176,10 +163,8 @@ public class Angemeldet extends JFrame {
 		}
 		{
 			labelHerzlichWillkommen = new JLabel("Herzlich Willkommen!");
-			labelHerzlichWillkommen.setBounds(119, 1, 304, 23);
 			labelHerzlichWillkommen.setHorizontalAlignment(SwingConstants.CENTER);
 			labelHerzlichWillkommen.setToolTipText("Schoen, dass sie da sind!");
-			contentPane.add(labelHerzlichWillkommen);
 		}
 
 		{
@@ -205,45 +190,94 @@ public class Angemeldet extends JFrame {
 		}
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
-		scrollPane.setBounds(10, 35, 522, 318);
-		contentPane.add(scrollPane);
-		table = new JTable();
+		table = new JTable(48,8);
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
 		String[] columns = new String[] {
 				"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
 		};
-		
-		try {
-			VereinDao vereinDao = new VereinDao();
-			String[] montag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.MO);
-			String[] dienstag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.DI);
-			String[] mittwoch = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.MI);
-			String[] donnerstag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.DO);
-			String[] freitag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.FR);
-			String[] samstag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.SA);
-			String[] sonntag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.SO);
-			
-			String[][] tableContent = new String[96][7];
-			
-			Vector<String> twoRows = new Vector();
-//			for (Dao.TwoLines tl : twoLines) {
-//				twoRows.add(tl.toString());
-//			} //FIXME
-			table.setModel(new DefaultTableModel(twoRows, twoRows.size()));
-			table.updateUI();
-			repaint();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		String[][] tableContent = new String[96][7];
+
+		Vector<String> twoRows = new Vector();
+		//			for (Dao.TwoLines tl : twoLines) {
+		//				twoRows.add(tl.toString());
+		//			} //FIXME
+
+		table.updateUI();
+		repaint();
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+						.addGap(5)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addGap(109)
+										.addComponent(labelHerzlichWillkommen, GroupLayout.PREFERRED_SIZE, 304, GroupLayout.PREFERRED_SIZE))
+										.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(panel, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+										.addGap(0))
+				);
+		gl_contentPane.setVerticalGroup(
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+						.addComponent(labelHerzlichWillkommen, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addGap(11)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+						.addGap(7))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+								.addContainerGap()
+								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+								.addContainerGap())
+				);
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+				gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addComponent(buttonSportartVerwalten, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+				.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+				.addGroup(gl_panel.createSequentialGroup()
+						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+										.addGap(1)
+										.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+										.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+												.addGap(1)
+												.addComponent(btnNewButtonZeitblockaendern, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+												.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+														.addGap(1)
+														.addComponent(buttonMannschaftenVerwalten, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+														.addComponent(buttonNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
+														.addGap(3))
+														.addComponent(labelBild, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 216, Short.MAX_VALUE)
+				);
+		gl_panel.setVerticalGroup(
+				gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+						.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addGap(11)
+						.addComponent(btnNewButtonZeitblockaendern, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addGap(11)
+						.addComponent(buttonMannschaftenVerwalten, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addGap(11)
+						.addComponent(buttonNewButton, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(buttonSportartVerwalten)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addGap(7)
+						.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 130, Short.MAX_VALUE)
+						.addContainerGap())
+				);
+		panel.setLayout(gl_panel);
+		contentPane.setLayout(gl_contentPane);
+
+
 	}
-	
+
 	// Wenn Button anmelden gedrückt, dann rufe wieder JFrame HallenPlan auf
 	protected void button_AbmeldenActionPerformed(ActionEvent e) { 
 		HallenPlan frame1 = new HallenPlan();
@@ -257,10 +291,16 @@ public class Angemeldet extends JFrame {
 		JFrameSportart jFrameSportart = new JFrameSportart();
 		jFrameSportart.setVisible(true);
 	}
-	
+
 	// Wenn Button Mannschaft gedrückt, dann rufe JFrame Mannschaft auf
 	protected void buttonMannschaftenVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
 		JFrameMannschaft jFrameMannschaft = new JFrameMannschaft();
 		jFrameMannschaft.setVisible(true);
+	}
+	public void tabellebilden() {
+		String[][] tabellenanzeige = new String[48][8];
+		for (int i = 0; i < tabellenanzeige.length; i++) {
+
+		}
 	}
 }

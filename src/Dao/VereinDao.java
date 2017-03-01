@@ -97,9 +97,19 @@ public class VereinDao {
 		}
 		
 		return result;
+		
+	}
+	
+		public void sqldatenholen() throws SQLException {
+			PreparedStatement preparedStatement = null;
+			Connection conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
+
+			//FIXME String sql ="select "
+		}
+		
+		
 		// TwoLi[][] foobar = list.toArray(new String[list.size()][list.get(0).length]);
 		// return foobar; // FIXME
-	}
 
 //	public ArrayList<TwoLines> getTable() throws SQLException { //Falsch
 //		PreparedStatement preparedStatement = null;
@@ -121,8 +131,10 @@ public class VereinDao {
 //		}
 //
 //		return list;
-//		// TwoLi[][] foobar = list.toArray(new String[list.size()][list.get(0).length]);
-//		// return foobar; // FIXME
-//	}
+
+		public void zeitenlesen(int zeit) {
+			
+			
+		}
 	
 }

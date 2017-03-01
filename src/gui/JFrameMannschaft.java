@@ -443,8 +443,7 @@ public class JFrameMannschaft extends JFrame {
 
 	protected void buttonPreviousActionPerformed(ActionEvent e) {
 		Mannschaft mannschaftAktiv = new Mannschaft();
-		mannschaftAktiv.setId(Integer.parseInt(textFieldID.getText()));
-		mannschaftAktiv.setName(textFieldName.getText());
+		mannschaftAktiv = create();
 		try {
 			Mannschaft mannschaftPrevious = mannschaftDao.previous(mannschaftAktiv);
 			showMannschaft(mannschaftPrevious);
@@ -455,9 +454,8 @@ public class JFrameMannschaft extends JFrame {
 	}
 
 	protected void buttonNextActionPerformed(ActionEvent e) {
-		Mannschaft mannschaftAktiv = new Mannschaft();
-		mannschaftAktiv.setId(Integer.parseInt(textFieldID.getText()));
-		mannschaftAktiv.setName(textFieldName.getText());
+			Mannschaft mannschaftAktiv = new Mannschaft();
+			mannschaftAktiv = create();
 		try {
 			Mannschaft mannschaftNext = mannschaftDao.next(mannschaftAktiv);
 			showMannschaft(mannschaftNext);
@@ -475,19 +473,6 @@ public class JFrameMannschaft extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	}
-
-	private void showMannschaft(Mannschaft mannschaft) {
-		textFieldID.setText(Integer.toString(mannschaft.getId()));
-		textFieldName.setText(mannschaft.getName());
-		textFieldSportartId.setText(Integer.toString(mannschaft.getSportart().getId()));
-		textFieldSportartName.setText(mannschaft.getSportart().getName());
-	}
-
-	private void showSportart(Sportart sportart) {
-		textFieldSportartSucheId.setText(Integer.toString(sportart.getId()));
-		textFieldSportartSucheName.setText(sportart.getName());
-
 	}
 
 	protected void buttonSportartFirstActionPerformed(ActionEvent e) {
@@ -552,6 +537,29 @@ public class JFrameMannschaft extends JFrame {
 		textFieldSportartSuchen.setText("");
 	}
 	
+	private Mannschaft create() {
+		Mannschaft mannschaftAktiv = new Mannschaft();
+		Sportart sportartAktiv = new Sportart();
+		sportartAktiv.setId(Integer.parseInt(textFieldSportartId.getText()));
+		sportartAktiv.setName(textFieldSportartName.getText());
+		mannschaftAktiv.setSportart(sportartAktiv);
+		mannschaftAktiv.setId(Integer.parseInt(textFieldID.getText()));
+		mannschaftAktiv.setName(textFieldName.getText());
+		return mannschaftAktiv;
+	}
+
+	private void showMannschaft(Mannschaft mannschaft) {
+		textFieldID.setText(Integer.toString(mannschaft.getId()));
+		textFieldName.setText(mannschaft.getName());
+		textFieldSportartId.setText(Integer.toString(mannschaft.getSportart().getId()));
+		textFieldSportartName.setText(mannschaft.getSportart().getName());
+	}
+
+	private void showSportart(Sportart sportart) {
+		textFieldSportartSucheId.setText(Integer.toString(sportart.getId()));
+		textFieldSportartSucheName.setText(sportart.getName());
+
+	}
 	private void showErrorPane(Exception e) {
 		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
 	}

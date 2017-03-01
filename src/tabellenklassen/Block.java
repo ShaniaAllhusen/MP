@@ -1,12 +1,19 @@
-package Dao;
+package tabellenklassen;
 
 public class Block {
+	private int Id;
 	private String mannschaft;
 	private String sportart;
 	private int zeitbeginn;
 	private int dauer;
 	private int wochentag;
 	
+	public int getId() {
+		return Id;
+	}
+	public void setId(int id) {
+		Id = id;
+	}
 	public String getMannschaft() {
 		return mannschaft;
 	}
@@ -37,9 +44,6 @@ public class Block {
 	public void setWochentag(int wochentag) {
 		this.wochentag = wochentag;
 	}
-	
-	
-	
 }
 
 

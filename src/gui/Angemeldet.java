@@ -72,10 +72,19 @@ public class Angemeldet extends JFrame {
 	 * Create the frame.
 	 */
 	public Angemeldet() {
-		initGUI();
+		try {
+			initGUI();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.setLocationRelativeTo(null);
 	}
-	private void initGUI() {
+	
+	private void initGUI() throws ClassNotFoundException, SQLException {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\Mittelstufenprojekt\\sport.jpg"));
 		setTitle("Sie sind angemeldet");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -214,33 +223,13 @@ public class Angemeldet extends JFrame {
 		String[] columns = new String[] {
 				"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
 		};
+	
 		
-		try {
-			VereinDao vereinDao = new VereinDao();
-			String[] montag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.MO);
-			String[] dienstag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.DI);
-			String[] mittwoch = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.MI);
-			String[] donnerstag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.DO);
-			String[] freitag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.FR);
-			String[] samstag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.SA);
-			String[] sonntag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.SO);
-			
-			String[][] tableContent = new String[96][7];
-			
-			Vector<String> twoRows = new Vector();
-//			for (Dao.TwoLines tl : twoLines) {
-//				twoRows.add(tl.toString());
-//			} //FIXME
-			table.setModel(new DefaultTableModel(twoRows, twoRows.size()));
-			table.updateUI();
-			repaint();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	//	String[][] tableContent = getTableContentArray(); 
+		
+	//	table.setModel(new DefaultTableModel(tableContent, tableContent.length));
+		table.updateUI();
+		repaint();
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 	}
 	
@@ -263,4 +252,19 @@ public class Angemeldet extends JFrame {
 		JFrameMannschaft jFrameMannschaft = new JFrameMannschaft();
 		jFrameMannschaft.setVisible(true);
 	}
+	
+
+//	public String[][] getTableContentArray(){
+//		String[][] tableContentArray = new String[96][8];
+//		
+//		// Zeitblöcke von DAO holen
+//		for(Block zeitblock: zeitblöcke){
+//			int column;
+//		}
+//		int start = Block.getZeitbeginn();
+//		// Start == 60
+//		int row = (start)
+//		
+//		return tableContentArray;
+	//}
 }

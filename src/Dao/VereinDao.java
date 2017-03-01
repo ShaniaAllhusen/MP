@@ -22,7 +22,7 @@ public class VereinDao {
 	//Konstruktor
 	public VereinDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
-		datei = this.getClass().getResource("testdatenbank.db").toString();
+		datei = this.getClass().getResource("Datenbank.db").toString();
 	}
 
 	//Connection aufbauen

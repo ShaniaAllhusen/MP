@@ -383,6 +383,17 @@ public class JFrameMannschaft extends JFrame {
 		mannschaftDao.insert(mannschaftAktiv);
 	}
 	protected void buttonMannschaftLschenActionPerformed(ActionEvent e) {
+		String mannschaftId;
+		int id;
+		
+		try {
+			mannschaftId = textFieldSportartId.getText();
+			id = Integer.parseInt(mannschaftId);
+			mannschaftDao.delete(id);
+		} catch (NumberFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	protected void buttonMannschaftHinzufgenActionPerformed(ActionEvent e) {

@@ -86,7 +86,7 @@ public class JFrameTraining extends JFrame {
 	}
 	private void initGUI() {
 		setTitle("Training verwalten");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 277);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

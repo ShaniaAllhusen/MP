@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
@@ -37,7 +38,6 @@ public class Angemeldet extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton button_Abmelden;
-	private JComboBox comboBox_Halle;
 	private JLabel labelHerzlichWillkommen;
 	private JLabel labelNewLabel;
 	private JTable table;
@@ -47,6 +47,7 @@ public class Angemeldet extends JFrame {
 	private JButton buttonSportartVerwalten;
 	private JButton buttonMannschaftenVerwalten;
 	private JPanel panel;
+	private JButton buttonNewButton;
 
 	/**
 	 * Launch the application.
@@ -91,7 +92,7 @@ public class Angemeldet extends JFrame {
 				contentPane.add(panel);
 				panel.setLayout(null);
 				JLabel labelBild = new JLabel(new ImageIcon(Angemeldet.class.getResource("/gui/Unbenannt.png")));
-				labelBild.setBounds(6, 197, 206, 140);
+				labelBild.setBounds(5, 197, 206, 140);
 				panel.add(labelBild);
 				labelBild.setToolTipText("Sport");
 				labelBild.setHorizontalAlignment(SwingConstants.CENTER);
@@ -123,9 +124,9 @@ public class Angemeldet extends JFrame {
 							{
 								buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
 								buttonMannschaftenVerwalten.setToolTipText("Hier k\u00F6nnen Sie Mannschaften anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
-								buttonMannschaftenVerwalten.setBounds(6, 179, 205, 23);
+								buttonMannschaftenVerwalten.setBounds(6, 84, 205, 23);
 								panel.add(buttonMannschaftenVerwalten);
-								
+
 								JButton btnNewButtonZeitblockaendern = new JButton("Zeitbl\u00F6cke verwalten");
 								btnNewButtonZeitblockaendern.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
@@ -141,14 +142,18 @@ public class Angemeldet extends JFrame {
 										});
 									}
 								});
-								btnNewButtonZeitblockaendern.setBounds(7, 118, 205, 23);
+								btnNewButtonZeitblockaendern.setBounds(6, 50, 205, 23);
 								panel.add(btnNewButtonZeitblockaendern);
+								{
+									buttonNewButton = new JButton("Sportart verwalten");
+									buttonNewButton.setBounds(5, 118, 206, 23);
+									panel.add(buttonNewButton);
+								}
 								buttonMannschaftenVerwalten.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										try {
 											buttonMannschaftenVerwaltenActionPerformed(e);
 										} catch (ClassNotFoundException e1) {
-											// TODO Auto-generated catch block
 											e1.printStackTrace();
 										}
 									}
@@ -163,68 +168,70 @@ public class Angemeldet extends JFrame {
 					}
 					buttonAktualisieren.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							System.out.println(comboBox_Halle.getSelectedIndex()+1);
-							anzeigenJTable();
+							table.updateUI();
 						}
 					});
 				}
 			}
 		}
 		{
-			comboBox_Halle = new JComboBox();
-			comboBox_Halle.setBounds(10, 23, 522, 20);
-			comboBox_Halle.setToolTipText("Hier koennen Sie die Halle auswaehlen, von welcher Sie den Plan angezeigt bekommen wollen");
-			comboBox_Halle.setModel(new DefaultComboBoxModel(new String[] {"Halle 1", "Halle 2", "Halle 3"}));
-			comboBox_Halle.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-
-				}
-			});
-			contentPane.add(comboBox_Halle);
-		}
-		{
 			labelHerzlichWillkommen = new JLabel("Herzlich Willkommen!");
-			labelHerzlichWillkommen.setBounds(78, 1, 304, 23);
+			labelHerzlichWillkommen.setBounds(119, 1, 304, 23);
 			labelHerzlichWillkommen.setHorizontalAlignment(SwingConstants.CENTER);
 			labelHerzlichWillkommen.setToolTipText("Schoen, dass sie da sind!");
 			contentPane.add(labelHerzlichWillkommen);
 		}
 
 		{
-
 			Icon _icon = new ImageIcon("Unbenannt.png");
 		}
 		{
 
 
-//			String[] columnName = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
-//			String[][] data = new String[7][22];
-//			String test = null;
-//			ArrayList <Training> ArrayListTraining = new ArrayList<Training>();
-//			for (int i = 0; i < 7; i++) {
-//				for ( int j = 8; j <= 22; j++){
-//					ArrayListTraining = vereinDao.select(comboBox_Halle.getSelectedIndex(),columnName[i], j);
-//					for(Training t : ArrayListTraining) {
-//						test = t.getMannschaft().getName() + t.getMannschaft().getSportart().getName();
-//					}
-//					data[i][j] = test;
-//				}
-//			}
+			//			String[] columnName = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
+			//			String[][] data = new String[7][22];
+			//			String test = null;
+			//			ArrayList <Training> ArrayListTraining = new ArrayList<Training>();
+			//			for (int i = 0; i < 7; i++) {
+			//				for ( int j = 8; j <= 22; j++){
+			//					ArrayListTraining = vereinDao.select(comboBox_Halle.getSelectedIndex(),columnName[i], j);
+			//					for(Training t : ArrayListTraining) {
+			//						test = t.getMannschaft().getName() + t.getMannschaft().getSportart().getName();
+			//					}
+			//					data[i][j] = test;
+			//				}
+			//			}
 
 		}
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
-		scrollPane.setBounds(10, 54, 522, 299);
+		scrollPane.setBounds(10, 35, 522, 318);
 		contentPane.add(scrollPane);
 		table = new JTable();
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
-        table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
+		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
 		String[] columns = new String[] {
-				 "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
+				"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
 		};
+		
 		try {
-			table.setModel(new DefaultTableModel(new VereinDao().getTable(), columns));
+			VereinDao vereinDao = new VereinDao();
+			String[] montag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.MO);
+			String[] dienstag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.DI);
+			String[] mittwoch = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.MI);
+			String[] donnerstag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.DO);
+			String[] freitag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.FR);
+			String[] samstag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.SA);
+			String[] sonntag = vereinDao.getWerteWochentag(Dao.VereinDao.Weekday.SO);
+			
+			String[][] tableContent = new String[96][7];
+			
+			Vector<String> twoRows = new Vector();
+//			for (Dao.TwoLines tl : twoLines) {
+//				twoRows.add(tl.toString());
+//			} //FIXME
+			table.setModel(new DefaultTableModel(twoRows, twoRows.size()));
 			table.updateUI();
 			repaint();
 		} catch (ClassNotFoundException e) {
@@ -236,49 +243,22 @@ public class Angemeldet extends JFrame {
 		}
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 	}
-	//	protected void button_speichernActionPerformed(VereinDao vereinDao, Training training) throws Exception { //Update
-	//		ArrayList<Training> arrayListTraining = VereinDao.select(vereinDao);
-	//		try{
-	//			Training = Dao.VereinDao.select();
-	//			
-	//			
-	//		}catch(Exception d){
-	//			showErrorPane(d);
-	//		}
-	//	
-	//	}
-	public void anzeigenJTable()  { //JTable füllen
-		String[][] data = new String[7][22];
-		String[] columnName = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
-		String test = null;
-		ArrayList <Training> ArrayListTraining = new ArrayList<Training>();
-		for (int i = 0; i < 7; i++) {
-			for ( int j = 8; j <= 22; j++){
-				ArrayListTraining = vereinDao.select(comboBox_Halle.getSelectedIndex()+1,columnName[i], j);
-				for(Training t : ArrayListTraining) {
-					test = t.getMannschaft().getName() + t.getMannschaft().getSportart().getName();
-				}
-				data[i][j] = test;
-			}
-		}
-		table = new JTable(data, columnName);
-		
-	}
-
-	protected void button_AbmeldenActionPerformed(ActionEvent e) { //Ende GUI 1 anzeigen
+	
+	// Wenn Button anmelden gedrückt, dann rufe wieder JFrame HallenPlan auf
+	protected void button_AbmeldenActionPerformed(ActionEvent e) { 
 		HallenPlan frame1 = new HallenPlan();
 		frame1.setVisible(true);
 		this.dispose();
 		frame1.setLocationRelativeTo(null);
 	}
 
-	public JTable getTable() {
-		return table;
-	}
+	// Wenn Button Sportart verwalten gedrückt, dann rufe JFrame Sportart auf
 	protected void buttonSportartVerwaltenActionPerformed(ActionEvent e) {
 		JFrameSportart jFrameSportart = new JFrameSportart();
 		jFrameSportart.setVisible(true);
 	}
+	
+	// Wenn Button Mannschaft gedrückt, dann rufe JFrame Mannschaft auf
 	protected void buttonMannschaftenVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
 		JFrameMannschaft jFrameMannschaft = new JFrameMannschaft();
 		jFrameMannschaft.setVisible(true);

@@ -38,7 +38,6 @@ public class HallenPlan extends JFrame {
 	private JLabel lblUser;
 	private JLabel lblPassword;
 	private JPanel panel;
-	private JComboBox comboBox_Halle;
 	private JButton btnLogin;
 
 	/**
@@ -72,7 +71,7 @@ public class HallenPlan extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setEnabled(false);
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
-		scrollPane.setBounds(10, 54, 522, 299);
+		scrollPane.setBounds(10, 23, 549, 372);
 		contentPane.add(scrollPane);
 		table = new JTable();
 		table.setColumnSelectionAllowed(false);
@@ -84,24 +83,24 @@ public class HallenPlan extends JFrame {
 		String[] columns = new String[] {
 				 "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
 		};
-		try {
-			
-			table.setModel(new DefaultTableModel(new VereinDao().getTable(), columns));
-			for (String columnIdentifier : columns) {
-				TableColumn column = table.getColumn(columnIdentifier);
-				column.setCellRenderer(new WordWrapCellRenderer());
-			}
-			
-			table.updateUI();
-			repaint();
-			repaint();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			
+//			table.setModel(new DefaultTableModel(new VereinDao().getWerteWochentag(), columns)); //FIXME
+//			for (String columnIdentifier : columns) {
+//				TableColumn column = table.getColumn(columnIdentifier);
+//				column.setCellRenderer(new WordWrapCellRenderer());
+//			}
+//			
+//			table.updateUI();
+//			repaint();
+//			repaint();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		panel = new JPanel();
@@ -156,12 +155,6 @@ public class HallenPlan extends JFrame {
 		});
 		btnLogin.setBounds(28, 145, 113, 28);
 		panel.add(btnLogin);
-
-		comboBox_Halle = new JComboBox();
-		comboBox_Halle.setToolTipText("Hier koennen Sie die Halle auswaehlen, von welcher Sie den Plan angezeigt bekommen wollen");
-		comboBox_Halle.setModel(new DefaultComboBoxModel(new String[] {"Halle 1", "Halle 2", "Halle 3"}));
-		comboBox_Halle.setBounds(10, 20, 522, 20);
-		contentPane.add(comboBox_Halle);
 	}
 	
 	public JTable getTable() {

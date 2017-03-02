@@ -18,9 +18,16 @@ import javax.swing.JButton;
 import tabellenklassen.Benutzer;
 import tabellenklassen.Mannschaft;
 import tabellenklassen.Mitglied;
+
+import tabellenklassen.Sportart;
+import Dao.BenutzerDao;
+import Dao.NoBenutzerFound;
+import Dao.NoMannschaftFound;
+
 import Dao.MitgliedDao;
 import Dao.NoMannschaftFound;
 import Dao.NoMitgliedFound;
+
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -76,9 +83,15 @@ public class JFrameMitglied extends JFrame {
 	private JButton buttonBenutzerNext;
 	private JButton buttonBenutzerLast;
 	private JButton buttonBenutzerprofilHinzufgen;
+
+
+	private BenutzerDao benutzerDao;
+
+
 	private JButton buttonndern;
-	
+
 	private MitgliedDao mitgliedDao;
+
 
 	/**
 	 * Launch the application.
@@ -353,7 +366,12 @@ public class JFrameMitglied extends JFrame {
 				}
 				buttonBenutzerprofilSuchen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						buttonBenutzerprofilSuchenActionPerformed(e);
+						try {
+							buttonBenutzerprofilSuchenActionPerformed(e);
+						} catch (NoBenutzerFound e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 			}
@@ -377,6 +395,7 @@ public class JFrameMitglied extends JFrame {
 						buttonMitgliedSuchenActionPerformed(e);
 					}
 				});
+
 				buttonMitgliedSuchen.setBounds(169, 16, 116, 23);
 				panel_4.add(buttonMitgliedSuchen);
 			}
@@ -422,8 +441,40 @@ public class JFrameMitglied extends JFrame {
 			}
 		}
 	}
-	protected void buttonBenutzerprofilSuchenActionPerformed(ActionEvent e) {
+	protected void buttonBenutzerprofilSuchenActionPerformed(ActionEvent e) throws NoBenutzerFound {
+		String eingabe = textFieldBenutzerprofilSuchen.getText();
+		Benutzer benutzerAktiv;
+		boolean prüfen;
+		int id;
+		try {
+			prüfen = benutzerDao.eingabePruefen(eingabe);
+			benutzerAktiv = new Benutzer();
+			if(prüfen==true) {
+				id = Integer.parseInt(eingabe);
+				benutzerAktiv = benutzerDao.select(id);
+			}
+			else {
+				benutzerAktiv = benutzerDao.select(eingabe);
+			}
+			showBenutzer(benutzerAktiv);
+		} catch (NoBenutzerFound e1) {
+			showErrorPane(e1);
+		}
+
 	}
+
+
+	private void showBenutzer(Benutzer benutzer) {
+		textFieldBenutzerSucheID.setText(Integer.toString(benutzer.getId()));
+		textFieldBenutzerSucheName.setText(benutzer.getUsername());
+		textFieldBenutzerSuchePasswort.setText(benutzer.getPasswort());
+
+	}
+	private void showErrorPane(Exception e) {
+		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+	}
+
+
 	protected void buttonMitgliedSuchenActionPerformed(ActionEvent e) {
 		String eingabe = textFieldMitgliedSuchen.getText();
 		Mitglied mitglied;
@@ -437,11 +488,8 @@ public class JFrameMitglied extends JFrame {
 			showErrorPane(e1);
 		}
 	}
-	
-	private void showErrorPane(Exception e) {
-		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
-	}
-	
+
+
 	private void showMitglied(Mitglied mitglied) {
 		textFieldMitgliedId.setText(Integer.toString(mitglied.getId()));
 		textFieldVorname.setText(mitglied.getVorname());
@@ -470,7 +518,7 @@ public class JFrameMitglied extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	public Mitglied create() {
 		Benutzer benutzerAktiv = new Benutzer();
 		Mitglied mitgliedAktiv = new Mitglied();
@@ -488,6 +536,7 @@ public class JFrameMitglied extends JFrame {
 		return mitgliedAktiv;
 	}
 	protected void buttonMitgliedNextActionPerformed(ActionEvent e) {
+
 		Mitglied mitgliedAktiv = new Mitglied();
 		mitgliedAktiv = create();
 		Mitglied mitgliedNext = mitgliedDao.next(mitgliedAktiv);
@@ -501,5 +550,7 @@ public class JFrameMitglied extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
 	}
+
 }

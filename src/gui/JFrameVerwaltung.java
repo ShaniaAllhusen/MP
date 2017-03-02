@@ -241,7 +241,12 @@ public class JFrameVerwaltung extends JFrame {
 		buttonNewMitgliederVerwalten = new JButton("Mitglieder verwalten");
 		buttonNewMitgliederVerwalten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				buttonNewMitgliederVerwaltenActionPerformed(e);
+				try {
+					buttonNewMitgliederVerwaltenActionPerformed(e);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		GroupLayout gl_panel = new GroupLayout(panel);

@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 
 import Dao.NoSportartFoundException;
 import Dao.SportartDao;
-import tabellenklassen.Mannschaft;
 import tabellenklassen.Sportart;
 
 import java.awt.event.ActionListener;
@@ -63,7 +62,6 @@ public class JFrameSportart extends JFrame {
 		try {
 			dao = new SportartDao();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -104,7 +102,6 @@ public class JFrameSportart extends JFrame {
 					}
 					showSportart(sportartAktiv);
 				} catch (NoSportartFoundException e1) {
-					// TODO Auto-generated catch block
 					showErrorPane(e1);
 				}
 
@@ -149,7 +146,6 @@ public class JFrameSportart extends JFrame {
 					try {
 						dao.update(sportart);
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -172,7 +168,6 @@ public class JFrameSportart extends JFrame {
 						dao.insert(sportart);
 						textFieldId.setText(Integer.toString(sportart.getId()));
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -189,7 +184,6 @@ public class JFrameSportart extends JFrame {
 					try {
 						dao.delete(sportart);
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -231,7 +225,6 @@ public class JFrameSportart extends JFrame {
 						Sportart sportartNext = dao.next(sportartAktiv);
 						showSportart(sportartNext);
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -265,7 +258,6 @@ public class JFrameSportart extends JFrame {
 			Sportart sportartFirst = dao.first();
 			showSportart(sportartFirst);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -277,7 +269,6 @@ public class JFrameSportart extends JFrame {
 			Sportart sportartPrevious = dao.previous(sportartAktiv);
 			showSportart(sportartPrevious);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -286,7 +277,6 @@ public class JFrameSportart extends JFrame {
 			Sportart sportartLast = dao.last();
 			showSportart(sportartLast);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}

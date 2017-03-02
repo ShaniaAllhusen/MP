@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -19,10 +18,16 @@ import javax.swing.JButton;
 import tabellenklassen.Benutzer;
 import tabellenklassen.Mannschaft;
 import tabellenklassen.Mitglied;
+<<<<<<< HEAD
 import tabellenklassen.Sportart;
 import Dao.BenutzerDao;
 import Dao.NoBenutzerFound;
 import Dao.NoMannschaftFound;
+=======
+import Dao.MitgliedDao;
+import Dao.NoMannschaftFound;
+import Dao.NoMitgliedFound;
+>>>>>>> branch 'master' of https://github.com/shania3/MP.git
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -78,9 +83,15 @@ public class JFrameMitglied extends JFrame {
 	private JButton buttonBenutzerNext;
 	private JButton buttonBenutzerLast;
 	private JButton buttonBenutzerprofilHinzufgen;
+<<<<<<< HEAD
 
 	private BenutzerDao benutzerDao;
 
+=======
+	private JButton buttonndern;
+	
+	private MitgliedDao mitgliedDao;
+>>>>>>> branch 'master' of https://github.com/shania3/MP.git
 
 	/**
 	 * Launch the application.
@@ -100,14 +111,16 @@ public class JFrameMitglied extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws ClassNotFoundException 
 	 */
-	public JFrameMitglied() {
+	public JFrameMitglied() throws ClassNotFoundException {
+		mitgliedDao = new MitgliedDao();
 		initGUI();
 	}
 	private void initGUI() {
 		setTitle("Mitglieder verwalten");
 		setDefaultCloseOperation(JFrameMannschaft.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 637, 443);
+		setBounds(100, 100, 637, 452);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -269,7 +282,7 @@ public class JFrameMitglied extends JFrame {
 		{
 			panel_3 = new JPanel();
 			panel_3.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Benutzerprofil ausw\u00E4hlen", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel_3.setBounds(330, 196, 285, 193);
+			panel_3.setBounds(330, 190, 285, 214);
 			contentPane.add(panel_3);
 			panel_3.setLayout(null);
 			{
@@ -318,33 +331,38 @@ public class JFrameMitglied extends JFrame {
 				}
 				{
 					buttonBenutzerprofilUebernehmen = new JButton("\u00DCbernehmen");
-					buttonBenutzerprofilUebernehmen.setBounds(6, 129, 124, 23);
+					buttonBenutzerprofilUebernehmen.setBounds(6, 191, 273, 23);
 					panel_3.add(buttonBenutzerprofilUebernehmen);
 				}
 				{
 					buttonBenutzerFirst = new JButton("|<");
-					buttonBenutzerFirst.setBounds(6, 163, 67, 23);
+					buttonBenutzerFirst.setBounds(6, 129, 67, 23);
 					panel_3.add(buttonBenutzerFirst);
 				}
 				{
 					buttonBenutzerPrevious = new JButton("<<");
-					buttonBenutzerPrevious.setBounds(75, 163, 67, 23);
+					buttonBenutzerPrevious.setBounds(75, 129, 67, 23);
 					panel_3.add(buttonBenutzerPrevious);
 				}
 				{
 					buttonBenutzerNext = new JButton(">>");
-					buttonBenutzerNext.setBounds(145, 163, 67, 23);
+					buttonBenutzerNext.setBounds(145, 129, 67, 23);
 					panel_3.add(buttonBenutzerNext);
 				}
 				{
 					buttonBenutzerLast = new JButton(">|");
-					buttonBenutzerLast.setBounds(212, 163, 67, 23);
+					buttonBenutzerLast.setBounds(212, 129, 67, 23);
 					panel_3.add(buttonBenutzerLast);
 				}
 				{
 					buttonBenutzerprofilHinzufgen = new JButton("Neu");
-					buttonBenutzerprofilHinzufgen.setBounds(145, 129, 134, 23);
+					buttonBenutzerprofilHinzufgen.setBounds(6, 159, 136, 23);
 					panel_3.add(buttonBenutzerprofilHinzufgen);
+				}
+				{
+					buttonndern = new JButton("\u00C4ndern");
+					buttonndern.setBounds(155, 159, 124, 23);
+					panel_3.add(buttonndern);
 				}
 				buttonBenutzerprofilSuchen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -372,21 +390,41 @@ public class JFrameMitglied extends JFrame {
 			}
 			{
 				buttonMitgliedSuchen = new JButton("Suchen");
+				buttonMitgliedSuchen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						buttonMitgliedSuchenActionPerformed(e);
+					}
+				});
 				buttonMitgliedSuchen.setBounds(169, 16, 116, 23);
 				panel_4.add(buttonMitgliedSuchen);
 			}
 			{
 				buttonMitgliedFirst = new JButton("|<");
+				buttonMitgliedFirst.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						buttonMitgliedFirstActionPerformed(e);
+					}
+				});
 				buttonMitgliedFirst.setBounds(6, 48, 67, 23);
 				panel_4.add(buttonMitgliedFirst);
 			}
 			{
 				buttonMitgliedPrevious = new JButton("<<");
+				buttonMitgliedPrevious.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						buttonMitgliedPreviousActionPerformed(e);
+					}
+				});
 				buttonMitgliedPrevious.setBounds(75, 48, 67, 23);
 				panel_4.add(buttonMitgliedPrevious);
 			}
 			{
 				buttonMitgliedNext = new JButton(">>");
+				buttonMitgliedNext.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						buttonMitgliedNextActionPerformed(e);
+					}
+				});
 				buttonMitgliedNext.setBounds(151, 48, 67, 23);
 				panel_4.add(buttonMitgliedNext);
 			}
@@ -418,6 +456,7 @@ public class JFrameMitglied extends JFrame {
 		}
 
 	}
+<<<<<<< HEAD
 
 	private void showBenutzer(Benutzer benutzer) {
 		textFieldBenutzerSucheID.setText(Integer.toString(benutzer.getId()));
@@ -429,4 +468,72 @@ public class JFrameMitglied extends JFrame {
 		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
 	}
 
+=======
+	protected void buttonMitgliedSuchenActionPerformed(ActionEvent e) {
+		String eingabe = textFieldMitgliedSuchen.getText();
+		Mitglied mitglied;
+		int id;
+		try {
+			mitglied = new Mitglied();
+			id = Integer.parseInt(eingabe);
+			mitglied = mitgliedDao.select(id);
+			showMitglied(mitglied);
+		} catch (NoMitgliedFound e1) {
+			showErrorPane(e1);
+		}
+	}
+	
+	private void showErrorPane(Exception e) {
+		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private void showMitglied(Mitglied mitglied) {
+		textFieldMitgliedId.setText(Integer.toString(mitglied.getId()));
+		textFieldVorname.setText(mitglied.getVorname());
+		textFieldNachname.setText(mitglied.getNachname());
+		textFieldGeburtsdatum.setText(mitglied.getGeburtsdatum());
+		textFieldStrasse.setText(mitglied.getStrasse());
+		textFieldPostleitzahl.setText(mitglied.getPlz());
+		textFieldOrt.setText(mitglied.getOrt());
+		textFieldBenutzerId.setText(Integer.toString(mitglied.getBenutzer().getId()));
+		textFieldBenutzername.setText(mitglied.getBenutzer().getUsername());
+		textFieldPasswort.setText(mitglied.getBenutzer().getPasswort());
+	}
+	protected void buttonMitgliedFirstActionPerformed(ActionEvent e) {
+		Mitglied mitgliedFirst = new Mitglied();
+		mitgliedFirst = mitgliedDao.first();
+		showMitglied(mitgliedFirst);
+	}
+	protected void buttonMitgliedPreviousActionPerformed(ActionEvent e) {
+		Mitglied mitgliedAktiv = new Mitglied();
+		mitgliedAktiv = create();
+		try {
+			Mitglied mitgliedPrevious  = mitgliedDao.previous(mitgliedAktiv);
+			showMitglied(mitgliedPrevious);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public Mitglied create() {
+		Benutzer benutzerAktiv = new Benutzer();
+		Mitglied mitgliedAktiv = new Mitglied();
+		benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerId.getText()));
+		benutzerAktiv.setUsername(textFieldBenutzername.getText());
+		benutzerAktiv.setPasswort(textFieldPasswort.getText());
+		mitgliedAktiv.setBenutzer(benutzerAktiv);
+		mitgliedAktiv.setId(Integer.parseInt(textFieldMitgliedId.getText()));
+		mitgliedAktiv.setVorname(textFieldVorname.getText());
+		mitgliedAktiv.setNachname(textFieldNachname.getText());
+		mitgliedAktiv.setGeburtsdatum(textFieldGeburtsdatum.getText());
+		mitgliedAktiv.setStrasse(textFieldStrasse.getText());
+		mitgliedAktiv.setPlz(textFieldPostleitzahl.getText());
+		mitgliedAktiv.setOrt(textFieldOrt.getText());
+		return mitgliedAktiv;
+	}
+	protected void buttonMitgliedNextActionPerformed(ActionEvent e) {
+		
+	}
+>>>>>>> branch 'master' of https://github.com/shania3/MP.git
 }

@@ -6,11 +6,8 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,9 +20,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 
 import Dao.TableModelSelfMade;
 import Dao.VereinDao;
@@ -99,10 +94,8 @@ public class HallenPlan extends JFrame {
 		//			repaint();
 		//			repaint();
 		//		} catch (ClassNotFoundException e) {
-		//			// TODO Auto-generated catch block
 		//			e.printStackTrace();
 		//		} catch (SQLException e) {
-		//			// TODO Auto-generated catch block
 		//			e.printStackTrace();
 		//		}
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));

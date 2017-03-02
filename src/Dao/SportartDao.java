@@ -17,7 +17,7 @@ public class SportartDao {
 
 	public SportartDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
-		datei = this.getClass().getResource("Datenbank.db").getPath().toString().replaceFirst("MP/bin/", "MP/src/");
+		datei = this.getClass().getResource("Datenbank.db").getPath().toString().replaceFirst("bin/", "src/");
 		datei = "jdbc:sqlite:" + datei;
 		System.out.println(datei);
 	}

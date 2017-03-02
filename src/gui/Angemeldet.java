@@ -212,7 +212,7 @@ public class Angemeldet extends JFrame {
 		String[] columns = new String[] {
 				"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
 		};
- 
+		tablemodelselfmade = new TableModelSelfMade();
 		table.setModel(tablemodelselfmade);
 		table.updateUI();
 		repaint();

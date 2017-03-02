@@ -347,6 +347,11 @@ public class JFrameMitglied extends JFrame {
 				}
 				{
 					buttonBenutzerprofilUebernehmen = new JButton("\u00DCbernehmen");
+					buttonBenutzerprofilUebernehmen.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							buttonBenutzerprofilUebernehmenActionPerformed(e);
+						}
+					});
 					buttonBenutzerprofilUebernehmen.setBounds(6, 191, 273, 23);
 					panel_3.add(buttonBenutzerprofilUebernehmen);
 				}
@@ -611,5 +616,18 @@ public class JFrameMitglied extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+	
+	private void benutzerSucheFelderLeeren() {
+		textFieldBenutzerSucheID.setText("");
+		textFieldBenutzerSucheName.setText("");
+		textFieldBenutzerSuchePasswort.setText("");
+	}
+	
+	protected void buttonBenutzerprofilUebernehmenActionPerformed(ActionEvent e) {
+		textFieldBenutzerId.setText(textFieldBenutzerSucheID.getText());
+		textFieldBenutzername.setText(textFieldBenutzerSucheName.getText());
+		textFieldPasswort.setText(textFieldBenutzerSuchePasswort.getText());
+		benutzerSucheFelderLeeren();
 	}
 }

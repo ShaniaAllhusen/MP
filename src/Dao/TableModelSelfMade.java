@@ -1,9 +1,6 @@
 package Dao;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-//import java.util.Vector;
-
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -14,8 +11,8 @@ public class TableModelSelfMade implements TableModel {
 	// private Vector<Object> Block = new Vector<Object>();
 	private ArrayList<Zeitblock> bloecke = new ArrayList<Zeitblock>();
 
-
-	public int getRowCount(int index) throws SQLException {
+	@Override
+	public int getRowCount() {
 		int rows = bloecke.size();
 		return rows;
 	}
@@ -28,13 +25,14 @@ public class TableModelSelfMade implements TableModel {
 	@Override
 	public String getColumnName(int columnIndex) {
 		switch( columnIndex ){
-		case 0: return "Montag";
-		case 1: return "Dienstag";
-		case 2: return "Mittwoch";
-		case 3: return "Donnerstag";
-		case 4: return "Freitag";
-		case 5: return "Samstag";
-		case 6: return "Sonntag";
+		case 0: return "Zeit";
+		case 1: return "Montag";
+		case 2: return "Dienstag";
+		case 3: return "Mittwoch";
+		case 4: return "Donnerstag";
+		case 5: return "Freitag";
+		case 6: return "Samstag";
+		case 7: return "Sonntag";
 		default: return null;
 		}		
 	}
@@ -47,6 +45,9 @@ public class TableModelSelfMade implements TableModel {
 		case 2: return String.class;
 		case 3: return String.class;
 		case 4: return String.class;
+		case 5: return String.class;
+		case 6: return String.class;
+		case 7: return String.class;
 		default: return null;
 		}   
 
@@ -74,13 +75,13 @@ public class TableModelSelfMade implements TableModel {
 	//	        }
 	//	}
 	public Object getValueAt( int rowIndex, int columnIndex ) {
-		Zeitblock block = bloecke.get( rowIndex );
+		Zeitblock zeitblock = bloecke.get( rowIndex );
 		switch( columnIndex ){
-		case 0: return block.getMannschaft();
-		case 1: return block.getSportart();
-		case 2: return Integer.valueOf( block.getDauer() );
-		case 3: return Integer.valueOf( block.getZeitbeginn());
-		case 4: return Integer.valueOf(block.getWochentag());
+		case 0: return zeitblock.getMannschaft();
+		case 1: return zeitblock.getSportart();
+		case 2: return Integer.valueOf( Zeitblock.getDauer() );
+		case 3: return Integer.valueOf( zeitblock.getZeitbeginn());
+		case 4: return Integer.valueOf(zeitblock.getWochentag());
 		default: throw new IllegalArgumentException( "Wrong column" );
 		}
 	}
@@ -102,12 +103,5 @@ public class TableModelSelfMade implements TableModel {
 
 	}
 
-	@Override
-	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-
+	
 }

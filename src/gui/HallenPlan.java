@@ -27,6 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import Dao.TableModelSelfMade;
 import Dao.VereinDao;
 
 public class HallenPlan extends JFrame {
@@ -39,6 +40,7 @@ public class HallenPlan extends JFrame {
 	private JLabel lblPassword;
 	private JPanel panel;
 	private JButton btnLogin;
+	private TableModelSelfMade tablemodelselfmade;
 
 	/**
 	 * Launch the application.
@@ -73,16 +75,18 @@ public class HallenPlan extends JFrame {
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
 		scrollPane.setBounds(10, 23, 549, 372);
 		contentPane.add(scrollPane);
-		table = new JTable();
-		table.setColumnSelectionAllowed(false);
-		table.setCellSelectionEnabled(false);
-		table.setEnabled(false);
-		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
+//		table.setColumnSelectionAllowed(false);
+//		table.setCellSelectionEnabled(false);
+//		table.setEnabled(false);
+		table = new JTable(8, 96);
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
-		String[] columns = new String[] {
-				"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
-		};
+		tablemodelselfmade = new TableModelSelfMade();
+		table.setModel(tablemodelselfmade);
+		table.updateUI();
+		repaint();
+		
 		//		try {
 		//			
 		//			table.setModel(new DefaultTableModel(new VereinDao().getWerteWochentag(), columns)); //FIXME
@@ -161,10 +165,6 @@ public class HallenPlan extends JFrame {
 		});
 		btnLogin.setBounds(28, 145, 113, 28);
 		panel.add(btnLogin);
-	}
-
-	public JTable getTable() {
-		return table;
 	}
 
 	static class WordWrapCellRenderer extends JTextArea implements TableCellRenderer {

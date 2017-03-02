@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -14,6 +15,15 @@ import java.awt.Color;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import tabellenklassen.Benutzer;
+import tabellenklassen.Mannschaft;
+import tabellenklassen.Mitglied;
+import tabellenklassen.Sportart;
+import Dao.BenutzerDao;
+import Dao.NoBenutzerFound;
+import Dao.NoMannschaftFound;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -68,6 +78,9 @@ public class JFrameMitglied extends JFrame {
 	private JButton buttonBenutzerNext;
 	private JButton buttonBenutzerLast;
 	private JButton buttonBenutzerprofilHinzufgen;
+
+	private BenutzerDao benutzerDao;
+
 
 	/**
 	 * Launch the application.
@@ -335,7 +348,12 @@ public class JFrameMitglied extends JFrame {
 				}
 				buttonBenutzerprofilSuchen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						buttonBenutzerprofilSuchenActionPerformed(e);
+						try {
+							buttonBenutzerprofilSuchenActionPerformed(e);
+						} catch (NoBenutzerFound e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 			}
@@ -379,6 +397,36 @@ public class JFrameMitglied extends JFrame {
 			}
 		}
 	}
-	protected void buttonBenutzerprofilSuchenActionPerformed(ActionEvent e) {
+	protected void buttonBenutzerprofilSuchenActionPerformed(ActionEvent e) throws NoBenutzerFound {
+		String eingabe = textFieldBenutzerprofilSuchen.getText();
+		Benutzer benutzerAktiv;
+		boolean prüfen;
+		int id;
+		try {
+			prüfen = benutzerDao.eingabePruefen(eingabe);
+			benutzerAktiv = new Benutzer();
+			if(prüfen==true) {
+				id = Integer.parseInt(eingabe);
+				benutzerAktiv = benutzerDao.select(id);
+			}
+			else {
+				benutzerAktiv = benutzerDao.select(eingabe);
+			}
+			showBenutzer(benutzerAktiv);
+		} catch (NoBenutzerFound e1) {
+			showErrorPane(e1);
+		}
+
 	}
+
+	private void showBenutzer(Benutzer benutzer) {
+		textFieldBenutzerSucheID.setText(Integer.toString(benutzer.getId()));
+		textFieldBenutzerSucheName.setText(benutzer.getUsername());
+		textFieldBenutzerSuchePasswort.setText(benutzer.getPasswort());
+
+	}
+	private void showErrorPane(Exception e) {
+		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+	}
+
 }

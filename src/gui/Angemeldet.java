@@ -5,14 +5,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Vector;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,11 +15,8 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
 
-import tabellenklassen.Training;
-import Dao.VereinDao;
 import Dao.TableModelSelfMade;
 
 import java.awt.Color;
@@ -36,24 +28,18 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Angemeldet extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton button_Abmelden;
 	private JLabel labelHerzlichWillkommen;
-	private JLabel labelNewLabel;
 	private JTable table;
 
 	private TableModelSelfMade tablemodelselfmade;
-	private VereinDao vereinDao;
 	private JButton buttonAktualisieren;
 	private JButton buttonSportartVerwalten;
 	private JButton buttonMannschaftenVerwalten;
 	private JPanel panel;
 	private JButton buttonNewButton;
-	private JTable table_1;
 	private JButton btnNewButtonZeitblockaendern;
 	private JLabel labelBild;
 	private JButton buttonTrainingVerwalten;
@@ -84,15 +70,13 @@ public class Angemeldet extends JFrame {
 		try {
 			initGUI();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.setLocationRelativeTo(null);
 	}
-	
+
 	private void initGUI() throws ClassNotFoundException, SQLException {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\Mittelstufenprojekt\\sport.jpg"));
 		setTitle("Sie sind angemeldet");
@@ -180,7 +164,7 @@ public class Angemeldet extends JFrame {
 		}
 
 		{
-			Icon _icon = new ImageIcon("Unbenannt.png");
+			new ImageIcon("Unbenannt.png");
 		}
 		{
 
@@ -200,7 +184,7 @@ public class Angemeldet extends JFrame {
 			//			}
 
 		}
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
 		scrollPane.setBounds(10, 35, 522, 318);
@@ -209,13 +193,16 @@ public class Angemeldet extends JFrame {
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
-		String[] columns = new String[] {
-				"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
-		};
 		tablemodelselfmade = new TableModelSelfMade();
 		table.setModel(tablemodelselfmade);
 		table.updateUI();
 		repaint();
+		/**int rows = tablemodelselfmade.getRowCount();
+		 * System.out.println(rows);
+		 * int column = tablemodelselfmade.getColumnCount();
+		 * System.out.println(column); //TODO
+		 */
+
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -243,54 +230,53 @@ public class Angemeldet extends JFrame {
 								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
 								.addContainerGap())
 				);
-		
+
 		buttonTrainingVerwalten = new JButton("Training verwalten");
 		buttonTrainingVerwalten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					buttonTrainingVerwaltenActionPerformed(e);
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
+				gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(3)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(labelBild, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 213, Short.MAX_VALUE)
-						.addComponent(button_Abmelden, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-						.addComponent(buttonTrainingVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-						.addComponent(buttonSportartVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-						.addComponent(buttonNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-						.addComponent(buttonMannschaftenVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-						.addComponent(btnNewButtonZeitblockaendern, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-						.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
-					.addGap(3))
-		);
+						.addGap(3)
+						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addComponent(labelBild, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(button_Abmelden, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(buttonTrainingVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(buttonSportartVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(buttonNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(buttonMannschaftenVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(btnNewButtonZeitblockaendern, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
+								.addGap(3))
+				);
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+				gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnNewButtonZeitblockaendern, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonMannschaftenVerwalten, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonNewButton, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonSportartVerwalten)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonTrainingVerwalten)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
-					.addGap(19))
-		);
+						.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(btnNewButtonZeitblockaendern, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(buttonMannschaftenVerwalten, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(buttonNewButton, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(buttonSportartVerwalten)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(buttonTrainingVerwalten)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+						.addGap(19))
+				);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 
@@ -324,22 +310,21 @@ public class Angemeldet extends JFrame {
 		}
 	}
 
-	
-
-//	public String[][] getTableContentArray(){
-//		String[][] tableContentArray = new String[96][8];
-//		
-//		// Zeitblöcke von DAO holen
-//		for(Block zeitblock: zeitblöcke){
-//			int column;
-//		}
-//		int start = Block.getZeitbeginn();
-//		// Start == 60
-//		int row = (start)
-//		
-//		return tableContentArray;
+	//	public String[][] getTableContentArray(){
+	//		String[][] tableContentArray = new String[96][8];
+	//		
+	//		// Zeitblöcke von DAO holen
+	//		for(Block zeitblock: zeitblöcke){
+	//			int column;
+	//		}
+	//		int start = Block.getZeitbeginn();
+	//		// Start == 60
+	//		int row = (start)
+	//		
+	//		return tableContentArray;
 	//}
 
+	// Wenn Button Training verwalten gedrückt, dann rufe JFrame Training auf
 	protected void buttonTrainingVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
 		JFrameTraining jFrameTraining = new JFrameTraining();
 		jFrameTraining.setVisible(true);

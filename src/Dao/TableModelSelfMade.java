@@ -74,17 +74,7 @@ public class TableModelSelfMade implements TableModel {
 	//	            default: return null;
 	//	        }
 	//	}
-	public Object getValueAt( int rowIndex, int columnIndex ) {
-		Zeitblock zeitblock = bloecke.get( rowIndex );
-		switch( columnIndex ){
-		case 0: return zeitblock.getMannschaft();
-		case 1: return zeitblock.getSportart();
-		case 2: return Integer.valueOf( Zeitblock.getDauer() );
-		case 3: return Integer.valueOf( zeitblock.getZeitbeginn());
-		case 4: return Integer.valueOf(zeitblock.getWochentag());
-		default: throw new IllegalArgumentException( "Wrong column" );
-		}
-	}
+	
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
@@ -101,6 +91,12 @@ public class TableModelSelfMade implements TableModel {
 	public void removeTableModelListener(TableModelListener l) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

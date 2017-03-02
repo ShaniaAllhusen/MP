@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import tabellenklassen.Zeitblock;
+
 
 public class VereinDao {
 
@@ -142,10 +144,25 @@ public class VereinDao {
 //		}
 //
 //		return list;
-
-		public void zeitenlesen(int zeit) {
-			
-			
-		}
+// FIXME 
+//		public String zeitenBerechnen(int auswahl) {
+//			Zeitblock zeitblock = new Zeitblock();
+//
+//			
+//			int zeitbeginn = zeitblock.getZeitbeginn();
+//			int zeitende = 
+//			int zeitlaenge = zeitblock.getDauer();
+//			int stunde,gesamtzeit;
+//			String[] uhrzeit = new String[96];
+//			
+//			for (int i = 0; i < ; i++) {
+//				gesamtzeit = gesamtzeit + min;
+//				
+//				if(gesamtzeit%zeitlaenge != 0) {
+//					
+//				}
+//			}
+//			return uhrzeit[auswahl];
+//		}
 	
 }

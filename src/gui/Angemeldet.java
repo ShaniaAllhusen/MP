@@ -303,11 +303,8 @@ public class Angemeldet extends JFrame {
 		jFrameMannschaft.setVisible(true);
 	}
 
-	public void tabellebilden() {
-		String[][] tabellenanzeige = new String[48][8];
-		for (int i = 0; i < tabellenanzeige.length; i++) {
-
-		}
+	public void zeitBerechnen() {
+		
 	}
 
 	//	public String[][] getTableContentArray(){

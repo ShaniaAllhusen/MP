@@ -29,7 +29,7 @@ import Dao.NoMannschaftFound;
 import Dao.NoMitgliedFound;
 >>>>>>> branch 'master' of https://github.com/shania3/MP.git
 
-import java.awt.event.ActionListener;
+	import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class JFrameMitglied extends JFrame {
@@ -83,15 +83,15 @@ public class JFrameMitglied extends JFrame {
 	private JButton buttonBenutzerNext;
 	private JButton buttonBenutzerLast;
 	private JButton buttonBenutzerprofilHinzufgen;
-<<<<<<< HEAD
+
 
 	private BenutzerDao benutzerDao;
 
-=======
+
 	private JButton buttonndern;
-	
+
 	private MitgliedDao mitgliedDao;
->>>>>>> branch 'master' of https://github.com/shania3/MP.git
+
 
 	/**
 	 * Launch the application.
@@ -395,6 +395,7 @@ public class JFrameMitglied extends JFrame {
 						buttonMitgliedSuchenActionPerformed(e);
 					}
 				});
+
 				buttonMitgliedSuchen.setBounds(169, 16, 116, 23);
 				panel_4.add(buttonMitgliedSuchen);
 			}
@@ -456,7 +457,7 @@ public class JFrameMitglied extends JFrame {
 		}
 
 	}
-<<<<<<< HEAD
+
 
 	private void showBenutzer(Benutzer benutzer) {
 		textFieldBenutzerSucheID.setText(Integer.toString(benutzer.getId()));
@@ -468,7 +469,7 @@ public class JFrameMitglied extends JFrame {
 		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
 	}
 
-=======
+
 	protected void buttonMitgliedSuchenActionPerformed(ActionEvent e) {
 		String eingabe = textFieldMitgliedSuchen.getText();
 		Mitglied mitglied;
@@ -482,11 +483,8 @@ public class JFrameMitglied extends JFrame {
 			showErrorPane(e1);
 		}
 	}
-	
-	private void showErrorPane(Exception e) {
-		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
-	}
-	
+
+
 	private void showMitglied(Mitglied mitglied) {
 		textFieldMitgliedId.setText(Integer.toString(mitglied.getId()));
 		textFieldVorname.setText(mitglied.getVorname());
@@ -515,7 +513,7 @@ public class JFrameMitglied extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	public Mitglied create() {
 		Benutzer benutzerAktiv = new Benutzer();
 		Mitglied mitgliedAktiv = new Mitglied();
@@ -533,7 +531,7 @@ public class JFrameMitglied extends JFrame {
 		return mitgliedAktiv;
 	}
 	protected void buttonMitgliedNextActionPerformed(ActionEvent e) {
-		
+
 	}
->>>>>>> branch 'master' of https://github.com/shania3/MP.git
+
 }

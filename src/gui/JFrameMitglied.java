@@ -18,15 +18,15 @@ import javax.swing.JButton;
 import tabellenklassen.Benutzer;
 import tabellenklassen.Mannschaft;
 import tabellenklassen.Mitglied;
-
 import tabellenklassen.Sportart;
 import Dao.BenutzerDao;
 import Dao.NoBenutzerFound;
 import Dao.NoMannschaftFound;
-
 import Dao.MitgliedDao;
 import Dao.NoMannschaftFound;
 import Dao.NoMitgliedFound;
+
+
 
 
 import java.awt.event.ActionListener;
@@ -266,11 +266,21 @@ public class JFrameMitglied extends JFrame {
 		}
 		{
 			buttonMitgliedHinzufuegen = new JButton("Mitglied hinzuf\u00FCgen");
+			buttonMitgliedHinzufuegen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					buttonMitgliedHinzufuegenActionPerformed(e);
+				}
+			});
 			buttonMitgliedHinzufuegen.setBounds(332, 104, 279, 23);
 			contentPane.add(buttonMitgliedHinzufuegen);
 		}
 		{
 			buttonMitgliedLoeschen = new JButton("Mitglied l\u00F6schen");
+			buttonMitgliedLoeschen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					buttonMitgliedLoeschenActionPerformed(e);
+				}
+			});
 			buttonMitgliedLoeschen.setBounds(332, 135, 279, 23);
 			contentPane.add(buttonMitgliedLoeschen);
 		}
@@ -553,4 +563,38 @@ public class JFrameMitglied extends JFrame {
 
 	}
 
+	protected void buttonMitgliedHinzufuegenActionPerformed(ActionEvent e) {
+		Mitglied mitglied = create();
+		try {
+			mitgliedDao.insert(mitglied);
+			textFieldMitgliedId.setText(Integer.toString(mitglied.getId()));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
+	protected void buttonMitgliedLoeschenActionPerformed(ActionEvent e) {
+		Mitglied mitglied = create();
+		try {
+			mitgliedDao.delete(mitglied);
+			felderLeeren();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	private void felderLeeren() {
+		textFieldMitgliedId.setText("");
+		textFieldVorname.setText("");
+		textFieldNachname.setText("");
+		textFieldGeburtsdatum.setText("");
+		textFieldStrasse.setText("");
+		textFieldPostleitzahl.setText("");
+		textFieldOrt.setText("");
+		textFieldBenutzerId.setText("");
+		textFieldBenutzername.setText("");
+		textFieldPasswort.setText("");
+	}
 }

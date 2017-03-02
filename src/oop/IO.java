@@ -76,7 +76,6 @@ public class IO {
 		System.out.println("Anzahl der Zahlen: ");
 		int anzahl = IO.readInteger();
 		double[] data = new double[anzahl];
-
 		return readDoubleArray(anzahl);
 	}
 

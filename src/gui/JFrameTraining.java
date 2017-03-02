@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -23,7 +22,6 @@ import tabellenklassen.Mannschaft;
 import tabellenklassen.Sportart;
 import Dao.MannschaftDao;
 import Dao.NoMannschaftFound;
-import Dao.SportartDao;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -51,7 +49,6 @@ public class JFrameTraining extends JFrame {
 	/**
 	 * @wbp.nonvisual location=54,-41
 	 */
-	private final JTree tree = new JTree();
 	private JLabel labelSportart;
 	private JTextField textFieldSportartName;
 	private JLabel labelSportart_1;
@@ -279,7 +276,6 @@ public class JFrameTraining extends JFrame {
 			mannschaftFirst = mannschaftDao.first();
 			showMannschaft(mannschaftFirst);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -290,7 +286,6 @@ public class JFrameTraining extends JFrame {
 			Mannschaft mannschaftPrevious = mannschaftDao.previous(mannschaftAktiv);
 			showMannschaft(mannschaftPrevious);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -302,7 +297,6 @@ public class JFrameTraining extends JFrame {
 			Mannschaft mannschaftNext = mannschaftDao.next(mannschaftAktiv);
 			showMannschaft(mannschaftNext);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -311,7 +305,6 @@ public class JFrameTraining extends JFrame {
 			Mannschaft mannschaftLast = mannschaftDao.last();
 			showMannschaft(mannschaftLast);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}

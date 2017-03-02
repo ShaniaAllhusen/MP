@@ -5,14 +5,10 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Vector;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,10 +16,8 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
 
-import tabellenklassen.Training;
 import Dao.VereinDao;
 
 import java.awt.Color;
@@ -42,16 +36,13 @@ public class JFrameVerwaltung extends JFrame {
 	private JPanel contentPane;
 	private JButton button_Abmelden;
 	private JLabel labelHerzlichWillkommen;
-	private JLabel labelNewLabel;
 	private JTable table;
 
-	private VereinDao vereinDao;
 	private JButton buttonAktualisieren;
 	private JButton buttonSportartVerwalten;
 	private JButton buttonMannschaftenVerwalten;
 	private JPanel panel;
 	private JButton buttonNewButton;
-	private JTable table_1;
 	private JButton btnNewButtonZeitblockaendern;
 	private JLabel labelBild;
 	private JButton buttonTrainingVerwalten;
@@ -83,10 +74,8 @@ public class JFrameVerwaltung extends JFrame {
 		try {
 			initGUI();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.setLocationRelativeTo(null);
@@ -96,7 +85,7 @@ public class JFrameVerwaltung extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\Mittelstufenprojekt\\sport.jpg"));
 		setTitle("Sie sind angemeldet");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 775, 402);
+		setBounds(100, 100, 775, 432);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -179,7 +168,7 @@ public class JFrameVerwaltung extends JFrame {
 		}
 
 		{
-			Icon _icon = new ImageIcon("Unbenannt.png");
+			new ImageIcon("Unbenannt.png");
 		}
 		{
 
@@ -245,7 +234,6 @@ public class JFrameVerwaltung extends JFrame {
 				try {
 					buttonTrainingVerwaltenActionPerformed(e);
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

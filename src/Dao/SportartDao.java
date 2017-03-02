@@ -7,9 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JOptionPane;
-
-import tabellenklassen.Mannschaft;
 import tabellenklassen.Sportart;
 
 public class SportartDao {
@@ -246,7 +243,6 @@ public class SportartDao {
 				preparedStatement.close();
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

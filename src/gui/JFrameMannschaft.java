@@ -1,8 +1,6 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -409,7 +407,6 @@ public class JFrameMannschaft extends JFrame {
 			textFieldSportartName.setText("");
 			textFieldSportartId.setText("");
 		} catch (NumberFormatException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -437,7 +434,6 @@ public class JFrameMannschaft extends JFrame {
 			mannschaftDao.insert(mannschaftAktiv);
 			showMannschaft(mannschaftAktiv);
 		} catch (NumberFormatException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -448,7 +444,6 @@ public class JFrameMannschaft extends JFrame {
 			mannschaftFirst = mannschaftDao.first();
 			showMannschaft(mannschaftFirst);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -460,7 +455,6 @@ public class JFrameMannschaft extends JFrame {
 			Mannschaft mannschaftPrevious = mannschaftDao.previous(mannschaftAktiv);
 			showMannschaft(mannschaftPrevious);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -472,7 +466,6 @@ public class JFrameMannschaft extends JFrame {
 			Mannschaft mannschaftNext = mannschaftDao.next(mannschaftAktiv);
 			showMannschaft(mannschaftNext);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -482,7 +475,6 @@ public class JFrameMannschaft extends JFrame {
 			Mannschaft mannschaftLast = mannschaftDao.last();
 			showMannschaft(mannschaftLast);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -492,7 +484,6 @@ public class JFrameMannschaft extends JFrame {
 			Sportart sportartFirst = sportartDao.first();
 			showSportart(sportartFirst);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -504,7 +495,6 @@ public class JFrameMannschaft extends JFrame {
 			Sportart sportartPrevious = sportartDao.previous(sportartAktiv);
 			showSportart(sportartPrevious);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -517,7 +507,6 @@ public class JFrameMannschaft extends JFrame {
 			Sportart sportartNext = sportartDao.next(sportartAktiv);
 			showSportart(sportartNext);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -526,7 +515,6 @@ public class JFrameMannschaft extends JFrame {
 			Sportart sportartLast = sportartDao.last();
 			showSportart(sportartLast);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}

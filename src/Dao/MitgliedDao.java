@@ -108,6 +108,34 @@ public class MitgliedDao {
 				} 
 			}
 		}
+		
+		//Mitglied ändern
+		public void update(Mitglied mitglied) {
+			Connection conn = null;
+			try { 
+				conn = getConnection();
+				String sql = "UPDATE mitglied SET vorname = ?, nachname = ?, geburtsdatum = ?, strasse = ?, plz = ?, ort = ?, benutzer_id = ? WHERE id = ?"; 
+				PreparedStatement preparedStatement = conn.prepareStatement(sql); 
+				preparedStatement.setString(1, mitglied.getVorname());  
+				preparedStatement.setString(2, mitglied.getNachname());  
+				preparedStatement.setString(3, mitglied.getGeburtsdatum());  
+				preparedStatement.setString(4, mitglied.getStrasse());  
+				preparedStatement.setString(5, mitglied.getPlz());  
+				preparedStatement.setString(6, mitglied.getOrt());  
+				preparedStatement.setInt(7, mitglied.getBenutzer().getId());  
+				preparedStatement.setInt(8, mitglied.getId());  
+				preparedStatement.executeUpdate(); 
+			} catch (SQLException e) { 
+				e.printStackTrace(); } 
+			finally { 
+				try { 
+					conn.close(); 
+				} catch (SQLException e) { 
+					e.printStackTrace(); 
+				} 
+			}
+		}
+
 	
 	//erstes Mitglied
 	public Mitglied first() {

@@ -29,6 +29,7 @@ import Dao.NoMitgliedFound;
 
 
 
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -286,6 +287,11 @@ public class JFrameMitglied extends JFrame {
 		}
 		{
 			buttonDatenAktualisieren = new JButton("Daten aktualisieren");
+			buttonDatenAktualisieren.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					buttonDatenAktualisierenActionPerformed(e);
+				}
+			});
 			buttonDatenAktualisieren.setBounds(332, 162, 279, 23);
 			contentPane.add(buttonDatenAktualisieren);
 		}
@@ -596,5 +602,14 @@ public class JFrameMitglied extends JFrame {
 		textFieldBenutzerId.setText("");
 		textFieldBenutzername.setText("");
 		textFieldPasswort.setText("");
+	}
+	protected void buttonDatenAktualisierenActionPerformed(ActionEvent e) {
+		Mitglied mitglied = create();
+		try {
+			mitgliedDao.update(mitglied);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

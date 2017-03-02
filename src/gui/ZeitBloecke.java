@@ -150,7 +150,7 @@ public class ZeitBloecke extends JFrame {
 	}
 	
 	public int zeitberechnen() {
-		int anfang = Dao.Block.getDauer();
+		int anfang = tabellenklassen.Zeitblock.getDauer();
 		int min = 0; 
 		
 		for (int i = 0; i < vonbisdif; i++) {

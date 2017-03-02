@@ -25,6 +25,7 @@ import javax.swing.border.LineBorder;
 
 import tabellenklassen.Training;
 import Dao.VereinDao;
+import Dao.TableModelSelfMade;
 
 import java.awt.Color;
 
@@ -45,6 +46,7 @@ public class Angemeldet extends JFrame {
 	private JLabel labelNewLabel;
 	private JTable table;
 
+	private TableModelSelfMade tablemodelselfmade;
 	private VereinDao vereinDao;
 	private JButton buttonAktualisieren;
 	private JButton buttonSportartVerwalten;
@@ -198,9 +200,12 @@ public class Angemeldet extends JFrame {
 			//			}
 
 		}
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
-		table = new JTable(48,8);
+		scrollPane.setBounds(10, 35, 522, 318);
+		contentPane.add(scrollPane);
+		table = new JTable(8, 96);
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
@@ -208,6 +213,7 @@ public class Angemeldet extends JFrame {
 				"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
 		};
  
+		table.setModel(tablemodelselfmade);
 		table.updateUI();
 		repaint();
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));

@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-import tabellenklassen.Block;
+import tabellenklassen.Zeitblock;
 
 public class TableModelSelfMade implements TableModel {
 	// private Vector<Object> Block = new Vector<Object>();
-	private ArrayList<Block> bloecke = new ArrayList<Block>();
+	private ArrayList<Zeitblock> bloecke = new ArrayList<Zeitblock>();
 
 
 	public int getRowCount(int index) throws SQLException {
@@ -74,7 +74,7 @@ public class TableModelSelfMade implements TableModel {
 	//	        }
 	//	}
 	public Object getValueAt( int rowIndex, int columnIndex ) {
-		Block block = bloecke.get( rowIndex );
+		Zeitblock block = bloecke.get( rowIndex );
 		switch( columnIndex ){
 		case 0: return block.getMannschaft();
 		case 1: return block.getSportart();

@@ -26,16 +26,6 @@ import Dao.MitgliedDao;
 import Dao.NoMannschaftFound;
 import Dao.NoMitgliedFound;
 
-
-
-
-
-
-
-
-
-
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -274,16 +264,31 @@ public class JFrameMitglied extends JFrame {
 		}
 		{
 			buttonMitgliedHinzufuegen = new JButton("Mitglied hinzuf\u00FCgen");
+			buttonMitgliedHinzufuegen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					buttonMitgliedHinzufuegenActionPerformed(e);
+				}
+			});
 			buttonMitgliedHinzufuegen.setBounds(332, 104, 279, 23);
 			contentPane.add(buttonMitgliedHinzufuegen);
 		}
 		{
 			buttonMitgliedLoeschen = new JButton("Mitglied l\u00F6schen");
+			buttonMitgliedLoeschen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					buttonMitgliedLoeschenActionPerformed(e);
+				}
+			});
 			buttonMitgliedLoeschen.setBounds(332, 135, 279, 23);
 			contentPane.add(buttonMitgliedLoeschen);
 		}
 		{
 			buttonDatenAktualisieren = new JButton("Daten aktualisieren");
+			buttonDatenAktualisieren.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					buttonDatenAktualisierenActionPerformed(e);
+				}
+			});
 			buttonDatenAktualisieren.setBounds(332, 162, 279, 23);
 			contentPane.add(buttonDatenAktualisieren);
 		}
@@ -339,6 +344,11 @@ public class JFrameMitglied extends JFrame {
 				}
 				{
 					buttonBenutzerprofilUebernehmen = new JButton("\u00DCbernehmen");
+					buttonBenutzerprofilUebernehmen.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							buttonBenutzerprofilUebernehmenActionPerformed(e);
+						}
+					});
 					buttonBenutzerprofilUebernehmen.setBounds(6, 191, 273, 23);
 					panel_3.add(buttonBenutzerprofilUebernehmen);
 				}
@@ -663,6 +673,62 @@ public class JFrameMitglied extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
+	protected void buttonMitgliedHinzufuegenActionPerformed(ActionEvent e) {
+		Mitglied mitglied = create();
+		try {
+			mitgliedDao.insert(mitglied);
+			textFieldMitgliedId.setText(Integer.toString(mitglied.getId()));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+	}
+	protected void buttonMitgliedLoeschenActionPerformed(ActionEvent e) {
+		Mitglied mitglied = create();
+		try {
+			mitgliedDao.delete(mitglied);
+			felderLeeren();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+
+	private void felderLeeren() {
+		textFieldMitgliedId.setText("");
+		textFieldVorname.setText("");
+		textFieldNachname.setText("");
+		textFieldGeburtsdatum.setText("");
+		textFieldStrasse.setText("");
+		textFieldPostleitzahl.setText("");
+		textFieldOrt.setText("");
+		textFieldBenutzerId.setText("");
+		textFieldBenutzername.setText("");
+		textFieldPasswort.setText("");
+	}
+	protected void buttonDatenAktualisierenActionPerformed(ActionEvent e) {
+		Mitglied mitglied = create();
+		try {
+			mitgliedDao.update(mitglied);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+
+	private void benutzerSucheFelderLeeren() {
+		textFieldBenutzerSucheID.setText("");
+		textFieldBenutzerSucheName.setText("");
+		textFieldBenutzerSuchePasswort.setText("");
+	}
+
+	protected void buttonBenutzerprofilUebernehmenActionPerformed(ActionEvent e) {
+		textFieldBenutzerId.setText(textFieldBenutzerSucheID.getText());
+		textFieldBenutzername.setText(textFieldBenutzerSucheName.getText());
+		textFieldPasswort.setText(textFieldBenutzerSuchePasswort.getText());
+		benutzerSucheFelderLeeren();
+	}
 }
 

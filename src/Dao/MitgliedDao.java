@@ -5,10 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import tabellenklassen.Benutzer;
 import tabellenklassen.Mannschaft;
 import tabellenklassen.Mitglied;
+import tabellenklassen.Sportart;
 
 public class MitgliedDao {
 	private String CLASSNAME = "org.sqlite.JDBC";
@@ -17,7 +19,7 @@ public class MitgliedDao {
 
 	public MitgliedDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
-		datei = this.getClass().getResource("Datenbank.db").getPath().toString().replaceFirst("MP/bin/", "MP/src/");
+		datei = this.getClass().getResource("Datenbank.db").getPath().toString().replaceFirst("bin/", "src/");
 		datei = "jdbc:sqlite:" + datei;
 		System.out.println(datei);
 	}
@@ -56,6 +58,84 @@ public class MitgliedDao {
 		}
 		return mitglied;
 	}
+	
+	//Mitglied hinzufügen
+	public void insert(Mitglied mitglied) {
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		try{
+			conn = getConnection();
+			String sql = "INSERT INTO mitglied (vorname, nachname, geburtsdatum, strasse, plz, ort, benutzer_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, mitglied.getVorname());
+			preparedStatement.setString(2, mitglied.getNachname());
+			preparedStatement.setString(3, mitglied.getGeburtsdatum());
+			preparedStatement.setString(4, mitglied.getStrasse());
+			preparedStatement.setString(5, mitglied.getPlz());
+			preparedStatement.setString(6, mitglied.getOrt());
+			preparedStatement.setInt(7, mitglied.getBenutzer().getId());
+			preparedStatement.executeUpdate(); 
+			ResultSet resultSet = preparedStatement.getGeneratedKeys();
+			resultSet.next();
+			mitglied.setId(resultSet.getInt(1));
+		} catch (SQLException e) { 
+			e.printStackTrace(); } 
+		finally { 
+			try { 
+				conn.close(); 
+			} catch (SQLException e) { 
+				e.printStackTrace(); 
+			} 
+		}
+	}
+	
+	//Mitglied löschen
+		public void delete(Mitglied mitglied) {
+			Connection conn = null;
+			try { 
+				conn = getConnection();
+				String sql = "DELETE FROM mitglied WHERE id = ?"; 
+				PreparedStatement preparedStatement = conn.prepareStatement(sql); 
+				preparedStatement.setInt(1, mitglied.getId());
+				preparedStatement.executeUpdate(); 
+			} catch (SQLException e) { 
+				e.printStackTrace(); } 
+			finally { 
+				try { 
+					conn.close(); 
+				} catch (SQLException e) { 
+					e.printStackTrace(); 
+				} 
+			}
+		}
+		
+		//Mitglied ändern
+		public void update(Mitglied mitglied) {
+			Connection conn = null;
+			try { 
+				conn = getConnection();
+				String sql = "UPDATE mitglied SET vorname = ?, nachname = ?, geburtsdatum = ?, strasse = ?, plz = ?, ort = ?, benutzer_id = ? WHERE id = ?"; 
+				PreparedStatement preparedStatement = conn.prepareStatement(sql); 
+				preparedStatement.setString(1, mitglied.getVorname());  
+				preparedStatement.setString(2, mitglied.getNachname());  
+				preparedStatement.setString(3, mitglied.getGeburtsdatum());  
+				preparedStatement.setString(4, mitglied.getStrasse());  
+				preparedStatement.setString(5, mitglied.getPlz());  
+				preparedStatement.setString(6, mitglied.getOrt());  
+				preparedStatement.setInt(7, mitglied.getBenutzer().getId());  
+				preparedStatement.setInt(8, mitglied.getId());  
+				preparedStatement.executeUpdate(); 
+			} catch (SQLException e) { 
+				e.printStackTrace(); } 
+			finally { 
+				try { 
+					conn.close(); 
+				} catch (SQLException e) { 
+					e.printStackTrace(); 
+				} 
+			}
+		}
+
 	
 	//erstes Mitglied
 	public Mitglied first() {

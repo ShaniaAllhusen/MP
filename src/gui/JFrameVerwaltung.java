@@ -47,6 +47,7 @@ public class JFrameVerwaltung extends JFrame {
 	private JLabel labelBild;
 	private JButton buttonTrainingVerwalten;
 	private JButton buttonNewMitgliederVerwalten;
+	private JButton buttonBenutzerVerwalten;
 
 	/**
 	 * Launch the application.
@@ -109,16 +110,21 @@ public class JFrameVerwaltung extends JFrame {
 				}
 				{
 					buttonAktualisieren = new JButton("Aktualisieren");
+					buttonAktualisieren.setMnemonic('A');
 					buttonAktualisieren.setToolTipText("Wenn Sie hier klicken wird die Tabelle aktualisiert");
 					{
 						{
 							buttonSportartVerwalten = new JButton("Sportarten verwalten");
-							buttonSportartVerwalten.setToolTipText("Hier k\u00F6nnen Sie Sportarten anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
+							buttonSportartVerwalten.setMnemonic('S');
+							buttonSportartVerwalten.setToolTipText("Hier k\u00F6nnen Sie Sportarten anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen (Alt + S)");
 							{
 								buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
-								buttonMannschaftenVerwalten.setToolTipText("Hier k\u00F6nnen Sie Mannschaften anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
+								buttonMannschaftenVerwalten.setMnemonic('M');
+								buttonMannschaftenVerwalten.setToolTipText("Hier k\u00F6nnen Sie Mannschaften anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen (Alt + M)");
 
 								btnNewButtonZeitblockaendern = new JButton("Zeitbl\u00F6cke verwalten");
+								btnNewButtonZeitblockaendern.setToolTipText("Hier k\u00F6nnen Sie die Zeitbl\u00F6cke verwalten (Alt + Z)");
+								btnNewButtonZeitblockaendern.setMnemonic('Z');
 								btnNewButtonZeitblockaendern.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										EventQueue.invokeLater(new Runnable() {
@@ -203,32 +209,35 @@ public class JFrameVerwaltung extends JFrame {
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-				gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-						.addGap(5)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addGap(109)
-										.addComponent(labelHerzlichWillkommen, GroupLayout.PREFERRED_SIZE, 304, GroupLayout.PREFERRED_SIZE))
-										.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE))
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(panel, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-										.addGap(0))
-				);
+					.addGap(5)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(109)
+							.addComponent(labelHerzlichWillkommen, GroupLayout.PREFERRED_SIZE, 304, GroupLayout.PREFERRED_SIZE))
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+					.addContainerGap())
+		);
 		gl_contentPane.setVerticalGroup(
-				gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-						.addComponent(labelHerzlichWillkommen, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-						.addGap(11)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-						.addGap(7))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
-								.addContainerGap())
-				);
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(11)
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(labelHerzlichWillkommen, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+							.addGap(11)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)))
+					.addGap(7))
+		);
 		
 		buttonTrainingVerwalten = new JButton("Training verwalten");
+		buttonTrainingVerwalten.setMnemonic('T');
+		buttonTrainingVerwalten.setToolTipText("Hier k\u00F6nnen Sie ihre Training verwalten (Alt + T)");
 		buttonTrainingVerwalten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -239,27 +248,47 @@ public class JFrameVerwaltung extends JFrame {
 			}
 		});
 		buttonNewMitgliederVerwalten = new JButton("Mitglieder verwalten");
+		buttonNewMitgliederVerwalten.setMnemonic('G');
+		buttonNewMitgliederVerwalten.setToolTipText("Hier k\u00F6nnen Sie ihre Mitglieder verwalten (Alt +G)");
 		buttonNewMitgliederVerwalten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				buttonNewMitgliederVerwaltenActionPerformed(e);
+				try {
+					buttonNewMitgliederVerwaltenActionPerformed(e);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		buttonBenutzerVerwalten = new JButton("Benutzer verwalten");
+		buttonBenutzerVerwalten.setMnemonic('B');
+		buttonBenutzerVerwalten.setToolTipText("Hier k\u00F6nnen Sie die Benutzerprofile verwalten (Alt + B)\r\n");
+		buttonBenutzerVerwalten.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buttonBenutzerVerwaltenActionPerformed(e);
 			}
 		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
+			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(3)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(labelBild, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 214, Short.MAX_VALUE)
-						.addComponent(button_Abmelden, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-						.addComponent(buttonTrainingVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-						.addComponent(buttonSportartVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-						.addComponent(buttonNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-						.addComponent(buttonMannschaftenVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-						.addComponent(btnNewButtonZeitblockaendern, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-						.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-						.addComponent(buttonNewMitgliederVerwalten, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
-					.addGap(3))
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 214, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addComponent(button_Abmelden, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+								.addComponent(buttonBenutzerVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+								.addComponent(buttonTrainingVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+								.addComponent(buttonSportartVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+								.addComponent(buttonNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+								.addComponent(buttonMannschaftenVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+								.addComponent(btnNewButtonZeitblockaendern, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+								.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+								.addComponent(buttonNewMitgliederVerwalten, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
+							.addGap(3))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -277,11 +306,12 @@ public class JFrameVerwaltung extends JFrame {
 					.addComponent(buttonTrainingVerwalten)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(buttonNewMitgliederVerwalten)
-					.addGap(4)
-					.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addComponent(buttonBenutzerVerwalten)
+					.addGap(3)
+					.addComponent(button_Abmelden)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
@@ -336,8 +366,12 @@ public class JFrameVerwaltung extends JFrame {
 		JFrameTraining jFrameTraining = new JFrameTraining();
 		jFrameTraining.setVisible(true);
 	}
-	protected void buttonNewMitgliederVerwaltenActionPerformed(ActionEvent e) {
+	protected void buttonNewMitgliederVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
 		JFrameMitglied jFrameMitglied = new JFrameMitglied();
 		jFrameMitglied.setVisible(true);
+	}
+	protected void buttonBenutzerVerwaltenActionPerformed(ActionEvent e) {
+		JFrameBenutzer jFrameBenutzer = new JFrameBenutzer();
+		jFrameBenutzer.setVisible(true);
 	}
 }

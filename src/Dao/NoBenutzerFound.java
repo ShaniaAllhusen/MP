@@ -8,6 +8,6 @@ public class NoBenutzerFound extends Exception {
 
 	@Override
 	public String getMessage() {
-		return "Es wurde keine Sportart gefunden.";
+		return "Es wurde kein Benutzer gefunden.";
 	}
 }

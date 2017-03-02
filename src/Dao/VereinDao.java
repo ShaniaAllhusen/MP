@@ -38,6 +38,17 @@ public class VereinDao {
 	
 	//Methoden
 
+	public int benutzerpruefen(String name) {
+		int pruefen;
+		if(name.startsWith("verwaltung")) {
+			pruefen = 1;
+		}
+		else {
+			pruefen = 2;
+		}
+		return pruefen;
+	}
+	
 	// Methode zum einloggen
 	public boolean login(String name, String password) {
 		Connection conn = null;

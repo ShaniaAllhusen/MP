@@ -77,30 +77,30 @@ public class HallenPlan extends JFrame {
 		table.setColumnSelectionAllowed(false);
 		table.setCellSelectionEnabled(false);
 		table.setEnabled(false);
-        table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
+		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		scrollPane.setViewportView(table);
 		String[] columns = new String[] {
-				 "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
+				"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
 		};
-//		try {
-//			
-//			table.setModel(new DefaultTableModel(new VereinDao().getWerteWochentag(), columns)); //FIXME
-//			for (String columnIdentifier : columns) {
-//				TableColumn column = table.getColumn(columnIdentifier);
-//				column.setCellRenderer(new WordWrapCellRenderer());
-//			}
-//			
-//			table.updateUI();
-//			repaint();
-//			repaint();
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		//		try {
+		//			
+		//			table.setModel(new DefaultTableModel(new VereinDao().getWerteWochentag(), columns)); //FIXME
+		//			for (String columnIdentifier : columns) {
+		//				TableColumn column = table.getColumn(columnIdentifier);
+		//				column.setCellRenderer(new WordWrapCellRenderer());
+		//			}
+		//			
+		//			table.updateUI();
+		//			repaint();
+		//			repaint();
+		//		} catch (ClassNotFoundException e) {
+		//			// TODO Auto-generated catch block
+		//			e.printStackTrace();
+		//		} catch (SQLException e) {
+		//			// TODO Auto-generated catch block
+		//			e.printStackTrace();
+		//		}
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		panel = new JPanel();
@@ -136,44 +136,50 @@ public class HallenPlan extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean strFrame = false;
+				int pruefen = 2;
 				try{
 					VereinDao vereinDao = new VereinDao();
 					strFrame =	vereinDao.login(textFieldUser.getText(), new String(textFieldpassword.getPassword()));
 					System.out.println(strFrame);
+					pruefen = vereinDao.benutzerpruefen(textFieldUser.getText());
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-				
+
 				if(strFrame) {
-					Angemeldet wrkframe = new Angemeldet();
-					wrkframe.setVisible(true);
-					HallenPlan frame2 = new HallenPlan();
+					if(pruefen == 1) {
+						JFrameVerwaltung wrkframe = new JFrameVerwaltung();
+						wrkframe.setVisible(true);
+					}
+					else {
+						Angemeldet wrkframe = new Angemeldet();
+						wrkframe.setVisible(true);
+					}
 					dispose();
-		
 				}
 			}
 		});
 		btnLogin.setBounds(28, 145, 113, 28);
 		panel.add(btnLogin);
 	}
-	
+
 	public JTable getTable() {
 		return table;
 	}
-	
-	static class WordWrapCellRenderer extends JTextArea implements TableCellRenderer {
-	    WordWrapCellRenderer() {
-	        setLineWrap(true);
-	        setWrapStyleWord(true);
-	    }
 
-	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-	        setText((value == null) ? "" : value.toString());
-	        setSize(table.getColumnModel().getColumn(column).getWidth(), getPreferredSize().height);
-	        if (table.getRowHeight(row) != getPreferredSize().height) {
-	            table.setRowHeight(row, getPreferredSize().height);
-	        }
-	        return this;
-	    }
+	static class WordWrapCellRenderer extends JTextArea implements TableCellRenderer {
+		WordWrapCellRenderer() {
+			setLineWrap(true);
+			setWrapStyleWord(true);
+		}
+
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+			setText((value == null) ? "" : value.toString());
+			setSize(table.getColumnModel().getColumn(column).getWidth(), getPreferredSize().height);
+			if (table.getRowHeight(row) != getPreferredSize().height) {
+				table.setRowHeight(row, getPreferredSize().height);
+			}
+			return this;
+		}
 	}
 }

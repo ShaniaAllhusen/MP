@@ -336,7 +336,7 @@ public class JFrameVerwaltung extends JFrame {
 		JFrameTraining jFrameTraining = new JFrameTraining();
 		jFrameTraining.setVisible(true);
 	}
-	protected void buttonNewMitgliederVerwaltenActionPerformed(ActionEvent e) {
+	protected void buttonNewMitgliederVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
 		JFrameMitglied jFrameMitglied = new JFrameMitglied();
 		jFrameMitglied.setVisible(true);
 	}

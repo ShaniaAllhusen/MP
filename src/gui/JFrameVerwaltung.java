@@ -231,6 +231,7 @@ public class JFrameVerwaltung extends JFrame {
 		);
 		
 		buttonTrainingVerwalten = new JButton("Training verwalten");
+		buttonTrainingVerwalten.setToolTipText("Hier k\u00F6nnen Sie ihre Training verwalten");
 		buttonTrainingVerwalten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -241,6 +242,7 @@ public class JFrameVerwaltung extends JFrame {
 			}
 		});
 		buttonNewMitgliederVerwalten = new JButton("Mitglieder verwalten");
+		buttonNewMitgliederVerwalten.setToolTipText("Hier k\u00F6nnen Sie ihre Mitglieder verwalten");
 		buttonNewMitgliederVerwalten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -252,6 +254,7 @@ public class JFrameVerwaltung extends JFrame {
 			}
 		});
 		buttonBenutzerVerwalten = new JButton("Benutzer verwalten");
+		buttonBenutzerVerwalten.setToolTipText("Hier k\u00F6nnen Sie die Benutzerprofile verwalten");
 		buttonBenutzerVerwalten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buttonBenutzerVerwaltenActionPerformed(e);

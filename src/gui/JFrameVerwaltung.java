@@ -110,16 +110,21 @@ public class JFrameVerwaltung extends JFrame {
 				}
 				{
 					buttonAktualisieren = new JButton("Aktualisieren");
+					buttonAktualisieren.setMnemonic('A');
 					buttonAktualisieren.setToolTipText("Wenn Sie hier klicken wird die Tabelle aktualisiert");
 					{
 						{
 							buttonSportartVerwalten = new JButton("Sportarten verwalten");
-							buttonSportartVerwalten.setToolTipText("Hier k\u00F6nnen Sie Sportarten anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
+							buttonSportartVerwalten.setMnemonic('S');
+							buttonSportartVerwalten.setToolTipText("Hier k\u00F6nnen Sie Sportarten anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen (Alt + S)");
 							{
 								buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
-								buttonMannschaftenVerwalten.setToolTipText("Hier k\u00F6nnen Sie Mannschaften anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
+								buttonMannschaftenVerwalten.setMnemonic('M');
+								buttonMannschaftenVerwalten.setToolTipText("Hier k\u00F6nnen Sie Mannschaften anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen (Alt + M)");
 
 								btnNewButtonZeitblockaendern = new JButton("Zeitbl\u00F6cke verwalten");
+								btnNewButtonZeitblockaendern.setToolTipText("Hier k\u00F6nnen Sie die Zeitbl\u00F6cke verwalten (Alt + Z)");
+								btnNewButtonZeitblockaendern.setMnemonic('Z');
 								btnNewButtonZeitblockaendern.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										EventQueue.invokeLater(new Runnable() {
@@ -231,7 +236,8 @@ public class JFrameVerwaltung extends JFrame {
 		);
 		
 		buttonTrainingVerwalten = new JButton("Training verwalten");
-		buttonTrainingVerwalten.setToolTipText("Hier k\u00F6nnen Sie ihre Training verwalten");
+		buttonTrainingVerwalten.setMnemonic('T');
+		buttonTrainingVerwalten.setToolTipText("Hier k\u00F6nnen Sie ihre Training verwalten (Alt + T)");
 		buttonTrainingVerwalten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -242,7 +248,8 @@ public class JFrameVerwaltung extends JFrame {
 			}
 		});
 		buttonNewMitgliederVerwalten = new JButton("Mitglieder verwalten");
-		buttonNewMitgliederVerwalten.setToolTipText("Hier k\u00F6nnen Sie ihre Mitglieder verwalten");
+		buttonNewMitgliederVerwalten.setMnemonic('G');
+		buttonNewMitgliederVerwalten.setToolTipText("Hier k\u00F6nnen Sie ihre Mitglieder verwalten (Alt +G)");
 		buttonNewMitgliederVerwalten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -254,7 +261,8 @@ public class JFrameVerwaltung extends JFrame {
 			}
 		});
 		buttonBenutzerVerwalten = new JButton("Benutzer verwalten");
-		buttonBenutzerVerwalten.setToolTipText("Hier k\u00F6nnen Sie die Benutzerprofile verwalten");
+		buttonBenutzerVerwalten.setMnemonic('B');
+		buttonBenutzerVerwalten.setToolTipText("Hier k\u00F6nnen Sie die Benutzerprofile verwalten (Alt + B)\r\n");
 		buttonBenutzerVerwalten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buttonBenutzerVerwaltenActionPerformed(e);

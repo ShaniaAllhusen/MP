@@ -36,7 +36,7 @@ public class Zeitblock {
 		return dauer;
 	}
 	public void setDauer(int dauer) {
-		this.dauer = dauer;
+		Zeitblock.dauer = dauer;
 	}
 	public int getWochentag() {
 		return wochentag;

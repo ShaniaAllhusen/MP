@@ -27,10 +27,6 @@ import Dao.NoMannschaftFound;
 import Dao.NoMitgliedFound;
 
 
-
-
-
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -116,6 +112,7 @@ public class JFrameMitglied extends JFrame {
 	 * @throws ClassNotFoundException 
 	 */
 	public JFrameMitglied() throws ClassNotFoundException {
+		benutzerDao = new BenutzerDao();
 		mitgliedDao = new MitgliedDao();
 		initGUI();
 	}
@@ -358,31 +355,61 @@ public class JFrameMitglied extends JFrame {
 				}
 				{
 					buttonBenutzerFirst = new JButton("|<");
+					buttonBenutzerFirst.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							buttonBenutzerFirstActionPerformed(e);
+						}
+					});
 					buttonBenutzerFirst.setBounds(6, 129, 67, 23);
 					panel_3.add(buttonBenutzerFirst);
 				}
 				{
 					buttonBenutzerPrevious = new JButton("<<");
+					buttonBenutzerPrevious.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							buttonBenutzerPreviousActionPerformed(e);
+						}
+					});
 					buttonBenutzerPrevious.setBounds(75, 129, 67, 23);
 					panel_3.add(buttonBenutzerPrevious);
 				}
 				{
 					buttonBenutzerNext = new JButton(">>");
+					buttonBenutzerNext.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							buttonBenutzerNextActionPerformed(e);
+						}
+					});
 					buttonBenutzerNext.setBounds(145, 129, 67, 23);
 					panel_3.add(buttonBenutzerNext);
 				}
 				{
 					buttonBenutzerLast = new JButton(">|");
+					buttonBenutzerLast.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							buttonBenutzerLastActionPerformed(e);
+						}
+					});
 					buttonBenutzerLast.setBounds(212, 129, 67, 23);
 					panel_3.add(buttonBenutzerLast);
 				}
 				{
 					buttonBenutzerprofilHinzufgen = new JButton("Neu");
+					buttonBenutzerprofilHinzufgen.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							buttonBenutzerprofilHinzufgenActionPerformed(e);
+						}
+					});
 					buttonBenutzerprofilHinzufgen.setBounds(6, 159, 136, 23);
 					panel_3.add(buttonBenutzerprofilHinzufgen);
 				}
 				{
 					buttonndern = new JButton("\u00C4ndern");
+					buttonndern.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							buttonndernActionPerformed(e);
+						}
+					});
 					buttonndern.setBounds(155, 159, 124, 23);
 					panel_3.add(buttonndern);
 				}
@@ -577,6 +604,79 @@ public class JFrameMitglied extends JFrame {
 
 	}
 
+	protected void buttonBenutzerFirstActionPerformed(ActionEvent e) {
+		try {
+			Benutzer benutzerFirst = benutzerDao.first();
+			showBenutzer(benutzerFirst);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+
+		}
+	}
+	protected void buttonBenutzerPreviousActionPerformed(ActionEvent e) {
+		Benutzer benutzerAktiv = new Benutzer();
+		benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerSucheID.getText()));
+		benutzerAktiv.setUsername(textFieldBenutzerSucheName.getText());
+		benutzerAktiv.setPasswort(textFieldBenutzerSuchePasswort.getText());
+
+		try {
+			Benutzer benutzerPrevious = benutzerDao.previous(benutzerAktiv);
+			showBenutzer(benutzerPrevious);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+	protected void buttonBenutzerNextActionPerformed(ActionEvent e) {
+		Benutzer benutzerAktiv = new Benutzer();
+		benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerSucheID.getText()));
+		benutzerAktiv.setUsername(textFieldBenutzerSucheName.getText());
+		benutzerAktiv.setPasswort(textFieldBenutzerSuchePasswort.getText());
+		try {
+			Benutzer benutzerNext = benutzerDao.next(benutzerAktiv);
+			showBenutzer(benutzerNext);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+	protected void buttonBenutzerLastActionPerformed(ActionEvent e) {
+		try {
+			Benutzer benutzerLast = benutzerDao.last();
+			showBenutzer(benutzerLast);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+	protected void buttonBenutzerprofilHinzufgenActionPerformed(ActionEvent e) {
+		String username = textFieldBenutzerSucheName.getText();
+		String passwort = textFieldBenutzerSuchePasswort.getText();
+		Benutzer benutzer = new Benutzer();
+		benutzer.setUsername(username);
+		benutzer.setPasswort(passwort);
+
+		try {
+			benutzerDao.insert(benutzer);
+			textFieldBenutzerSucheID.setText(Integer.toString(benutzer.getId()));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+
+
+	protected void buttonndernActionPerformed(ActionEvent e) {
+		int id = Integer.parseInt(textFieldBenutzerSucheID.getText());
+		String username = textFieldBenutzerSucheName.getText();
+		String passwort = textFieldBenutzerSuchePasswort.getText();
+		Benutzer benutzer = new Benutzer();
+		benutzer.setId(id);
+		benutzer.setUsername(username);
+		benutzer.setPasswort(passwort);
+		try {
+			benutzerDao.update(benutzer);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+
 	protected void buttonMitgliedHinzufuegenActionPerformed(ActionEvent e) {
 		Mitglied mitgliedAktiv = new Mitglied();
 		Benutzer benutzerAktiv = new Benutzer();
@@ -599,6 +699,7 @@ public class JFrameMitglied extends JFrame {
 				e1.printStackTrace();
 			}
 		}
+
 		else {
 			try {
 				mitgliedDao.insertOhneBenutzer(mitgliedAktiv);
@@ -608,8 +709,6 @@ public class JFrameMitglied extends JFrame {
 				e1.printStackTrace();
 			}
 		}
-
-
 
 	}
 	protected void buttonMitgliedLoeschenActionPerformed(ActionEvent e) {
@@ -658,3 +757,4 @@ public class JFrameMitglied extends JFrame {
 		benutzerSucheFelderLeeren();
 	}
 }
+

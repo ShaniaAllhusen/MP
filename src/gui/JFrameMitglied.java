@@ -30,6 +30,7 @@ import Dao.NoMitgliedFound;
 
 
 
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -541,12 +542,14 @@ public class JFrameMitglied extends JFrame {
 	}
 
 	public Mitglied create() {
-		Benutzer benutzerAktiv = new Benutzer();
 		Mitglied mitgliedAktiv = new Mitglied();
+
+		Benutzer benutzerAktiv = new Benutzer();
 		benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerId.getText()));
 		benutzerAktiv.setUsername(textFieldBenutzername.getText());
 		benutzerAktiv.setPasswort(textFieldPasswort.getText());
 		mitgliedAktiv.setBenutzer(benutzerAktiv);
+
 		mitgliedAktiv.setId(Integer.parseInt(textFieldMitgliedId.getText()));
 		mitgliedAktiv.setVorname(textFieldVorname.getText());
 		mitgliedAktiv.setNachname(textFieldNachname.getText());
@@ -575,15 +578,39 @@ public class JFrameMitglied extends JFrame {
 	}
 
 	protected void buttonMitgliedHinzufuegenActionPerformed(ActionEvent e) {
-		Mitglied mitglied = create();
-		try {
-			mitgliedDao.insert(mitglied);
-			textFieldMitgliedId.setText(Integer.toString(mitglied.getId()));
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		Mitglied mitgliedAktiv = new Mitglied();
+		Benutzer benutzerAktiv = new Benutzer();
+		mitgliedAktiv.setVorname(textFieldVorname.getText());
+		mitgliedAktiv.setNachname(textFieldNachname.getText());
+		mitgliedAktiv.setGeburtsdatum(textFieldGeburtsdatum.getText());
+		mitgliedAktiv.setStrasse(textFieldStrasse.getText());
+		mitgliedAktiv.setPlz(textFieldPostleitzahl.getText());
+		mitgliedAktiv.setOrt(textFieldOrt.getText());
+		if ((textFieldBenutzerId.getText() != null) && (textFieldBenutzerId.getText() != "") && (textFieldBenutzerId.getText().isEmpty() == false)  && (textFieldBenutzerId.getText() != " ")) {
+			benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerId.getText()));
+			benutzerAktiv.setUsername(textFieldBenutzername.getText());
+			benutzerAktiv.setPasswort(textFieldPasswort.getText());
+			mitgliedAktiv.setBenutzer(benutzerAktiv);
+			try {
+				mitgliedDao.insertMitBenutzer(mitgliedAktiv);
+				textFieldMitgliedId.setText(Integer.toString(mitgliedAktiv.getId()));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
-		
+		else {
+			try {
+				mitgliedDao.insertOhneBenutzer(mitgliedAktiv);
+				textFieldMitgliedId.setText(Integer.toString(mitgliedAktiv.getId()));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+
+
 	}
 	protected void buttonMitgliedLoeschenActionPerformed(ActionEvent e) {
 		Mitglied mitglied = create();
@@ -595,7 +622,7 @@ public class JFrameMitglied extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	private void felderLeeren() {
 		textFieldMitgliedId.setText("");
 		textFieldVorname.setText("");
@@ -617,13 +644,13 @@ public class JFrameMitglied extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	private void benutzerSucheFelderLeeren() {
 		textFieldBenutzerSucheID.setText("");
 		textFieldBenutzerSucheName.setText("");
 		textFieldBenutzerSuchePasswort.setText("");
 	}
-	
+
 	protected void buttonBenutzerprofilUebernehmenActionPerformed(ActionEvent e) {
 		textFieldBenutzerId.setText(textFieldBenutzerSucheID.getText());
 		textFieldBenutzername.setText(textFieldBenutzerSucheName.getText());

@@ -164,6 +164,32 @@ public class MitgliedDao {
 		}
 	}
 	
+	//letztes Mitglied
+		public Mitglied last() {
+			Mitglied last = null;
+			Connection conn = null;
+			PreparedStatement preparedStatement = null;
+			try {
+				conn = getConnection();
+				String sql =  "SELECT m.id, m.vorname, m.nachname, m.geburtsdatum, m.strasse, m.plz, m.ort, m.benutzer_id, b.username, b.passwort FROM mitglied m "
+						+ "JOIN benutzer b ON m.benutzer_id = b.id "
+						+ "WHERE m.id = (SELECT MAX(id) FROM mitglied)";
+				preparedStatement = conn.prepareStatement(sql);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				last = create(resultSet);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					preparedStatement.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return last;
+		}
+	
 	public Mitglied create(ResultSet resultSet) throws SQLException {
 		Benutzer benutzer = new Benutzer();
 		Mitglied mitglied = new Mitglied();

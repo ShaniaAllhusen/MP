@@ -412,6 +412,11 @@ public class JFrameMitglied extends JFrame {
 			}
 			{
 				buttonMitgliedLast = new JButton(">|");
+				buttonMitgliedLast.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						buttonMitgliedLastActionPerformed(e);
+					}
+				});
 				buttonMitgliedLast.setBounds(218, 48, 67, 23);
 				panel_4.add(buttonMitgliedLast);
 			}
@@ -483,6 +488,18 @@ public class JFrameMitglied extends JFrame {
 		return mitgliedAktiv;
 	}
 	protected void buttonMitgliedNextActionPerformed(ActionEvent e) {
-		
+		Mitglied mitgliedAktiv = new Mitglied();
+		mitgliedAktiv = create();
+		Mitglied mitgliedNext = mitgliedDao.next(mitgliedAktiv);
+		showMitglied(mitgliedNext);
+	}
+	protected void buttonMitgliedLastActionPerformed(ActionEvent e) {
+		try {
+			Mitglied mitgliedLast = mitgliedDao.last();
+			showMitglied(mitgliedLast);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

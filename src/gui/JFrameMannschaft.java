@@ -412,27 +412,12 @@ public class JFrameMannschaft extends JFrame {
 	}
 
 	protected void buttonMannschaftHinzufgenActionPerformed(ActionEvent e) {
-		String name;
-		String sportartName;
-		String sportartId;
 		Mannschaft mannschaftAktiv;
-		Sportart sportart;
-		int id;
-
 		try {
-			name = textFieldName.getText();
-			sportartName = textFieldSportartName.getText();
-			sportartId = textFieldSportartId.getText();
-			mannschaftAktiv = new Mannschaft();
-			sportart = new Sportart();
-
-			id = Integer.parseInt(sportartId);
-			sportart.setId(id);
-			sportart.setName(sportartName);
-			mannschaftAktiv.setName(name);
-			mannschaftAktiv.setSportart(sportart);
+			mannschaftAktiv = create();
 			mannschaftDao.insert(mannschaftAktiv);
 			showMannschaft(mannschaftAktiv);
+			showInfoPane("Mannschaft", mannschaftAktiv.getId());
 		} catch (NumberFormatException e1) {
 			e1.printStackTrace();
 		}
@@ -562,5 +547,8 @@ public class JFrameMannschaft extends JFrame {
 	}
 	private void showErrorPane(Exception e) {
 		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+	}
+	private void showInfoPane(String text, int id) {
+		JOptionPane.showMessageDialog(this, text +" mit der ID " +id +" wurde hinzugefügt", "Informationsmeldung", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

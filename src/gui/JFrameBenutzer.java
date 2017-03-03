@@ -225,6 +225,9 @@ public class JFrameBenutzer extends JFrame {
 	private void showErrorPane(Exception e) {
 		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
 	}
+	private void showInfoPane(String text, int id) {
+		JOptionPane.showMessageDialog(this, text +" mit der ID " +id +" wurde hinzugefügt", "Informationsmeldung", JOptionPane.INFORMATION_MESSAGE);
+	}
 	protected void buttonHinzufuegenActionPerformed(ActionEvent e) {
 		String username = textFieldUsername.getText();
 		String passwort = textFieldPasswort.getText();
@@ -234,6 +237,7 @@ public class JFrameBenutzer extends JFrame {
 		try {
 			benutzerDao.insert(benutzer);
 			textFieldID.setText(Integer.toString(benutzer.getId()));
+			showInfoPane("Benutzer", benutzer.getId());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

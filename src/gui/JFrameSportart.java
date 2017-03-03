@@ -167,6 +167,7 @@ public class JFrameSportart extends JFrame {
 					try {
 						dao.insert(sportart);
 						textFieldId.setText(Integer.toString(sportart.getId()));
+						showInfoPane("Sportart", sportart.getId());
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
@@ -283,6 +284,10 @@ public class JFrameSportart extends JFrame {
 	
 	private void showErrorPane(Exception e) {
 		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private void showInfoPane(String text, int id) {
+		JOptionPane.showMessageDialog(this, text +" mit der ID " +id +" wurde hinzugefügt", "Informationsmeldung", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
 

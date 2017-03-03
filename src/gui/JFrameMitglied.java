@@ -534,6 +534,9 @@ public class JFrameMitglied extends JFrame {
 		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
 	}
 
+	private void showInfoPane(String text, int id) {
+		JOptionPane.showMessageDialog(this, text +" mit der ID " +id +" wurde hinzugefügt", "Informationsmeldung", JOptionPane.INFORMATION_MESSAGE);
+	}
 
 	protected void buttonMitgliedSuchenActionPerformed(ActionEvent e) {
 		String eingabe = textFieldMitgliedSuchen.getText();
@@ -667,6 +670,7 @@ public class JFrameMitglied extends JFrame {
 		try {
 			benutzerDao.insert(benutzer);
 			textFieldBenutzerSucheID.setText(Integer.toString(benutzer.getId()));
+			showInfoPane("Benutzer", benutzer.getId());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -689,6 +693,7 @@ public class JFrameMitglied extends JFrame {
 			try {
 				mitgliedDao.insertMitBenutzer(mitgliedAktiv);
 				textFieldMitgliedId.setText(Integer.toString(mitgliedAktiv.getId()));
+				showInfoPane("Mitglied", mitgliedAktiv.getId());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -699,6 +704,7 @@ public class JFrameMitglied extends JFrame {
 			try {
 				mitgliedDao.insertOhneBenutzer(mitgliedAktiv);
 				textFieldMitgliedId.setText(Integer.toString(mitgliedAktiv.getId()));
+				showInfoPane("Mitglied", mitgliedAktiv.getId());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

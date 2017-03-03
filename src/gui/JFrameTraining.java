@@ -56,6 +56,9 @@ public class JFrameTraining extends JFrame {
 	private JLabel labelBeginn;
 	private JTextField textFieldBeginn;
 	private JTextField textFieldDauer;
+	private JButton buttonNeu;
+	private JButton buttonLschen;
+	private JButton buttonSpeichern;
 
 	/**
 	 * Launch the application.
@@ -84,7 +87,7 @@ public class JFrameTraining extends JFrame {
 	private void initGUI() {
 		setTitle("Training verwalten");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 277);
+		setBounds(100, 100, 450, 308);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -103,8 +106,8 @@ public class JFrameTraining extends JFrame {
 		}
 		{
 			panel = new JPanel();
-			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Mannschaft ausw\u00E4hlen", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel.setBounds(19, 74, 405, 159);
+			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Training ausw\u00E4hlen", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panel.setBounds(19, 74, 405, 193);
 			contentPane.add(panel);
 			panel.setLayout(null);
 			{
@@ -160,7 +163,7 @@ public class JFrameTraining extends JFrame {
 					}
 				});
 				buttonFirst.setToolTipText("Erste Mannschaft");
-				buttonFirst.setBounds(11, 119, 66, 23);
+				buttonFirst.setBounds(11, 123, 79, 23);
 				panel.add(buttonFirst);
 			}
 			{
@@ -171,7 +174,7 @@ public class JFrameTraining extends JFrame {
 					}
 				});
 				buttonPrevious.setToolTipText("Vorherige Mannschaft");
-				buttonPrevious.setBounds(80, 119, 66, 23);
+				buttonPrevious.setBounds(106, 123, 79, 23);
 				panel.add(buttonPrevious);
 			}
 			{
@@ -182,7 +185,7 @@ public class JFrameTraining extends JFrame {
 					}
 				});
 				buttonNext.setToolTipText("N\u00E4chste Mannschaft");
-				buttonNext.setBounds(150, 119, 66, 23);
+				buttonNext.setBounds(219, 123, 79, 23);
 				panel.add(buttonNext);
 			}
 			{
@@ -193,7 +196,7 @@ public class JFrameTraining extends JFrame {
 					}
 				});
 				buttonLast.setToolTipText("Letzte Mannschaft");
-				buttonLast.setBounds(219, 119, 66, 23);
+				buttonLast.setBounds(316, 123, 79, 23);
 				panel.add(buttonLast);
 			}
 			{
@@ -222,6 +225,21 @@ public class JFrameTraining extends JFrame {
 				textFieldSportartId.setBounds(266, 88, 129, 20);
 				panel.add(textFieldSportartId);
 				textFieldSportartId.setColumns(10);
+			}
+			{
+				buttonNeu = new JButton("Neu");
+				buttonNeu.setBounds(10, 157, 119, 23);
+				panel.add(buttonNeu);
+			}
+			{
+				buttonLschen = new JButton("L\u00F6schen");
+				buttonLschen.setBounds(147, 157, 119, 23);
+				panel.add(buttonLschen);
+			}
+			{
+				buttonSpeichern = new JButton("Speichern");
+				buttonSpeichern.setBounds(276, 157, 119, 23);
+				panel.add(buttonSpeichern);
 			}
 		}
 		{

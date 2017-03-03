@@ -265,7 +265,12 @@ public class JFrameVerwaltung extends JFrame {
 		buttonBenutzerVerwalten.setToolTipText("Hier k\u00F6nnen Sie die Benutzerprofile verwalten (Alt + B)\r\n");
 		buttonBenutzerVerwalten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				buttonBenutzerVerwaltenActionPerformed(e);
+				try {
+					buttonBenutzerVerwaltenActionPerformed(e);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		GroupLayout gl_panel = new GroupLayout(panel);
@@ -370,7 +375,7 @@ public class JFrameVerwaltung extends JFrame {
 		JFrameMitglied jFrameMitglied = new JFrameMitglied();
 		jFrameMitglied.setVisible(true);
 	}
-	protected void buttonBenutzerVerwaltenActionPerformed(ActionEvent e) {
+	protected void buttonBenutzerVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
 		JFrameBenutzer jFrameBenutzer = new JFrameBenutzer();
 		jFrameBenutzer.setVisible(true);
 	}

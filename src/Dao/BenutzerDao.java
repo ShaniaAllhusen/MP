@@ -81,6 +81,26 @@ public class BenutzerDao {
 				} 
 			}
 		}
+		
+		//Datensatz aus der Tabelle löschen
+		public void delete(Benutzer benutzer) {
+			Connection conn = null;
+			try { 
+				conn = getConnection();
+				String sql = "DELETE FROM benutzer WHERE username = ?"; 
+				PreparedStatement preparedStatement = conn.prepareStatement(sql); 
+				preparedStatement.setString(1, benutzer.getUsername());
+				preparedStatement.executeUpdate(); 
+			} catch (SQLException e) { 
+				e.printStackTrace(); } 
+			finally { 
+				try { 
+					conn.close(); 
+				} catch (SQLException e) { 
+					e.printStackTrace(); 
+				} 
+			}
+		}
 
 
 

@@ -40,7 +40,7 @@ public class JFrameMitglied extends JFrame {
 	private JLabel labelStrae;
 	private JLabel labelPostleitzahl;
 	private JLabel labelOrt;
-	private JPanel panel;
+	private JPanel panelAdresse;
 	private JTextField textFieldMitgliedId;
 	private JTextField textFieldVorname;
 	private JTextField textFieldNachname;
@@ -54,8 +54,8 @@ public class JFrameMitglied extends JFrame {
 	private JTextField textFieldBenutzerId;
 	private JTextField textFieldBenutzername;
 	private JTextField textFieldPasswort;
-	private JPanel panel_1;
-	private JPanel panel_2;
+	private JPanel panelBeutzerprofil;
+	private JPanel panelPersönlicheDaten;
 	private JButton buttonMitgliedHinzufuegen;
 	private JButton buttonMitgliedLoeschen;
 	private JButton buttonDatenAktualisieren;
@@ -68,14 +68,14 @@ public class JFrameMitglied extends JFrame {
 	private JTextField textFieldBenutzerSucheName;
 	private JTextField textFieldBenutzerSuchePasswort;
 	private JButton buttonBenutzerprofilUebernehmen;
-	private JPanel panel_3;
+	private JPanel panelBenutzerprofilAussuchen;
 	private JTextField textFieldMitgliedSuchen;
 	private JButton buttonMitgliedSuchen;
 	private JButton buttonMitgliedFirst;
 	private JButton buttonMitgliedPrevious;
 	private JButton buttonMitgliedNext;
 	private JButton buttonMitgliedLast;
-	private JPanel panel_4;
+	private JPanel panelMitgliedAussuchen;
 	private JButton buttonBenutzerFirst;
 	private JButton buttonBenutzerPrevious;
 	private JButton buttonBenutzerNext;
@@ -84,9 +84,6 @@ public class JFrameMitglied extends JFrame {
 
 
 	private BenutzerDao benutzerDao;
-
-
-	private JButton buttonndern;
 
 	private MitgliedDao mitgliedDao;
 
@@ -119,42 +116,43 @@ public class JFrameMitglied extends JFrame {
 	private void initGUI() {
 		setTitle("Mitglieder verwalten");
 		setDefaultCloseOperation(JFrameMannschaft.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 637, 452);
+		setBounds(100, 100, 637, 434);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		{
-			panel_2 = new JPanel();
-			panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Pers\u00F6nliche Daten", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel_2.setBounds(6, 16, 316, 126);
-			contentPane.add(panel_2);
-			panel_2.setLayout(null);
+			panelPersönlicheDaten = new JPanel();
+			panelPersönlicheDaten.setToolTipText("Das sind die pers\u00F6nlichen Daten des ausgew\u00E4hlten Mitglieds");
+			panelPersönlicheDaten.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Pers\u00F6nliche Daten", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panelPersönlicheDaten.setBounds(6, 16, 316, 126);
+			contentPane.add(panelPersönlicheDaten);
+			panelPersönlicheDaten.setLayout(null);
 			{
 				labelMitgliedId = new JLabel("Id");
 				labelMitgliedId.setBounds(6, 17, 200, 26);
-				panel_2.add(labelMitgliedId);
+				panelPersönlicheDaten.add(labelMitgliedId);
 			}
 			{
 				labelVorname = new JLabel("Vorname");
 				labelVorname.setBounds(6, 40, 200, 26);
-				panel_2.add(labelVorname);
+				panelPersönlicheDaten.add(labelVorname);
 			}
 			{
 				labelNachname = new JLabel("Nachname");
 				labelNachname.setBounds(6, 66, 200, 26);
-				panel_2.add(labelNachname);
+				panelPersönlicheDaten.add(labelNachname);
 			}
 			{
 				labelGeburtsdatum = new JLabel("Geburtsdatum");
 				labelGeburtsdatum.setBounds(6, 91, 200, 26);
-				panel_2.add(labelGeburtsdatum);
+				panelPersönlicheDaten.add(labelGeburtsdatum);
 			}
 			{
 				textFieldMitgliedId = new JTextField();
-				textFieldMitgliedId.setToolTipText("Das ist die Id des Mitglieds");
+				textFieldMitgliedId.setToolTipText("Das ist die Id des ausgew\u00E4hlten Mitglieds");
 				textFieldMitgliedId.setBounds(102, 16, 204, 20);
-				panel_2.add(textFieldMitgliedId);
+				panelPersönlicheDaten.add(textFieldMitgliedId);
 				textFieldMitgliedId.setEditable(false);
 				textFieldMitgliedId.setColumns(10);
 			}
@@ -162,89 +160,91 @@ public class JFrameMitglied extends JFrame {
 				textFieldVorname = new JTextField();
 				textFieldVorname.setToolTipText("Das ist der Vorname des ausgew\u00E4hlten Mitglieds");
 				textFieldVorname.setBounds(102, 40, 204, 20);
-				panel_2.add(textFieldVorname);
+				panelPersönlicheDaten.add(textFieldVorname);
 				textFieldVorname.setColumns(10);
 			}
 			{
 				textFieldNachname = new JTextField();
 				textFieldNachname.setToolTipText("Das ist der Nachname des ausgew\u00E4hlten Mitglieds");
 				textFieldNachname.setBounds(102, 69, 204, 20);
-				panel_2.add(textFieldNachname);
+				panelPersönlicheDaten.add(textFieldNachname);
 				textFieldNachname.setColumns(10);
 			}
 			{
 				textFieldGeburtsdatum = new JTextField();
 				textFieldGeburtsdatum.setToolTipText("Das ist das geburtsdatum des ausgew\u00E4hlten Mitglieds");
 				textFieldGeburtsdatum.setBounds(102, 99, 204, 20);
-				panel_2.add(textFieldGeburtsdatum);
+				panelPersönlicheDaten.add(textFieldGeburtsdatum);
 				textFieldGeburtsdatum.setColumns(10);
 			}
 		}
 		{
-			panel = new JPanel();
-			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Adresse", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel.setBounds(4, 144, 316, 117);
-			contentPane.add(panel);
-			panel.setLayout(null);
+			panelAdresse = new JPanel();
+			panelAdresse.setToolTipText("Das ist die Adresse des ausgew\u00E4hlten Mitglieds");
+			panelAdresse.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Adresse", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panelAdresse.setBounds(4, 144, 316, 117);
+			contentPane.add(panelAdresse);
+			panelAdresse.setLayout(null);
 			{
 				labelStrae = new JLabel("Stra\u00DFe");
 				labelStrae.setBounds(6, 19, 200, 26);
-				panel.add(labelStrae);
+				panelAdresse.add(labelStrae);
 			}
 			{
 				labelPostleitzahl = new JLabel("Postleitzahl");
 				labelPostleitzahl.setBounds(6, 51, 200, 26);
-				panel.add(labelPostleitzahl);
+				panelAdresse.add(labelPostleitzahl);
 			}
 			{
 				labelOrt = new JLabel("Ort");
 				labelOrt.setBounds(6, 78, 200, 26);
-				panel.add(labelOrt);
+				panelAdresse.add(labelOrt);
 			}
 			{
 				textFieldStrasse = new JTextField();
+				textFieldStrasse.setToolTipText("Das ist die Strasse, in der das ausgew\u00E4hlte Mitglied wohnt");
 				textFieldStrasse.setBounds(106, 21, 200, 22);
-				panel.add(textFieldStrasse);
+				panelAdresse.add(textFieldStrasse);
 				textFieldStrasse.setColumns(10);
 			}
 			{
 				textFieldPostleitzahl = new JTextField();
 				textFieldPostleitzahl.setBounds(106, 53, 200, 22);
-				panel.add(textFieldPostleitzahl);
+				panelAdresse.add(textFieldPostleitzahl);
 				textFieldPostleitzahl.setColumns(10);
 			}
 			{
 				textFieldOrt = new JTextField();
 				textFieldOrt.setBounds(106, 81, 200, 20);
-				panel.add(textFieldOrt);
+				panelAdresse.add(textFieldOrt);
 				textFieldOrt.setColumns(10);
 			}
 		}
 		{
-			panel_1 = new JPanel();
-			panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Benutzerprofil", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel_1.setBounds(6, 272, 316, 117);
-			contentPane.add(panel_1);
-			panel_1.setLayout(null);
+			panelBeutzerprofil = new JPanel();
+			panelBeutzerprofil.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Benutzerprofil", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panelBeutzerprofil.setBounds(6, 272, 316, 117);
+			contentPane.add(panelBeutzerprofil);
+			panelBeutzerprofil.setLayout(null);
 			{
 				labelBenutzername = new JLabel("Benutzername");
 				labelBenutzername.setBounds(10, 53, 200, 26);
-				panel_1.add(labelBenutzername);
+				panelBeutzerprofil.add(labelBenutzername);
 			}
 			{
 				labelBenutzerid = new JLabel("Benutzer-ID");
 				labelBenutzerid.setBounds(10, 30, 200, 26);
-				panel_1.add(labelBenutzerid);
+				panelBeutzerprofil.add(labelBenutzerid);
 			}
 			{
 				labelPasswort = new JLabel("Passwort");
 				labelPasswort.setBounds(10, 79, 200, 26);
-				panel_1.add(labelPasswort);
+				panelBeutzerprofil.add(labelPasswort);
 			}
 			{
 				textFieldBenutzerId = new JTextField();
 				textFieldBenutzerId.setBounds(106, 30, 200, 20);
-				panel_1.add(textFieldBenutzerId);
+				panelBeutzerprofil.add(textFieldBenutzerId);
 				textFieldBenutzerId.setEditable(false);
 				textFieldBenutzerId.setColumns(10);
 			}
@@ -252,19 +252,21 @@ public class JFrameMitglied extends JFrame {
 				textFieldBenutzername = new JTextField();
 				textFieldBenutzername.setEditable(false);
 				textFieldBenutzername.setBounds(106, 56, 200, 20);
-				panel_1.add(textFieldBenutzername);
+				panelBeutzerprofil.add(textFieldBenutzername);
 				textFieldBenutzername.setColumns(10);
 			}
 			{
 				textFieldPasswort = new JTextField();
 				textFieldPasswort.setEditable(false);
 				textFieldPasswort.setBounds(106, 80, 200, 20);
-				panel_1.add(textFieldPasswort);
+				panelBeutzerprofil.add(textFieldPasswort);
 				textFieldPasswort.setColumns(10);
 			}
 		}
 		{
 			buttonMitgliedHinzufuegen = new JButton("Mitglied hinzuf\u00FCgen");
+			buttonMitgliedHinzufuegen.setToolTipText("Hier k\u00F6nnen Sie ein neues Mitglied anlegen (Alt + H)\r\n");
+			buttonMitgliedHinzufuegen.setMnemonic('H');
 			buttonMitgliedHinzufuegen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonMitgliedHinzufuegenActionPerformed(e);
@@ -275,6 +277,8 @@ public class JFrameMitglied extends JFrame {
 		}
 		{
 			buttonMitgliedLoeschen = new JButton("Mitglied l\u00F6schen");
+			buttonMitgliedLoeschen.setToolTipText("Hier k\u00F6nnen Sie das ausgew\u00E4hlte Mitglied l\u00F6schen (Alt + L)");
+			buttonMitgliedLoeschen.setMnemonic('L');
 			buttonMitgliedLoeschen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonMitgliedLoeschenActionPerformed(e);
@@ -285,6 +289,8 @@ public class JFrameMitglied extends JFrame {
 		}
 		{
 			buttonDatenAktualisieren = new JButton("Daten aktualisieren");
+			buttonDatenAktualisieren.setToolTipText("Hier k\u00F6nnen Sie die Daten des ausgew\u00E4hlten Mitglieds aktualisieren (Alt + A)");
+			buttonDatenAktualisieren.setMnemonic('A');
 			buttonDatenAktualisieren.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonDatenAktualisierenActionPerformed(e);
@@ -294,124 +300,128 @@ public class JFrameMitglied extends JFrame {
 			contentPane.add(buttonDatenAktualisieren);
 		}
 		{
-			panel_3 = new JPanel();
-			panel_3.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Benutzerprofil ausw\u00E4hlen", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel_3.setBounds(330, 190, 285, 214);
-			contentPane.add(panel_3);
-			panel_3.setLayout(null);
+			panelBenutzerprofilAussuchen = new JPanel();
+			panelBenutzerprofilAussuchen.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Benutzerprofil ausw\u00E4hlen", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panelBenutzerprofilAussuchen.setBounds(330, 196, 285, 191);
+			contentPane.add(panelBenutzerprofilAussuchen);
+			panelBenutzerprofilAussuchen.setLayout(null);
 			{
 				textFieldBenutzerprofilSuchen = new JTextField();
-				textFieldBenutzerprofilSuchen.setBounds(6, 17, 114, 20);
-				panel_3.add(textFieldBenutzerprofilSuchen);
+				textFieldBenutzerprofilSuchen.setToolTipText("Geben Sie hier die Id oder den Benutzernamen des Benutzerprofils an, das Sie suchen wollen");
+				textFieldBenutzerprofilSuchen.setBounds(6, 23, 119, 20);
+				panelBenutzerprofilAussuchen.add(textFieldBenutzerprofilSuchen);
 				textFieldBenutzerprofilSuchen.setColumns(10);
 			}
 			{
-				buttonBenutzerprofilSuchen = new JButton("Benutzerprofil suchen");
-				buttonBenutzerprofilSuchen.setBounds(130, 16, 149, 23);
-				panel_3.add(buttonBenutzerprofilSuchen);
+				buttonBenutzerprofilSuchen = new JButton("Suchen");
+				buttonBenutzerprofilSuchen.setToolTipText("Hier k\u00F6nnen Sie ein Benutzerprofil nach der Id oder nem Benutzernamen suchen (Alt + B)");
+				buttonBenutzerprofilSuchen.setMnemonic('B');
+				buttonBenutzerprofilSuchen.setBounds(135, 22, 144, 23);
+				panelBenutzerprofilAussuchen.add(buttonBenutzerprofilSuchen);
 				{
 					labelBenutzerSucheId = new JLabel("Benutzer-ID");
 					labelBenutzerSucheId.setBounds(11, 56, 114, 14);
-					panel_3.add(labelBenutzerSucheId);
+					panelBenutzerprofilAussuchen.add(labelBenutzerSucheId);
 				}
 				{
 					labelBenutzerSucheName = new JLabel("Benutzername");
 					labelBenutzerSucheName.setBounds(11, 79, 114, 14);
-					panel_3.add(labelBenutzerSucheName);
+					panelBenutzerprofilAussuchen.add(labelBenutzerSucheName);
 				}
 				{
 					labelBenutzerSuchePasswort = new JLabel("Passwort");
 					labelBenutzerSuchePasswort.setBounds(11, 104, 114, 14);
-					panel_3.add(labelBenutzerSuchePasswort);
+					panelBenutzerprofilAussuchen.add(labelBenutzerSuchePasswort);
 				}
 				{
 					textFieldBenutzerSucheID = new JTextField();
+					textFieldBenutzerSucheID.setToolTipText("Das ist die Id des ausgew\u00E4hlten Benutzerprofils");
 					textFieldBenutzerSucheID.setBounds(135, 50, 144, 20);
-					panel_3.add(textFieldBenutzerSucheID);
+					panelBenutzerprofilAussuchen.add(textFieldBenutzerSucheID);
 					textFieldBenutzerSucheID.setEditable(false);
 					textFieldBenutzerSucheID.setColumns(10);
 				}
 				{
 					textFieldBenutzerSucheName = new JTextField();
+					textFieldBenutzerSucheName.setToolTipText("Das ist der Benutzername des ausgew\u00E4hlten Benutzerprofils");
 					textFieldBenutzerSucheName.setBounds(135, 76, 144, 20);
-					panel_3.add(textFieldBenutzerSucheName);
+					panelBenutzerprofilAussuchen.add(textFieldBenutzerSucheName);
 					textFieldBenutzerSucheName.setColumns(10);
 				}
 				{
 					textFieldBenutzerSuchePasswort = new JTextField();
+					textFieldBenutzerSuchePasswort.setToolTipText("Das ist das Passwort des ausgew\u00E4hlten Benutzerprofils");
 					textFieldBenutzerSuchePasswort.setBounds(135, 101, 144, 20);
-					panel_3.add(textFieldBenutzerSuchePasswort);
+					panelBenutzerprofilAussuchen.add(textFieldBenutzerSuchePasswort);
 					textFieldBenutzerSuchePasswort.setColumns(10);
 				}
 				{
 					buttonBenutzerprofilUebernehmen = new JButton("\u00DCbernehmen");
+					buttonBenutzerprofilUebernehmen.setToolTipText("Benutzerprofil f\u00FCr das ausgew\u00E4hlte Mitglied \u00FCbernehmen (Alt + \u00DC)");
+					buttonBenutzerprofilUebernehmen.setMnemonic('Ü');
 					buttonBenutzerprofilUebernehmen.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							buttonBenutzerprofilUebernehmenActionPerformed(e);
 						}
 					});
-					buttonBenutzerprofilUebernehmen.setBounds(6, 191, 273, 23);
-					panel_3.add(buttonBenutzerprofilUebernehmen);
+					buttonBenutzerprofilUebernehmen.setBounds(6, 157, 136, 23);
+					panelBenutzerprofilAussuchen.add(buttonBenutzerprofilUebernehmen);
 				}
 				{
 					buttonBenutzerFirst = new JButton("|<");
+					buttonBenutzerFirst.setToolTipText("Erstes Benutzerprofil anzeigen ");
 					buttonBenutzerFirst.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							buttonBenutzerFirstActionPerformed(e);
 						}
 					});
 					buttonBenutzerFirst.setBounds(6, 129, 67, 23);
-					panel_3.add(buttonBenutzerFirst);
+					panelBenutzerprofilAussuchen.add(buttonBenutzerFirst);
 				}
 				{
 					buttonBenutzerPrevious = new JButton("<<");
+					buttonBenutzerPrevious.setToolTipText("Vorherieges Benutzerprofil anzeigen");
 					buttonBenutzerPrevious.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							buttonBenutzerPreviousActionPerformed(e);
 						}
 					});
 					buttonBenutzerPrevious.setBounds(75, 129, 67, 23);
-					panel_3.add(buttonBenutzerPrevious);
+					panelBenutzerprofilAussuchen.add(buttonBenutzerPrevious);
 				}
 				{
 					buttonBenutzerNext = new JButton(">>");
+					buttonBenutzerNext.setToolTipText("N\u00E4chstes Benutzerprofil anzeigen");
 					buttonBenutzerNext.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							buttonBenutzerNextActionPerformed(e);
 						}
 					});
 					buttonBenutzerNext.setBounds(145, 129, 67, 23);
-					panel_3.add(buttonBenutzerNext);
+					panelBenutzerprofilAussuchen.add(buttonBenutzerNext);
 				}
 				{
 					buttonBenutzerLast = new JButton(">|");
+					buttonBenutzerLast.setToolTipText("Letztes Benutzerprofil anzeigen");
 					buttonBenutzerLast.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							buttonBenutzerLastActionPerformed(e);
 						}
 					});
 					buttonBenutzerLast.setBounds(212, 129, 67, 23);
-					panel_3.add(buttonBenutzerLast);
+					panelBenutzerprofilAussuchen.add(buttonBenutzerLast);
 				}
 				{
 					buttonBenutzerprofilHinzufgen = new JButton("Neu");
+					buttonBenutzerprofilHinzufgen.setToolTipText("Neues Benutzerprofil anlegen (Alt + N)");
+					buttonBenutzerprofilHinzufgen.setMnemonic('N');
 					buttonBenutzerprofilHinzufgen.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							buttonBenutzerprofilHinzufgenActionPerformed(e);
 						}
 					});
-					buttonBenutzerprofilHinzufgen.setBounds(6, 159, 136, 23);
-					panel_3.add(buttonBenutzerprofilHinzufgen);
-				}
-				{
-					buttonndern = new JButton("\u00C4ndern");
-					buttonndern.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							buttonndernActionPerformed(e);
-						}
-					});
-					buttonndern.setBounds(155, 159, 124, 23);
-					panel_3.add(buttonndern);
+					buttonBenutzerprofilHinzufgen.setBounds(146, 157, 133, 23);
+					panelBenutzerprofilAussuchen.add(buttonBenutzerprofilHinzufgen);
 				}
 				buttonBenutzerprofilSuchen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -426,19 +436,20 @@ public class JFrameMitglied extends JFrame {
 			}
 		}
 		{
-			panel_4 = new JPanel();
-			panel_4.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Mitglied ausw\u00E4hlen", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel_4.setBounds(326, 16, 291, 78);
-			contentPane.add(panel_4);
-			panel_4.setLayout(null);
+			panelMitgliedAussuchen = new JPanel();
+			panelMitgliedAussuchen.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Mitglied ausw\u00E4hlen", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panelMitgliedAussuchen.setBounds(326, 16, 291, 83);
+			contentPane.add(panelMitgliedAussuchen);
+			panelMitgliedAussuchen.setLayout(null);
 			{
 				textFieldMitgliedSuchen = new JTextField();
 				textFieldMitgliedSuchen.setBounds(6, 17, 153, 20);
-				panel_4.add(textFieldMitgliedSuchen);
+				panelMitgliedAussuchen.add(textFieldMitgliedSuchen);
 				textFieldMitgliedSuchen.setColumns(10);
 			}
 			{
 				buttonMitgliedSuchen = new JButton("Suchen");
+				buttonMitgliedSuchen.setMnemonic('S');
 				buttonMitgliedSuchen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						buttonMitgliedSuchenActionPerformed(e);
@@ -446,7 +457,7 @@ public class JFrameMitglied extends JFrame {
 				});
 
 				buttonMitgliedSuchen.setBounds(169, 16, 116, 23);
-				panel_4.add(buttonMitgliedSuchen);
+				panelMitgliedAussuchen.add(buttonMitgliedSuchen);
 			}
 			{
 				buttonMitgliedFirst = new JButton("|<");
@@ -456,7 +467,7 @@ public class JFrameMitglied extends JFrame {
 					}
 				});
 				buttonMitgliedFirst.setBounds(6, 48, 67, 23);
-				panel_4.add(buttonMitgliedFirst);
+				panelMitgliedAussuchen.add(buttonMitgliedFirst);
 			}
 			{
 				buttonMitgliedPrevious = new JButton("<<");
@@ -466,7 +477,7 @@ public class JFrameMitglied extends JFrame {
 					}
 				});
 				buttonMitgliedPrevious.setBounds(75, 48, 67, 23);
-				panel_4.add(buttonMitgliedPrevious);
+				panelMitgliedAussuchen.add(buttonMitgliedPrevious);
 			}
 			{
 				buttonMitgliedNext = new JButton(">>");
@@ -476,7 +487,7 @@ public class JFrameMitglied extends JFrame {
 					}
 				});
 				buttonMitgliedNext.setBounds(151, 48, 67, 23);
-				panel_4.add(buttonMitgliedNext);
+				panelMitgliedAussuchen.add(buttonMitgliedNext);
 			}
 			{
 				buttonMitgliedLast = new JButton(">|");
@@ -486,7 +497,7 @@ public class JFrameMitglied extends JFrame {
 					}
 				});
 				buttonMitgliedLast.setBounds(218, 48, 67, 23);
-				panel_4.add(buttonMitgliedLast);
+				panelMitgliedAussuchen.add(buttonMitgliedLast);
 			}
 		}
 	}
@@ -656,22 +667,6 @@ public class JFrameMitglied extends JFrame {
 		try {
 			benutzerDao.insert(benutzer);
 			textFieldBenutzerSucheID.setText(Integer.toString(benutzer.getId()));
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-	}
-
-
-	protected void buttonndernActionPerformed(ActionEvent e) {
-		int id = Integer.parseInt(textFieldBenutzerSucheID.getText());
-		String username = textFieldBenutzerSucheName.getText();
-		String passwort = textFieldBenutzerSuchePasswort.getText();
-		Benutzer benutzer = new Benutzer();
-		benutzer.setId(id);
-		benutzer.setUsername(username);
-		benutzer.setPasswort(passwort);
-		try {
-			benutzerDao.update(benutzer);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

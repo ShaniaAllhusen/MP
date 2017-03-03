@@ -56,6 +56,7 @@ public class HallenPlan extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws ClassNotFoundException 
 	 */
 	public HallenPlan() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,10 +78,17 @@ public class HallenPlan extends JFrame {
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
-		tablemodelselfmade = new TableModelSelfMade();
-		table.setModel(tablemodelselfmade);
+		try{
+		VereinDao dao;
+		dao = new VereinDao();
+		TableModelSelfMade model = new TableModelSelfMade(dao.getZeitblock());
+		table.setModel(model);
 		table.updateUI();
 		repaint();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		//		try {
 		//			

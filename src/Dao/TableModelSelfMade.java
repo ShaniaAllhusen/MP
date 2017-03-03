@@ -1,25 +1,29 @@
 package Dao;
 
-import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
+public class TableModelSelfMade extends DefaultTableModel {
 
-import tabellenklassen.Zeitblock;
+	private static final long serialVersionUID = 1L;
+	private Object[][] daten;
+	
+	public TableModelSelfMade(Object[][] daten) {
+		System.out.println(daten[0][0] + " Object [][]");
+		this.daten = daten;
+	}
+	
+	public void setData(Object[][] daten) {
+		this.daten = daten;
+	}
 
-public class TableModelSelfMade implements TableModel {
-	// private Vector<Object> Block = new Vector<Object>();
-	private ArrayList<Zeitblock> bloecke = new ArrayList<Zeitblock>();
-
-	@Override
-	public int getRowCount() {
-		int rows = bloecke.size();
+	public int getRowCount(Object[][] daten) {
+		int rows = daten.length;
 		return rows;
 	}
 
 	@Override
 	public int getColumnCount() {
-		return 8;
+		return daten[0].length;
 	}
 
 	@Override
@@ -36,68 +40,17 @@ public class TableModelSelfMade implements TableModel {
 		default: return null;
 		}		
 	}
-
+	
 	@Override
-	public Class<?> getColumnClass(int columnIndex) {
-		switch( columnIndex ){
-		case 0: return String.class;
-		case 1: return String.class;
-		case 2: return String.class;
-		case 3: return String.class;
-		case 4: return String.class;
-		case 5: return String.class;
-		case 6: return String.class;
-		case 7: return String.class;
-		default: return null;
-		}   
-
+	public Object getValueAt(int row, int column) {
+		System.out.println(daten[row][column]);
+		return daten[row][column];
+		
 	}
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
-
-	//	@Override
-	//	public Object getValueAt(int rowIndex, int columnIndex) {
-	//       Sportart sportart = new Sportart();
-	//       Mannschaft mannschaft = new Mannschaft();
-	//       Block block = new Block();
-	//       	        
-	//	        switch( columnIndex ){
-	//	            case 0: return sportart.getName();
-	//	            case 1: return mannschaft.getName();
-	//	            case 2: return new Integer( block.getZeitbeginn() );
-	//	            case 3: return new Integer( block.getDauer());
-	//	            case 4: return new Integer( block.getWochentag());
-	//	            default: return null;
-	//	        }
-	//	}
-	
-	@Override
-	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void addTableModelListener(TableModelListener l) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeTableModelListener(TableModelListener l) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
 }

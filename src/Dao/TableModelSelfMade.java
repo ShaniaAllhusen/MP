@@ -8,8 +8,12 @@ public class TableModelSelfMade extends DefaultTableModel {
 	private Object[][] daten;
 	
 	public TableModelSelfMade(Object[][] daten) {
-		System.out.println(daten[0][0] + " Object [][]");
 		this.daten = daten;
+//		for (int z=0;z<daten.length;z++) {
+//			for (int s=0;s<daten[z].length;s++) {
+//				this.daten[z][s]=z*s;
+//			}
+//		}
 	}
 	
 	public void setData(Object[][] daten) {
@@ -18,6 +22,8 @@ public class TableModelSelfMade extends DefaultTableModel {
 
 	public int getRowCount(Object[][] daten) {
 		int rows = daten.length;
+		System.out.println(daten.length);
+		System.out.println("hier");
 		return rows;
 	}
 

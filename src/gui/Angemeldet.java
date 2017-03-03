@@ -191,6 +191,7 @@ public class Angemeldet extends JFrame {
 		scrollPane.setBounds(10, 35, 522, 318);
 		contentPane.add(scrollPane);
 		table = new JTable();
+//TODO	table = new JTable(new DefaultTableModel(dao.getZeitblock(),new String[] {"Zeit", "M", "D", "M","D","F","S","S" }));
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
@@ -199,11 +200,7 @@ public class Angemeldet extends JFrame {
 		table.setModel(model);
 		table.updateUI();
 		repaint();
-		/**int rows = tablemodelselfmade.getRowCount();
-		 * System.out.println(rows);
-		 * int column = tablemodelselfmade.getColumnCount();
-		 * System.out.println(column); //TODO
-		 */
+	
 
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

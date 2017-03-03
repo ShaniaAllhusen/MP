@@ -23,7 +23,7 @@ public class JFrameBenutzer extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldSuchen;
 	private JButton buttonSuchen;
-	private JButton buttonNewButton;
+	private JButton buttonAendern;
 	private JButton buttonHinzufuegen;
 	private JButton buttonLoeschen;
 	private JLabel labelId;
@@ -32,10 +32,10 @@ public class JFrameBenutzer extends JFrame {
 	private JTextField textFieldUsername;
 	private JLabel labelPasswort;
 	private JTextField textFieldPasswort;
-	private JButton button;
-	private JButton button_1;
-	private JButton button_2;
-	private JButton button_3;
+	private JButton buttonFirst;
+	private JButton buttonPrevious;
+	private JButton buttonNext;
+	private JButton buttonLast;
 
 	private BenutzerDao benutzerDao;
 	private Benutzer benutzer;
@@ -66,7 +66,7 @@ public class JFrameBenutzer extends JFrame {
 	}
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 245);
+		setBounds(100, 100, 450, 259);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -88,14 +88,14 @@ public class JFrameBenutzer extends JFrame {
 			contentPane.add(buttonSuchen);
 		}
 		{
-			buttonNewButton = new JButton("\u00C4nderung speichern");
-			buttonNewButton.addActionListener(new ActionListener() {
+			buttonAendern = new JButton("\u00C4nderung speichern");
+			buttonAendern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonNewButtonActionPerformed(e);
 				}
 			});
-			buttonNewButton.setBounds(289, 110, 135, 23);
-			contentPane.add(buttonNewButton);
+			buttonAendern.setBounds(289, 110, 135, 23);
+			contentPane.add(buttonAendern);
 		}
 		{
 			buttonHinzufuegen = new JButton("Benutzer hinzuf\u00FCgen");
@@ -124,6 +124,7 @@ public class JFrameBenutzer extends JFrame {
 		}
 		{
 			textFieldID = new JTextField();
+			textFieldID.setEditable(false);
 			textFieldID.setBounds(94, 79, 89, 20);
 			contentPane.add(textFieldID);
 			textFieldID.setColumns(10);
@@ -151,24 +152,44 @@ public class JFrameBenutzer extends JFrame {
 			textFieldPasswort.setColumns(10);
 		}
 		{
-			button = new JButton("|<");
-			button.setBounds(10, 178, 53, 23);
-			contentPane.add(button);
+			buttonFirst = new JButton("|<");
+			buttonFirst.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					buttonActionPerformed(e);
+				}
+			});
+			buttonFirst.setBounds(10, 178, 53, 23);
+			contentPane.add(buttonFirst);
 		}
 		{
-			button_1 = new JButton("<<");
-			button_1.setBounds(73, 178, 53, 23);
-			contentPane.add(button_1);
+			buttonPrevious = new JButton("<<");
+			buttonPrevious.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					button_1ActionPerformed(e);
+				}
+			});
+			buttonPrevious.setBounds(73, 178, 53, 23);
+			contentPane.add(buttonPrevious);
 		}
 		{
-			button_2 = new JButton(">>");
-			button_2.setBounds(136, 178, 53, 23);
-			contentPane.add(button_2);
+			buttonNext = new JButton(">>");
+			buttonNext.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					button_2ActionPerformed(e);
+				}
+			});
+			buttonNext.setBounds(136, 178, 53, 23);
+			contentPane.add(buttonNext);
 		}
 		{
-			button_3 = new JButton(">|");
-			button_3.setBounds(199, 178, 53, 23);
-			contentPane.add(button_3);
+			buttonLast = new JButton(">|");
+			buttonLast.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					button_3ActionPerformed(e);
+				}
+			});
+			buttonLast.setBounds(199, 178, 53, 23);
+			contentPane.add(buttonLast);
 		}
 	}
 	protected void buttonSuchenActionPerformed(ActionEvent e) {
@@ -196,10 +217,9 @@ public class JFrameBenutzer extends JFrame {
 
 
 	private void showBenutzer(Benutzer benutzer) {
-		textFieldSuchen.setText(Integer.toString(benutzer.getId()));
+		textFieldID.setText(Integer.toString(benutzer.getId()));
 		textFieldUsername.setText(benutzer.getUsername());
 		textFieldPasswort.setText(benutzer.getPasswort());
-
 	}
 
 	private void showErrorPane(Exception e) {
@@ -211,7 +231,6 @@ public class JFrameBenutzer extends JFrame {
 		Benutzer benutzer = new Benutzer();
 		benutzer.setUsername(username);
 		benutzer.setPasswort(passwort);
-
 		try {
 			benutzerDao.insert(benutzer);
 			textFieldID.setText(Integer.toString(benutzer.getId()));
@@ -221,13 +240,7 @@ public class JFrameBenutzer extends JFrame {
 	}
 
 	protected void buttonNewButtonActionPerformed(ActionEvent e) {
-		int id = Integer.parseInt(textFieldID.getText());
-		String username = textFieldUsername.getText();
-		String passwort = textFieldPasswort.getText();
-		Benutzer benutzer = new Benutzer();
-		benutzer.setId(id);
-		benutzer.setUsername(username);
-		benutzer.setPasswort(passwort);
+		Benutzer benutzer = create();
 		try {
 			benutzerDao.update(benutzer);
 		} catch (Exception e1) {
@@ -236,12 +249,65 @@ public class JFrameBenutzer extends JFrame {
 	}
 
 	protected void buttonLoeschenActionPerformed(ActionEvent e) {
-		benutzer.setUsername((textFieldUsername.getText()));
+		Benutzer benutzer = create();
 		try {
 			benutzerDao.delete(benutzer);
+			felderLeeren();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 	}
-	
+
+	private Benutzer create(){
+		int id = Integer.parseInt(textFieldID.getText());
+		String username = textFieldUsername.getText();
+		String passwort = textFieldPasswort.getText();
+		Benutzer benutzer = new Benutzer();
+		benutzer.setId(id);
+		benutzer.setUsername(username);
+		benutzer.setPasswort(passwort);
+		return benutzer;
+	}
+
+	private void felderLeeren() {
+		textFieldID.setText("");
+		textFieldUsername.setText("");
+		textFieldPasswort.setText("");
+	}
+	protected void buttonActionPerformed(ActionEvent e) {
+		try {
+			Benutzer benutzerFirst = benutzerDao.first();
+			showBenutzer(benutzerFirst);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+
+		}
+	}
+	protected void button_1ActionPerformed(ActionEvent e) {
+		Benutzer benutzerAktiv = create();
+
+		try {
+			Benutzer benutzerPrevious = benutzerDao.previous(benutzerAktiv);
+			showBenutzer(benutzerPrevious);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+	protected void button_2ActionPerformed(ActionEvent e) {
+		Benutzer benutzerAktiv = create();
+		try {
+			Benutzer benutzerNext = benutzerDao.next(benutzerAktiv);
+			showBenutzer(benutzerNext);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+	protected void button_3ActionPerformed(ActionEvent e) {
+		try {
+			Benutzer benutzerLast = benutzerDao.last();
+			showBenutzer(benutzerLast);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
 }

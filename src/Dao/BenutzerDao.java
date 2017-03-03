@@ -87,9 +87,9 @@ public class BenutzerDao {
 			Connection conn = null;
 			try { 
 				conn = getConnection();
-				String sql = "DELETE FROM benutzer WHERE username = ?"; 
+				String sql = "DELETE FROM benutzer WHERE id = ?"; 
 				PreparedStatement preparedStatement = conn.prepareStatement(sql); 
-				preparedStatement.setString(1, benutzer.getUsername());
+				preparedStatement.setInt(1, benutzer.getId());
 				preparedStatement.executeUpdate(); 
 			} catch (SQLException e) { 
 				e.printStackTrace(); } 

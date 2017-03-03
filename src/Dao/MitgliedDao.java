@@ -41,7 +41,7 @@ public class MitgliedDao {
 		try {
 			conn = getConnection();
 			String sql = "SELECT m.id, m.vorname, m.nachname, m.geburtsdatum, m.strasse, m.plz, m.ort, m.benutzer_id, b.username, b.passwort FROM mitglied m "
-					+ "JOIN benutzer b ON m.benutzer_id = b.id WHERE m.id = ?";
+					+ "LEFT JOIN benutzer b ON m.benutzer_id = b.id WHERE m.id = ?";
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -174,7 +174,7 @@ public class MitgliedDao {
 		try {
 			conn = getConnection();
 			String sql = "SELECT m.id, m.vorname, m.nachname, m.geburtsdatum, m.strasse, m.plz, m.ort, m.benutzer_id, b.username, b.passwort FROM mitglied m "
-					+ "JOIN benutzer b ON m.benutzer_id = b.id "
+					+ "LEFT JOIN benutzer b ON m.benutzer_id = b.id "
 					+ "where m.id = (SELECT MIN(id) from mitglied)";
 			preparedStatement = conn.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -201,7 +201,7 @@ public class MitgliedDao {
 			try { 
 				conn = getConnection();
 				String sql = "SELECT m.id, m.vorname, m.nachname, m.geburtsdatum, m.strasse, m.plz, m.ort, m.benutzer_id, b.username, b.passwort FROM mitglied m "
-						+ "JOIN benutzer b ON m.benutzer_id = b.id "
+						+ "LEFT JOIN benutzer b ON m.benutzer_id = b.id "
 						+ "WHERE m.id < ? ORDER BY m.id DESC"; 
 				preparedStatement = conn.prepareStatement(sql); 
 				preparedStatement.setInt(1, id);
@@ -237,7 +237,7 @@ public class MitgliedDao {
 			try {
 				conn = getConnection();
 				String sql = "SELECT m.id, m.vorname, m.nachname, m.geburtsdatum, m.strasse, m.plz, m.ort, m.benutzer_id, b.username, b.passwort FROM mitglied m "
-						+ "JOIN benutzer b ON m.benutzer_id = b.id "
+						+ "LEFT JOIN benutzer b ON m.benutzer_id = b.id "
 						+ "WHERE m.id > ? ORDER BY m.id ASC";
 				preparedStatement = conn.prepareStatement(sql);
 				preparedStatement.setInt(1, id); 
@@ -281,7 +281,7 @@ public class MitgliedDao {
 			try {
 				conn = getConnection();
 				String sql =  "SELECT m.id, m.vorname, m.nachname, m.geburtsdatum, m.strasse, m.plz, m.ort, m.benutzer_id, b.username, b.passwort FROM mitglied m "
-						+ "JOIN benutzer b ON m.benutzer_id = b.id "
+						+ "LEFT JOIN benutzer b ON m.benutzer_id = b.id "
 						+ "WHERE m.id = (SELECT MAX(id) FROM mitglied)";
 				preparedStatement = conn.prepareStatement(sql);
 				ResultSet resultSet = preparedStatement.executeQuery();

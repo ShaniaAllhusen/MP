@@ -34,7 +34,7 @@ public class MitgliedDao {
 		return conn;
 	}
 	
-	public Mitglied select(int id) throws NoMitgliedFound {
+	public Mitglied select(int id) throws NoMitgliedFound { //Muss noch überarbeitet werden, damit auch Mitglieder angezeigt werden können, die keinen Benutzer haben
 		Connection conn = null;
 		Mitglied mitglied = null;
 		PreparedStatement preparedStatement = null;
@@ -60,7 +60,7 @@ public class MitgliedDao {
 	}
 	
 	//Mitglied hinzufügen
-	public void insert(Mitglied mitglied) {
+	public void insertMitBenutzer(Mitglied mitglied) {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		try{
@@ -88,6 +88,35 @@ public class MitgliedDao {
 			} 
 		}
 	}
+	
+	//Mitglied hinzufügen
+		public void insertOhneBenutzer(Mitglied mitglied) {
+			Connection conn = null;
+			PreparedStatement preparedStatement = null;
+			try{
+				conn = getConnection();
+				String sql = "INSERT INTO mitglied (vorname, nachname, geburtsdatum, strasse, plz, ort) VALUES (?, ?, ?, ?, ?, ?)";
+				preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				preparedStatement.setString(1, mitglied.getVorname());
+				preparedStatement.setString(2, mitglied.getNachname());
+				preparedStatement.setString(3, mitglied.getGeburtsdatum());
+				preparedStatement.setString(4, mitglied.getStrasse());
+				preparedStatement.setString(5, mitglied.getPlz());
+				preparedStatement.setString(6, mitglied.getOrt());
+				preparedStatement.executeUpdate(); 
+				ResultSet resultSet = preparedStatement.getGeneratedKeys();
+				resultSet.next();
+				mitglied.setId(resultSet.getInt(1));
+			} catch (SQLException e) { 
+				e.printStackTrace(); } 
+			finally { 
+				try { 
+					conn.close(); 
+				} catch (SQLException e) { 
+					e.printStackTrace(); 
+				} 
+			}
+		}
 	
 	//Mitglied löschen
 		public void delete(Mitglied mitglied) {

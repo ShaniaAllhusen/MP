@@ -1,18 +1,18 @@
 package tabellenklassen;
 
 public class Zeitblock {
-	private int Id;
+	private int id;
 	private String mannschaft;
 	private String sportart;
 	private int zeitbeginn;
-	private static int dauer;
+	private int dauer;
 	private int wochentag;
 	
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 	public String getMannschaft() {
 		return mannschaft;
@@ -32,11 +32,11 @@ public class Zeitblock {
 	public void setZeitbeginn(int zeitbeginn) {
 		this.zeitbeginn = zeitbeginn;
 	}
-	public static int getDauer() {
+	public  int getDauer() {
 		return dauer;
 	}
 	public void setDauer(int dauer) {
-		Zeitblock.dauer = dauer;
+		this.dauer = dauer;
 	}
 	public int getWochentag() {
 		return wochentag;

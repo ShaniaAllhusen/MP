@@ -9,6 +9,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+import org.omg.CORBA.portable.ValueBase;
+
+import tabellenklassen.Zeitblock;
+
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -24,20 +28,11 @@ public class ZeitBloecke extends JFrame {
 	private JTextField textFieldStandart;
 	private JTextField textFieldAusgabeAuswahl;
 	private int zeitblock;
-	private static int auswahlzeit;
-	public static int getAuswahlzeit() {
-		return auswahlzeit;
-	}
 	private int von;
 	private int bis; 
 	public static int vonbisdif = 24;
-
-	public void setAuswahlzeit(int auswahlzeit) {
-		ZeitBloecke.auswahlzeit = auswahlzeit;
-
-
-	}
-
+	Zeitblock zb = new Zeitblock();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -141,29 +136,41 @@ public class ZeitBloecke extends JFrame {
 
 		btnAktualisieren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setAuswahlzeit(zeitblock);
 				bis = (int) spinnerUhrzeitBis.getValue();
 				von = (int) spinnerUhrzeitVon.getValue();
 				vonbisdif = bis-von;
+				zb.setDauer(zeitblock);
 			}
 		});
 	}
-	
-	public int zeitberechnen() {
-		int anfang = tabellenklassen.Zeitblock.getDauer();
-		int min = 0; 
+
+	public String zeitberechnen(int z) {
 		
-		for (int i = 0; i < vonbisdif; i++) {
-			min = min + anfang;
-		}
-		if(min%zeitblock != 0){
-			min = min - 15;
+		int dauer = zb.getDauer();
+		int min = 0; 
+		int stunde = 0;
+		int gesamt= 0;
+		int dif = 0;
+		String[] uhrzeit = new String[(vonbisdif*2)/dauer];
+		
+		for (int i = 0; i < vonbisdif*2; i++) {
+			dif = min /dauer;
+			System.out.println(dif);
+			gesamt = gesamt + dauer;
+			min = min + dauer; 
+			if(min%dauer == 0) {
+				stunde++;
+				min = 0;
+			}else if(min%dauer >= 0){
+				min = min%dauer;
+						stunde++;
+			}
+			uhrzeit[i] = stunde+":"+min;
 		}
 			
-		
-		return min;
-		
-	}
+			return uhrzeit[z];
+}
+
 
 
 	public void zeitBlockAuswahl() {
@@ -176,6 +183,7 @@ public class ZeitBloecke extends JFrame {
 		}else{
 			textFieldAusgabeAuswahl.setText("Standart ausgewählt");
 		}
+		
 
 	}
 }

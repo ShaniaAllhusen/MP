@@ -65,6 +65,7 @@ public class JFrameBenutzer extends JFrame {
 		initGUI();
 	}
 	private void initGUI() {
+		setTitle("Benutzer verwalten");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 259);
 		contentPane = new JPanel();
@@ -73,12 +74,15 @@ public class JFrameBenutzer extends JFrame {
 		contentPane.setLayout(null);
 		{
 			textFieldSuchen = new JTextField();
+			textFieldSuchen.setToolTipText("Geben Sie hier die Id oder den Benutzernamen des Benutzerprofils an, dass Sie suchen wollen");
 			textFieldSuchen.setBounds(10, 11, 170, 20);
 			contentPane.add(textFieldSuchen);
 			textFieldSuchen.setColumns(10);
 		}
 		{
 			buttonSuchen = new JButton("Suchen");
+			buttonSuchen.setMnemonic('B');
+			buttonSuchen.setToolTipText("Hier k\u00F6nnen Sie ein Benutzerprofil nach der Id oder nem Benutzernamen suchen (Alt + B)");
 			buttonSuchen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonSuchenActionPerformed(e);
@@ -89,6 +93,8 @@ public class JFrameBenutzer extends JFrame {
 		}
 		{
 			buttonAendern = new JButton("\u00C4nderung speichern");
+			buttonAendern.setMnemonic('S');
+			buttonAendern.setToolTipText("\u00C4nderungen am Benutzerprofil speichern (Alt + S)");
 			buttonAendern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonNewButtonActionPerformed(e);
@@ -99,6 +105,8 @@ public class JFrameBenutzer extends JFrame {
 		}
 		{
 			buttonHinzufuegen = new JButton("Benutzer hinzuf\u00FCgen");
+			buttonHinzufuegen.setMnemonic('H');
+			buttonHinzufuegen.setToolTipText("Neues Benutzerprofil anlegen (Alt + H)");
 			buttonHinzufuegen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonHinzufuegenActionPerformed(e);
@@ -109,6 +117,8 @@ public class JFrameBenutzer extends JFrame {
 		}
 		{
 			buttonLoeschen = new JButton("Benutzer l\u00F6schen");
+			buttonLoeschen.setMnemonic('L');
+			buttonLoeschen.setToolTipText("Das ausgew\u00E4hlte Benutzerprofil l\u00F6schen (Alt + L)");
 			buttonLoeschen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonLoeschenActionPerformed(e);
@@ -124,6 +134,7 @@ public class JFrameBenutzer extends JFrame {
 		}
 		{
 			textFieldID = new JTextField();
+			textFieldID.setToolTipText("Das ist die Id des ausgew\u00E4hlten Benutzerprofils");
 			textFieldID.setEditable(false);
 			textFieldID.setBounds(94, 79, 89, 20);
 			contentPane.add(textFieldID);
@@ -136,6 +147,7 @@ public class JFrameBenutzer extends JFrame {
 		}
 		{
 			textFieldUsername = new JTextField();
+			textFieldUsername.setToolTipText("Das ist der Benutzername des ausgew\u00E4hlten Benutzerprofils");
 			textFieldUsername.setBounds(94, 114, 158, 20);
 			contentPane.add(textFieldUsername);
 			textFieldUsername.setColumns(10);
@@ -147,12 +159,14 @@ public class JFrameBenutzer extends JFrame {
 		}
 		{
 			textFieldPasswort = new JTextField();
+			textFieldPasswort.setToolTipText("Das ist das Passwort des ausgew\u00E4hlten Benutzerprofils");
 			textFieldPasswort.setBounds(94, 150, 158, 20);
 			contentPane.add(textFieldPasswort);
 			textFieldPasswort.setColumns(10);
 		}
 		{
 			buttonFirst = new JButton("|<");
+			buttonFirst.setToolTipText("Erstes Benutzerprofil anzeigen ");
 			buttonFirst.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buttonActionPerformed(e);
@@ -163,6 +177,7 @@ public class JFrameBenutzer extends JFrame {
 		}
 		{
 			buttonPrevious = new JButton("<<");
+			buttonPrevious.setToolTipText("Vorherieges Benutzerprofil anzeigen");
 			buttonPrevious.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button_1ActionPerformed(e);
@@ -173,6 +188,7 @@ public class JFrameBenutzer extends JFrame {
 		}
 		{
 			buttonNext = new JButton(">>");
+			buttonNext.setToolTipText("N\u00E4chstes Benutzerprofil anzeigen");
 			buttonNext.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button_2ActionPerformed(e);
@@ -183,6 +199,7 @@ public class JFrameBenutzer extends JFrame {
 		}
 		{
 			buttonLast = new JButton(">|");
+			buttonLast.setToolTipText("Letztes Benutzerprofil anzeigen");
 			buttonLast.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					button_3ActionPerformed(e);

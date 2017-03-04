@@ -40,7 +40,7 @@ public class Angemeldet extends JFrame {
 	private JButton buttonSportartVerwalten;
 	private JButton buttonMannschaftenVerwalten;
 	private JPanel panel;
-	private JButton buttonNewButton;
+	private JButton buttonVerwaltung;
 	private JButton btnNewButtonZeitblockaendern;
 	private JLabel labelBild;
 	private JButton buttonTrainingVerwalten;
@@ -135,7 +135,18 @@ public class Angemeldet extends JFrame {
 									}
 								});
 								{
-									buttonNewButton = new JButton("Sportart verwalten");
+									buttonVerwaltung = new JButton("Verwaltung");
+									buttonVerwaltung.setMnemonic('v');
+									buttonVerwaltung.addActionListener(new ActionListener() {
+										public void actionPerformed(ActionEvent e) {
+											try {
+												buttonBenutzerVerwaltenActionPerformed(e);
+											} catch (ClassNotFoundException e1) {
+												// TODO Auto-generated catch block
+												e1.printStackTrace();
+											}
+										}
+									});
 								}
 								buttonMannschaftenVerwalten.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
@@ -195,46 +206,46 @@ public class Angemeldet extends JFrame {
 		scrollPane.setBounds(10, 35, 522, 318);
 		contentPane.add(scrollPane);
 		table = new JTable();
-//TODO	table = new JTable(new DefaultTableModel(dao.getZeitblock(),new String[] {"Zeit", "M", "D", "M","D","F","S","S" }));
+		//TODO	table = new JTable(new DefaultTableModel(dao.getZeitblock(),new String[] {"Zeit", "M", "D", "M","D","F","S","S" }));
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
 		VereinDao dao = new VereinDao();
-		TableModelSelfMade model = new TableModelSelfMade(dao.getZeitblock());
+		TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
 		table.setModel(model);
 		table.updateUI();
 		repaint();
-	
+
 
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(114)
-							.addComponent(labelHerzlichWillkommen, GroupLayout.PREFERRED_SIZE, 304, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 603, GroupLayout.PREFERRED_SIZE)
-							.addGap(28)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
-		);
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addGap(114)
+										.addComponent(labelHerzlichWillkommen, GroupLayout.PREFERRED_SIZE, 304, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_contentPane.createSequentialGroup()
+												.addContainerGap()
+												.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 603, GroupLayout.PREFERRED_SIZE)
+												.addGap(28)
+												.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+												.addContainerGap())
+				);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(11)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 358, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(labelHerzlichWillkommen, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scrollPane, 0, 0, Short.MAX_VALUE)))
-					.addGap(470))
-		);
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+										.addGap(11)
+										.addComponent(panel, GroupLayout.PREFERRED_SIZE, 358, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_contentPane.createSequentialGroup()
+												.addComponent(labelHerzlichWillkommen, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(scrollPane, 0, 0, Short.MAX_VALUE)))
+												.addGap(470))
+				);
 
 		buttonTrainingVerwalten = new JButton("Training verwalten");
 		buttonTrainingVerwalten.setMnemonic('t');
@@ -249,45 +260,52 @@ public class Angemeldet extends JFrame {
 		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+				gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(3)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(labelBild, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-						.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(buttonTrainingVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(buttonSportartVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(buttonNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(buttonMannschaftenVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnNewButtonZeitblockaendern, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(buttonAktualisieren, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
-					.addContainerGap())
-		);
+						.addGap(3)
+						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(labelBild, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+								.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(buttonTrainingVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(buttonSportartVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(buttonVerwaltung, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(buttonMannschaftenVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnNewButtonZeitblockaendern, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(buttonAktualisieren, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+								.addContainerGap())
+				);
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+				gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnNewButtonZeitblockaendern, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonMannschaftenVerwalten, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonNewButton, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonSportartVerwalten)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonTrainingVerwalten)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-		);
+						.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(btnNewButtonZeitblockaendern, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(buttonMannschaftenVerwalten, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(buttonVerwaltung, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(buttonSportartVerwalten)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(buttonTrainingVerwalten)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap())
+				);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 
 
 	}
+
+	//	public void tabellebilden() {
+	//		String[][] tabellenanzeige = new String[48][8];
+	//		for (int i = 0; i < tabellenanzeige.length; i++) {
+	//
+	//		}
+	//	} //FIXME
 
 	// Wenn Button anmelden gedrückt, dann rufe wieder JFrame HallenPlan auf
 	protected void button_AbmeldenActionPerformed(ActionEvent e) { 
@@ -309,13 +327,6 @@ public class Angemeldet extends JFrame {
 		jFrameMannschaft.setVisible(true);
 	}
 
-	public void tabellebilden() {
-		String[][] tabellenanzeige = new String[48][8];
-		for (int i = 0; i < tabellenanzeige.length; i++) {
-
-		}
-	}
-
 	//	public String[][] getTableContentArray(){
 	//		String[][] tableContentArray = new String[96][8];
 	//		
@@ -334,5 +345,9 @@ public class Angemeldet extends JFrame {
 	protected void buttonTrainingVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
 		JFrameTraining jFrameTraining = new JFrameTraining();
 		jFrameTraining.setVisible(true);
+	}
+	protected void buttonBenutzerVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
+		JFrameVerwaltung jFrameVerwaltung = new JFrameVerwaltung();
+		jFrameVerwaltung.setVisible(true);
 	}
 }

@@ -81,7 +81,7 @@ public class HallenPlan extends JFrame {
 		try{
 		VereinDao dao;
 		dao = new VereinDao();
-		TableModelSelfMade model = new TableModelSelfMade(dao.getZeitblock());
+		TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
 		table.setModel(model);
 		table.updateUI();
 		repaint();

@@ -42,7 +42,6 @@ public class JFrameVerwaltung extends JFrame {
 	private JButton buttonSportartVerwalten;
 	private JButton buttonMannschaftenVerwalten;
 	private JPanel panel;
-	private JButton buttonNewButton;
 	private JButton btnNewButtonZeitblockaendern;
 	private JLabel labelBild;
 	private JButton buttonTrainingVerwalten;
@@ -86,7 +85,7 @@ public class JFrameVerwaltung extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\Mittelstufenprojekt\\sport.jpg"));
 		setTitle("Sie sind angemeldet");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 775, 432);
+		setBounds(100, 100, 775, 477);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -139,9 +138,6 @@ public class JFrameVerwaltung extends JFrame {
 										});
 									}
 								});
-								{
-									buttonNewButton = new JButton("Sportart verwalten");
-								}
 								buttonMannschaftenVerwalten.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										try {
@@ -211,14 +207,15 @@ public class JFrameVerwaltung extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(5)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(109)
+							.addGap(114)
 							.addComponent(labelHerzlichWillkommen, GroupLayout.PREFERRED_SIZE, 304, GroupLayout.PREFERRED_SIZE))
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(5)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -226,12 +223,12 @@ public class JFrameVerwaltung extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(11)
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE))
-						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 365, Short.MAX_VALUE))
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 							.addComponent(labelHerzlichWillkommen, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 							.addGap(11)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)))
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)))
 					.addGap(7))
 		);
 		
@@ -279,44 +276,39 @@ public class JFrameVerwaltung extends JFrame {
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(3)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 214, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(button_Abmelden, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-								.addComponent(buttonBenutzerVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-								.addComponent(buttonTrainingVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-								.addComponent(buttonSportartVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-								.addComponent(buttonNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-								.addComponent(buttonMannschaftenVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-								.addComponent(btnNewButtonZeitblockaendern, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-								.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-								.addComponent(buttonNewMitgliederVerwalten, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
-							.addGap(3))))
+						.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(buttonNewMitgliederVerwalten, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(buttonTrainingVerwalten, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(buttonSportartVerwalten, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(buttonBenutzerVerwalten, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(buttonMannschaftenVerwalten, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnNewButtonZeitblockaendern, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+							.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnNewButtonZeitblockaendern, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonMannschaftenVerwalten, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonNewButton, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonSportartVerwalten)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonTrainingVerwalten)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonNewMitgliederVerwalten)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(10)
+					.addComponent(buttonAktualisieren)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnNewButtonZeitblockaendern)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(buttonMannschaftenVerwalten, GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(buttonBenutzerVerwalten)
-					.addGap(3)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(buttonSportartVerwalten)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(buttonTrainingVerwalten)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(buttonNewMitgliederVerwalten)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(button_Abmelden)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
+					.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);

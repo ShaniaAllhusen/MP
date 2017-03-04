@@ -14,7 +14,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import tabellenklassen.Zeitblock;
-
+  
 
 public class VereinDao {
 
@@ -85,8 +85,9 @@ public class VereinDao {
 		return loggedIn;
 	}
 	
-	public Object[][] getZeitblock() {
-		Object[][] daten = new Object[10][8];
+	// Daten in Array
+	public Object[][] getDaten() {
+		Object[][] daten = new Object[96][8];
 		List<List<Object>> datenList = new ArrayList<List<Object>>();
 
 		try {
@@ -150,17 +151,6 @@ public class VereinDao {
 		return list.toArray(new Object[list.size()]);
 
 	}
-	
-		public void sqldatenholen() throws SQLException {
-			PreparedStatement preparedStatement = null;
-			Connection conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
-
-			//FIXME String sql ="select "
-		}
-		
-		
-		// TwoLi[][] foobar = list.toArray(new String[list.size()][list.get(0).length]);
-		// return foobar; // FIXME
 
 //	public ArrayList<TwoLines> getTable() throws SQLException { //Falsch
 //		PreparedStatement preparedStatement = null;

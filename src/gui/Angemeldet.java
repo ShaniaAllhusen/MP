@@ -106,16 +106,20 @@ public class Angemeldet extends JFrame {
 				}
 				{
 					buttonAktualisieren = new JButton("Aktualisieren");
+					buttonAktualisieren.setMnemonic('a');
 					buttonAktualisieren.setToolTipText("Wenn Sie hier klicken wird die Tabelle aktualisiert");
 					{
 						{
 							buttonSportartVerwalten = new JButton("Sportarten verwalten");
+							buttonSportartVerwalten.setMnemonic('s');
 							buttonSportartVerwalten.setToolTipText("Hier k\u00F6nnen Sie Sportarten anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
 							{
 								buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
+								buttonMannschaftenVerwalten.setMnemonic('m');
 								buttonMannschaftenVerwalten.setToolTipText("Hier k\u00F6nnen Sie Mannschaften anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
 
 								btnNewButtonZeitblockaendern = new JButton("Zeitbl\u00F6cke verwalten");
+								btnNewButtonZeitblockaendern.setMnemonic('z');
 								btnNewButtonZeitblockaendern.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										EventQueue.invokeLater(new Runnable() {
@@ -233,6 +237,7 @@ public class Angemeldet extends JFrame {
 		);
 
 		buttonTrainingVerwalten = new JButton("Training verwalten");
+		buttonTrainingVerwalten.setMnemonic('t');
 		buttonTrainingVerwalten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {

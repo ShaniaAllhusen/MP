@@ -60,7 +60,7 @@ public class HallenPlan extends JFrame {
 	 */
 	public HallenPlan() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 781, 460);
+		setBounds(100, 100, 819, 460);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -69,7 +69,7 @@ public class HallenPlan extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setEnabled(false);
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
-		scrollPane.setBounds(10, 23, 549, 372);
+		scrollPane.setBounds(10, 23, 600, 372);
 		contentPane.add(scrollPane);
 //		table.setColumnSelectionAllowed(false);
 //		table.setCellSelectionEnabled(false);
@@ -111,7 +111,7 @@ public class HallenPlan extends JFrame {
 		panel = new JPanel();
 		panel.setToolTipText("Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein und druecken Sie dann auf den Button \"Login\", fuer die Anmeldung. Wenn Sie angemeldet sind, koennen Sie  die Tabelle veraendern.");
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Anmeldung", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(591, 23, 164, 184);
+		panel.setBounds(629, 23, 164, 184);
 		contentPane.add(panel);
 		panel.setLayout(null);
 

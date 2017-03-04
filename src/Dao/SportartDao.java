@@ -19,7 +19,6 @@ public class SportartDao {
 		Class.forName(CLASSNAME);
 		datei = this.getClass().getResource("Datenbank.db").getPath().toString().replaceFirst("bin/", "src/");
 		datei = "jdbc:sqlite:" + datei;
-		System.out.println(datei);
 	}
 
 	//Verbindungsaufbau

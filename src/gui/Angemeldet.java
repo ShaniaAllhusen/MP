@@ -18,10 +18,12 @@ import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
 import Dao.TestRenderer;
+import Dao.VereinDao;
 
 import java.awt.Color;
 
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -46,9 +48,7 @@ public class Angemeldet extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-
-
-
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -217,14 +217,14 @@ public class Angemeldet extends JFrame {
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
 		scrollPane.setBounds(10, 35, 522, 318);
 		contentPane.add(scrollPane);
-		table = new JTable();
-		//TODO table = new JTable(new DefaultTableModel(dao.getZeitblock(),new String[] {"Zeit", "M", "D", "M","D","F","S","S" }));
+		JTable table;
+		VereinDao dao = new VereinDao();
+		table = new JTable(new DefaultTableModel(dao.getDaten(),new String[] {"Zeit", "Montag", "Dienstag", "Mittwoch","Donnerstag","Freitag","Samstag","Sonntag" }));
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
-		//	VereinDao dao = new VereinDao();
-		//	TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
-		//	table.setModel(model);
+//			TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
+//			table.setModel(model);
 		table.updateUI();
 		repaint();
 

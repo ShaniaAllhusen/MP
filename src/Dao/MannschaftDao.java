@@ -1,5 +1,6 @@
 package Dao;
 
+//Imports
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -283,6 +284,7 @@ public class MannschaftDao {
 		return last;
 	}
 
+	//Methode create() -> erstellt neue Mannschaft
 	public Mannschaft create(ResultSet resultSet) throws SQLException {
 		Sportart sportart = new Sportart();
 		Mannschaft mannschaft = new Mannschaft();
@@ -298,7 +300,8 @@ public class MannschaftDao {
 		}
 		return mannschaft;
 	}
-
+	
+	//Methode eingabePruefen()->prüft die Eingaben vom Benutzer
 	public boolean eingabePruefen(String eingabe) {
 		try {
 			Integer.parseInt(eingabe);

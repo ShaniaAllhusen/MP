@@ -3,7 +3,7 @@ package Dao;
 public class NoBenutzerFound extends Exception {
 
 	/**
-	 * 
+	 * Exception wenn der Benutzer nicht gefunden wurde
 	 */
 	private static final long serialVersionUID = 1L;
 

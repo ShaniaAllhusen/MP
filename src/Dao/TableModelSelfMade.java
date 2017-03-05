@@ -1,5 +1,6 @@
 package Dao;
 
+//Imports
 import javax.swing.table.DefaultTableModel;
 
 public class TableModelSelfMade extends DefaultTableModel {
@@ -7,6 +8,7 @@ public class TableModelSelfMade extends DefaultTableModel {
 	private static final long serialVersionUID = 1L;
 	private Object[][] daten;
 	
+	//Konstruktor
 	public TableModelSelfMade(Object[][] daten) {
 		this.daten = daten;
 //		for (int z=0;z<daten.length;z++) {
@@ -15,23 +17,24 @@ public class TableModelSelfMade extends DefaultTableModel {
 //			}
 //		}
 	}
-	
+
 	public void setData(Object[][] daten) {
 		this.daten = daten;
 	}
 
+	//Zählt die Zeilen
 	public int getRowCount(Object[][] daten) {
 		int rows = daten.length;
-		System.out.println(daten.length);
-		System.out.println("hier");
 		return rows;
 	}
 
+	//Zählt die Spalten
 	@Override
 	public int getColumnCount() {
 		return daten[0].length;
 	}
 
+	//Gibt den Spalten den Namen
 	@Override
 	public String getColumnName(int columnIndex) {
 		switch( columnIndex ){
@@ -47,6 +50,7 @@ public class TableModelSelfMade extends DefaultTableModel {
 		}		
 	}
 	
+	//Füllt das Array
 	@Override
 	public Object getValueAt(int row, int column) {
 		System.out.println(daten[row][column]);
@@ -54,6 +58,7 @@ public class TableModelSelfMade extends DefaultTableModel {
 		
 	}
 
+	//Legt fest ob der Benutzer die Zellen ändern darf/kann
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		return true;

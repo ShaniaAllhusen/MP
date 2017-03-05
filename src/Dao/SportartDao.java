@@ -1,5 +1,6 @@
 package Dao;
 
+//Imports
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,6 +16,7 @@ public class SportartDao {
 	private static String datei;
 	public static String CONNECTIONSTRING = "jdbc:sqlite:";
 
+	//Konstruktor
 	public SportartDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
 		datei = this.getClass().getResource("Datenbank.db").getPath().toString().replaceFirst("bin/", "src/");
@@ -273,7 +275,7 @@ public class SportartDao {
 		}
 		return last;
 	}
-
+	// Methode eingabePruefen() -> Prüft die Eingaben des Benutzers
 	public boolean eingabePruefen(String eingabe) {
 		try {
 			Integer.parseInt(eingabe);
@@ -286,6 +288,7 @@ public class SportartDao {
 		}
 	}
 	
+	//Prüft ResultSet
 	private boolean resultSetPruefen(ResultSet resultSet) throws SQLException{
 		if (resultSet.next()){
 			return true;
@@ -295,6 +298,7 @@ public class SportartDao {
 		}
 	}
 	
+	//Methode create() erstellt neue Sportart
 	private Sportart create(ResultSet resultSet) throws SQLException {
 		Sportart sportart = new Sportart();
 		//resultSet.next();

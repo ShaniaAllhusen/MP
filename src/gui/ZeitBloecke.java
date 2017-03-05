@@ -1,5 +1,6 @@
 package gui;
 
+//Imports
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -50,6 +51,8 @@ public class ZeitBloecke extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	//Konstruktor
 	public ZeitBloecke() {
 		setTitle("ZeitBl\u00F6cke_Ausw\u00E4hlen");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -132,6 +135,7 @@ public class ZeitBloecke extends JFrame {
 		panel.add(spinnerUhrzeitBis);
 
 
+		//Wenn Button aktualisieren gedrückt -> Aktualisiere Uhrzeiten von und bis
 		btnAktualisieren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				bis = (int) spinnerUhrzeitBis.getValue();
@@ -141,7 +145,7 @@ public class ZeitBloecke extends JFrame {
 			}
 		});
 	}
-
+	// Methode zeitberechnen()
 	public String zeitberechnen(int z) {
 		
 		int dauer = zb.getDauer();
@@ -171,7 +175,7 @@ public class ZeitBloecke extends JFrame {
 }
 
 
-
+	//Methode zeitBlockAuswahl()
 	public void zeitBlockAuswahl() {
 		if(zeitblock==60) {
 			textFieldAusgabeAuswahl.setText("Aktuell ZeitBlock_60min");
@@ -182,7 +186,5 @@ public class ZeitBloecke extends JFrame {
 		}else{
 			textFieldAusgabeAuswahl.setText("Standart ausgewählt");
 		}
-		
-
 	}
 }

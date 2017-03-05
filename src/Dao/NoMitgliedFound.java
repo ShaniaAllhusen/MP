@@ -3,7 +3,7 @@ package Dao;
 public class NoMitgliedFound extends Exception {
 
 	/**
-	 * 
+	 * Exception wenn das Mitglied nicht gefunden wurde
 	 */
 	private static final long serialVersionUID = 1L;
 

@@ -1,5 +1,6 @@
 package Dao;
 
+//Imports
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,12 +16,13 @@ public class MitgliedDao {
 	private static String datei;
 	public static String CONNECTIONSTRING = "jdbc:sqlite:";
 
+	//Konstruktor
 	public MitgliedDao() throws ClassNotFoundException {
 		Class.forName(CLASSNAME);
 		datei = this.getClass().getResource("Datenbank.db").getPath().toString().replaceFirst("bin/", "src/");
 		datei = "jdbc:sqlite:" + datei;
 	}
-
+	//Connection aufbauen
 	private Connection getConnection() {
 		Connection conn = null;
 		try{
@@ -31,7 +33,8 @@ public class MitgliedDao {
 		return conn;
 	}
 	
-	public Mitglied select(int id) throws NoMitgliedFound { //Muss noch überarbeitet werden, damit auch Mitglieder angezeigt werden können, die keinen Benutzer haben
+	//Mitgliedsdaten aus Datenbank abrufen
+	public Mitglied select(int id) throws NoMitgliedFound { //TODO Muss noch überarbeitet werden, damit auch Mitglieder angezeigt werden können, die keinen Benutzer haben
 		Connection conn = null;
 		Mitglied mitglied = null;
 		PreparedStatement preparedStatement = null;
@@ -295,6 +298,7 @@ public class MitgliedDao {
 			return last;
 		}
 	
+		//Neues Mitglied erstellen
 	public Mitglied create(ResultSet resultSet) throws SQLException {
 		Benutzer benutzer = new Benutzer();
 		Mitglied mitglied = new Mitglied();

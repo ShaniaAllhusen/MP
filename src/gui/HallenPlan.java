@@ -73,17 +73,14 @@ public class HallenPlan extends JFrame {
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
 		scrollPane.setBounds(10, 23, 600, 372);
 		contentPane.add(scrollPane);
-		table.setColumnSelectionAllowed(false);
-		table.setCellSelectionEnabled(false);
-		table.setEnabled(false);
 		table = new JTable(8, 96);
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
-//		VereinDao dao;
-//		dao = new VereinDao();
-//		TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
-//		table.setModel(model);
+		VereinDao dao;
+		dao = new VereinDao();
+		TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
+		table.setModel(model);
 		table.updateUI();
 		repaint();
 

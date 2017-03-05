@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JOptionPane;
   
 
@@ -120,6 +121,7 @@ public class VereinDao {
 
 	//Datensätze aus der Tabelle lesen
 	public Object[] getWerteWochentag(int wochentagId) throws SQLException {
+		@SuppressWarnings("unused")
 		int count = 0; 
 		PreparedStatement preparedStatement = null;
 		Connection conn = DriverManager.getConnection(CONNECTIONSTRING + datei);

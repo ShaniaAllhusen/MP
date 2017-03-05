@@ -30,7 +30,7 @@ public class ZeitBloecke extends JFrame {
 	private int von;
 	private int bis; 
 	public static int vonbisdif = 24;
-	Zeitblock zb = new Zeitblock();
+	static Zeitblock zb = new Zeitblock();
 	
 	/**
 	 * Launch the application.
@@ -146,9 +146,10 @@ public class ZeitBloecke extends JFrame {
 		});
 	}
 	// Methode zeitberechnen()
-	public String zeitberechnen(int z) {
+	public static String zeitberechnen(int z) throws ArithmeticException{
 		
-		int dauer = zb.getDauer();
+		int dauer = 60;
+		//int dauer = zb.getDauer();
 		int min = 0; 
 		int stunde = 0;
 		int gesamt= 0;

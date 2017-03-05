@@ -68,7 +68,7 @@ public class JFrameBenutzer extends JFrame {
 	}
 	private void initGUI() {
 		setTitle("Benutzer verwalten");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 259);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

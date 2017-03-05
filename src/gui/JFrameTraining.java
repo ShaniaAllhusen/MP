@@ -341,11 +341,15 @@ public class JFrameTraining extends JFrame {
 	private Mannschaft create() {
 		Mannschaft mannschaftAktiv = new Mannschaft();
 		Sportart sportartAktiv = new Sportart();
+		try{
 		sportartAktiv.setId(Integer.parseInt(textFieldSportartId.getText()));
 		sportartAktiv.setName(textFieldSportartName.getText());
 		mannschaftAktiv.setSportart(sportartAktiv);
 		mannschaftAktiv.setId(Integer.parseInt(textFieldMannschaftId.getText()));
 		mannschaftAktiv.setName(textFieldMannschaftName.getText());
+		}catch(NumberFormatException n){
+			n.getMessage();
+		}
 		return mannschaftAktiv;
 	}
 }

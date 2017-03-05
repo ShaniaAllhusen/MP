@@ -156,7 +156,7 @@ public class JFrameMannschaft extends JFrame {
 			buttonnderungenSpeichern.setToolTipText("\u00C4nderungen der Mannschaft speichern (Alt + \u00C4)");
 			buttonnderungenSpeichern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					buttonnderungenSpeichernActionPerformed(e);
+					buttonaenderungenSpeichernActionPerformed(e);
 				}
 			});
 			buttonnderungenSpeichern.setBounds(10, 229, 276, 23);
@@ -373,7 +373,7 @@ public class JFrameMannschaft extends JFrame {
 		}
 
 	}
-	protected void buttonnderungenSpeichernActionPerformed(ActionEvent e) {
+	protected void buttonaenderungenSpeichernActionPerformed(ActionEvent e) {
 		String name;
 		String sportartName;
 		String sportartId;
@@ -474,8 +474,12 @@ public class JFrameMannschaft extends JFrame {
 	}
 	protected void buttonSportartPreviousActionPerformed(ActionEvent e) {
 		Sportart sportartAktiv = new Sportart();
+		try{
 		sportartAktiv.setId(Integer.parseInt(textFieldSportartSucheId.getText()));
 		sportartAktiv.setName(textFieldSportartSucheName.getText());
+		} catch(NumberFormatException n){
+			n.getMessage();
+		}
 		try {
 			Sportart sportartPrevious = sportartDao.previous(sportartAktiv);
 			showSportart(sportartPrevious);
@@ -486,8 +490,12 @@ public class JFrameMannschaft extends JFrame {
 
 	protected void buttonSportartNextActionPerformed(ActionEvent e) {
 		Sportart sportartAktiv = new Sportart();
+		try{
 		sportartAktiv.setId(Integer.parseInt(textFieldSportartSucheId.getText()));
 		sportartAktiv.setName(textFieldSportartSucheName.getText());
+		}catch(NumberFormatException n){
+			n.getMessage();
+		}
 		try {
 			Sportart sportartNext = sportartDao.next(sportartAktiv);
 			showSportart(sportartNext);
@@ -525,11 +533,15 @@ public class JFrameMannschaft extends JFrame {
 	private Mannschaft create() {
 		Mannschaft mannschaftAktiv = new Mannschaft();
 		Sportart sportartAktiv = new Sportart();
+		try{
 		sportartAktiv.setId(Integer.parseInt(textFieldSportartId.getText()));
 		sportartAktiv.setName(textFieldSportartName.getText());
 		mannschaftAktiv.setSportart(sportartAktiv);
 		mannschaftAktiv.setId(Integer.parseInt(textFieldID.getText()));
 		mannschaftAktiv.setName(textFieldName.getText());
+		}catch(NumberFormatException n){
+			n.getMessage();
+		}
 		return mannschaftAktiv;
 	}
 

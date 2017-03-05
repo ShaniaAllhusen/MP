@@ -101,8 +101,7 @@ public class VereinDao {
 				for (int j = 1; j < 8; j++) {
 					System.out.println(j);
 					try {
-						//daten[i][j] = getWerteWochentag(j)[i];
-						daten[i][j] = "Kurt";
+						daten[i][j] = getWerteWochentag(j)[i];
 					} catch (ArrayIndexOutOfBoundsException e) {
 					
 					}

@@ -584,7 +584,7 @@ public class JFrameMitglied extends JFrame {
 
 	public Mitglied create() {
 		Mitglied mitgliedAktiv = new Mitglied();
-
+		try{
 		Benutzer benutzerAktiv = new Benutzer();
 		benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerId.getText()));
 		benutzerAktiv.setUsername(textFieldBenutzername.getText());
@@ -598,6 +598,9 @@ public class JFrameMitglied extends JFrame {
 		mitgliedAktiv.setStrasse(textFieldStrasse.getText());
 		mitgliedAktiv.setPlz(textFieldPostleitzahl.getText());
 		mitgliedAktiv.setOrt(textFieldOrt.getText());
+		}catch(NumberFormatException n){
+			n.getMessage();
+		}
 		return mitgliedAktiv;
 	}
 	protected void buttonMitgliedNextActionPerformed(ActionEvent e) {

@@ -253,7 +253,7 @@ public class JFrameMannschaft extends JFrame {
 		{
 			panel = new JPanel();
 			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Sportart ausw\u00E4hlen", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel.setBounds(308, 124, 200, 218);
+			panel.setBounds(308, 124, 224, 218);
 			contentPane.add(panel);
 			panel.setLayout(null);
 			{
@@ -320,7 +320,7 @@ public class JFrameMannschaft extends JFrame {
 						buttonSportartPreviousActionPerformed(e);
 					}
 				});
-				buttonSportartPrevious.setBounds(54, 152, 45, 23);
+				buttonSportartPrevious.setBounds(50, 152, 58, 23);
 				panel.add(buttonSportartPrevious);
 			}
 			{
@@ -331,7 +331,7 @@ public class JFrameMannschaft extends JFrame {
 						buttonSportartNextActionPerformed(e);
 					}
 				});
-				buttonSportartNext.setBounds(101, 152, 45, 23);
+				buttonSportartNext.setBounds(106, 152, 58, 23);
 				panel.add(buttonSportartNext);
 			}
 			{
@@ -342,7 +342,7 @@ public class JFrameMannschaft extends JFrame {
 						buttonSportartLastActionPerformed(e);
 					}
 				});
-				buttonSportartLast.setBounds(145, 152, 45, 23);
+				buttonSportartLast.setBounds(169, 152, 45, 23);
 				panel.add(buttonSportartLast);
 			}
 			{
@@ -354,7 +354,7 @@ public class JFrameMannschaft extends JFrame {
 						buttonSportartUebernehmenActionPerformed(e);
 					}
 				});
-				buttonSportartbernehmen.setBounds(6, 184, 184, 23);
+				buttonSportartbernehmen.setBounds(6, 184, 208, 23);
 				panel.add(buttonSportartbernehmen);
 			}
 		}
@@ -390,19 +390,43 @@ public class JFrameMannschaft extends JFrame {
 		Mannschaft mannschaftAktiv;
 		Sportart sportart;
 		int id;
+		boolean eingabeName;
+		boolean eingabeSportart;
+		boolean eingabeMannschaft;
 
-		name = textFieldName.getText();
-		sportartName = textFieldSportartName.getText();
-		sportartId = textFieldSportartId.getText();
-		mannschaftAktiv = new Mannschaft();
-		sportart = new Sportart();
+		eingabeMannschaft = felderPruefen(textFieldID);
+		if(eingabeMannschaft == true) {
+			eingabeSportart = felderPruefen(textFieldSportartId);
+			if(eingabeSportart==true) {
+				eingabeName = felderPruefen(textFieldName);
+				if (eingabeName == true){
+					name = textFieldName.getText();
+					sportartName = textFieldSportartName.getText();
+					sportartId = textFieldSportartId.getText();
+					mannschaftAktiv = new Mannschaft();
+					sportart = new Sportart();
 
-		id = Integer.parseInt(sportartId);
-		sportart.setId(id);
-		sportart.setName(sportartName);
-		mannschaftAktiv.setName(name);
-		mannschaftAktiv.setSportart(sportart);
-		mannschaftDao.insert(mannschaftAktiv);
+					id = Integer.parseInt(sportartId);
+					sportart.setId(id);
+					sportart.setName(sportartName);
+					mannschaftAktiv.setName(name);
+					mannschaftAktiv.setSportart(sportart);
+					mannschaftDao.insert(mannschaftAktiv);
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "Bitte geben Sie einen Namen ein.",
+							"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Bitte wählen Sie eine Sportart aus.",
+						"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie eine Mannschaft aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	// Wenn Button Mannschaft löschen gedrückt -> Mannschaft wird gelöscht
@@ -410,31 +434,54 @@ public class JFrameMannschaft extends JFrame {
 		String mannschaftId;
 		int id;
 
-		try {
-			mannschaftId = textFieldID.getText();
-			id = Integer.parseInt(mannschaftId);
-			mannschaftDao.delete(id);
-			textFieldID.setText("");
-			textFieldName.setText("");
-			textFieldSportartName.setText("");
-			textFieldSportartId.setText("");
-		} catch (NumberFormatException e1) {
-			e1.printStackTrace();
+		boolean pruefe = felderPruefen(textFieldID);
+
+		if(pruefe == true) {
+			try {
+				mannschaftId = textFieldID.getText();
+				id = Integer.parseInt(mannschaftId);
+				mannschaftDao.delete(id);
+				textFieldID.setText("");
+				textFieldName.setText("");
+				textFieldSportartName.setText("");
+				textFieldSportartId.setText("");
+			} catch (NumberFormatException e1) {
+				e1.printStackTrace();
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie eine Mannschaft aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	// Wenn Button Mannschaft hinzufügen gedrückt -> Mannschaft wird hinzugefügt
 	protected void buttonMannschaftHinzufuegenActionPerformed(ActionEvent e) {
 		Mannschaft mannschaftAktiv;
-		try {
-			mannschaftAktiv = create();
-			mannschaftDao.insert(mannschaftAktiv);
-			showMannschaft(mannschaftAktiv);
-			showInfoPane("Mannschaft", mannschaftAktiv.getId());
-		} catch (NumberFormatException e1) {
-			e1.printStackTrace();
+		boolean eingabeName;
+		boolean eingabeSportart;
+		eingabeSportart = felderPruefen(textFieldSportartId);
+		if(eingabeSportart==true) {
+			eingabeName = felderPruefen(textFieldName);
+			if (eingabeName == true){
+				try {
+					mannschaftAktiv = create();
+					mannschaftDao.insert(mannschaftAktiv);
+					showMannschaft(mannschaftAktiv);
+					showInfoPane("Mannschaft", mannschaftAktiv.getId());
+				} catch (NumberFormatException e1) {
+					e1.printStackTrace();
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Bitte geben Sie einen Namen ein.",
+						"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+			}
 		}
-
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie eine Sportart aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	//Erste Mannschaft anzeigen
@@ -571,11 +618,19 @@ public class JFrameMannschaft extends JFrame {
 	}
 	// Wenn Button Sportart übernehmen gedrückt -> Sportart wird übernommen
 	protected void buttonSportartUebernehmenActionPerformed(ActionEvent e) {
-		textFieldSportartName.setText(textFieldSportartSucheName.getText());
-		textFieldSportartId.setText(textFieldSportartSucheId.getText());
-		textFieldSportartSucheName.setText("");
-		textFieldSportartSucheId.setText("");
-		textFieldSportartSuchen.setText("");
+		boolean pruefe = felderPruefen(textFieldSportartSucheId);
+		if(pruefe == true) {
+			textFieldSportartName.setText(textFieldSportartSucheName.getText());
+			textFieldSportartId.setText(textFieldSportartSucheId.getText());
+			textFieldSportartSucheName.setText("");
+			textFieldSportartSucheId.setText("");
+			textFieldSportartSuchen.setText("");
+		}
+		else {
+			JOptionPane.showMessageDialog(this,
+					"Bitte wählen Sie eine Sportart aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	// Methode create() -> Neue Mannschaft wird erstellt

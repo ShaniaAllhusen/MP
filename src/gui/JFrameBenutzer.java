@@ -250,38 +250,70 @@ public class JFrameBenutzer extends JFrame {
 
 	//Wenn Button Hinzufügen gedrückt -> Benutzer wird hinzugefügt
 	protected void buttonHinzufuegenActionPerformed(ActionEvent e) {
-		String username = textFieldUsername.getText();
-		String passwort = textFieldPasswort.getText();
-		Benutzer benutzer = new Benutzer();
-		benutzer.setUsername(username);
-		benutzer.setPasswort(passwort);
-		try {
-			benutzerDao.insert(benutzer);
-			textFieldID.setText(Integer.toString(benutzer.getId()));
-			showInfoPane("Benutzer", benutzer.getId());
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		boolean eingabeBenutzername = felderPruefen(textFieldUsername);
+		boolean eingabePasswort = felderPruefen(textFieldPasswort);
+
+		if(eingabeBenutzername == true && eingabePasswort == true) {
+			String username = textFieldUsername.getText();
+			String passwort = textFieldPasswort.getText();
+			Benutzer benutzer = new Benutzer();
+			benutzer.setUsername(username);
+			benutzer.setPasswort(passwort);
+			try {
+				benutzerDao.insert(benutzer);
+				textFieldID.setText(Integer.toString(benutzer.getId()));
+				showInfoPane("Benutzer", benutzer.getId());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte geben Sie einen Benutzername und Passwort ein.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	//Wenn Button Ändern gedrückt -> Änderung wird gespeichert
-	protected void buttonAendernActionPerformed(ActionEvent e) { //
-		Benutzer benutzer = create();
-		try {
-			benutzerDao.update(benutzer);
-		} catch (Exception e1) {
-			e1.printStackTrace();
+	protected void buttonAendernActionPerformed(ActionEvent e) { 
+		boolean pruefe = felderPruefen(textFieldID);
+		if(pruefe == true) {
+			boolean eingabeBenutzername = felderPruefen(textFieldUsername);
+			boolean eingabePasswort = felderPruefen(textFieldPasswort);
+
+			if(eingabeBenutzername == true && eingabePasswort == true) {
+				Benutzer benutzer = create();
+				try {
+					benutzerDao.update(benutzer);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Bitte geben Sie einen Benutzername und Passwort ein.",
+						"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie ein Benutzerprofil aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	//Wenn Button Löschen gedrückt -> Benutzer wird gelöscht
 	protected void buttonLoeschenActionPerformed(ActionEvent e) {
-		Benutzer benutzer = create();
-		try {
-			benutzerDao.delete(benutzer);
-			felderLeeren();
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		boolean pruefe = felderPruefen(textFieldID);
+		if(pruefe == true) {
+			Benutzer benutzer = create();
+			try {
+				benutzerDao.delete(benutzer);
+				felderLeeren();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie ein Benutzerprofil aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

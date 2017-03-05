@@ -687,18 +687,27 @@ public class JFrameMitglied extends JFrame {
 		}
 	}
 	protected void buttonBenutzerprofilHinzufgenActionPerformed(ActionEvent e) {
-		String username = textFieldBenutzerSucheName.getText();
-		String passwort = textFieldBenutzerSuchePasswort.getText();
-		Benutzer benutzer = new Benutzer();
-		benutzer.setUsername(username);
-		benutzer.setPasswort(passwort);
+		boolean eingabeBenutzername = felderPruefen(textFieldBenutzerSucheName);
+		boolean eingabePasswort = felderPruefen(textFieldBenutzerSuchePasswort);
 
-		try {
-			benutzerDao.insert(benutzer);
-			textFieldBenutzerSucheID.setText(Integer.toString(benutzer.getId()));
-			showInfoPane("Benutzer", benutzer.getId());
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		if(eingabeBenutzername == true && eingabePasswort == true) {
+			String username = textFieldBenutzerSucheName.getText();
+			String passwort = textFieldBenutzerSuchePasswort.getText();
+			Benutzer benutzer = new Benutzer();
+			benutzer.setUsername(username);
+			benutzer.setPasswort(passwort);
+
+			try {
+				benutzerDao.insert(benutzer);
+				textFieldBenutzerSucheID.setText(Integer.toString(benutzer.getId()));
+				showInfoPane("Benutzer", benutzer.getId());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte geben Sie einen Benutzername und Passwort ein.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -770,19 +779,25 @@ public class JFrameMitglied extends JFrame {
 	}
 
 	protected void buttonMitgliedLoeschenActionPerformed(ActionEvent e) {
-		Mitglied mitglied = new Mitglied();
-		if (felderPruefen(textFieldBenutzerId)== true) {
-			mitglied = create();
+		boolean pruefe = felderPruefen(textFieldMitgliedId);
+		if(pruefe == true) {
+			Mitglied mitglied = new Mitglied();
+			if (felderPruefen(textFieldBenutzerId)== true) {
+				mitglied = create();
+			}
+			else {
+				mitglied = createOhneBenutzer();
+			}
+			try {
+				mitgliedDao.delete(mitglied);
+				felderLeeren();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
-		else {
-			mitglied = createOhneBenutzer();
-		}
-		try {
-			mitgliedDao.delete(mitglied);
-			felderLeeren();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+		JOptionPane.showMessageDialog(this,
+				"Bitte wählen Sie ein Mitglied aus.",
+				"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 	}
 
 	protected void buttonDatenAktualisierenActionPerformed(ActionEvent e) {
@@ -850,10 +865,18 @@ public class JFrameMitglied extends JFrame {
 	}
 
 	protected void buttonBenutzerprofilUebernehmenActionPerformed(ActionEvent e) {
-		textFieldBenutzerId.setText(textFieldBenutzerSucheID.getText());
-		textFieldBenutzername.setText(textFieldBenutzerSucheName.getText());
-		textFieldPasswort.setText(textFieldBenutzerSuchePasswort.getText());
-		benutzerSucheFelderLeeren();
+		boolean pruefe = felderPruefen(textFieldBenutzerSucheID);
+		if(pruefe == true) {
+			textFieldBenutzerId.setText(textFieldBenutzerSucheID.getText());
+			textFieldBenutzername.setText(textFieldBenutzerSucheName.getText());
+			textFieldPasswort.setText(textFieldBenutzerSuchePasswort.getText());
+			benutzerSucheFelderLeeren();
+		}
+		else {
+			JOptionPane.showMessageDialog(this,
+					"Bitte wählen Sie ein Benutzerprofil aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	public Mitglied create() {

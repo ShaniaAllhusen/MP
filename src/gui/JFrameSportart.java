@@ -149,11 +149,25 @@ public class JFrameSportart extends JFrame {
 			buttonAendern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// Wenn Button Ändern gedrückt -> Änderungen werden gespeichert
-					sportart.setName(textFieldName.getText());
-					try {
-						dao.update(sportart);
-					} catch (Exception e1) {
-						e1.printStackTrace();
+					boolean eingabeId = felderPruefen(textFieldId);
+					if(eingabeId == true) {
+						boolean eingabeName = felderPruefen(textFieldName);
+						if(eingabeName == true) {
+							sportart.setName(textFieldName.getText());
+							try {
+								dao.update(sportart);
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Bitte geben Sie einen Namen.",
+									"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Sportart aus.",
+								"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
@@ -171,13 +185,19 @@ public class JFrameSportart extends JFrame {
 					String name = textFieldName.getText();
 					sportart = new Sportart();
 					sportart.setName(name);
-
-					try {
-						dao.insert(sportart);
-						textFieldId.setText(Integer.toString(sportart.getId()));
-						showInfoPane("Sportart", sportart.getId());
-					} catch (Exception e1) {
-						e1.printStackTrace();
+					boolean eingabe = felderPruefen(textFieldName);
+					if(eingabe == true) {
+						try {
+							dao.insert(sportart);
+							textFieldId.setText(Integer.toString(sportart.getId()));
+							showInfoPane("Sportart", sportart.getId());
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Bitte geben Sie einen Namen.",
+								"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
@@ -190,11 +210,18 @@ public class JFrameSportart extends JFrame {
 			buttonLoeschen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// Wenn Button löschen gedrückt -> Sportart wird gelöscht
-					sportart.setName((textFieldName.getText()));
-					try {
-						dao.delete(sportart);
-					} catch (Exception e1) {
-						e1.printStackTrace();
+					boolean pruefe = felderPruefen(textFieldId);
+					if (pruefe == true) {
+						sportart.setName((textFieldName.getText()));
+						try {
+							dao.delete(sportart);
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Sportart aus.",
+								"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
@@ -294,10 +321,10 @@ public class JFrameSportart extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	//nächste Sportart anzeigen
 	protected void buttonNextActionPerformed(ActionEvent e) {
-		
+
 		Sportart sportartAktiv = new Sportart();
 		if(felderPruefen(textFieldId)==true) {
 			try{
@@ -327,22 +354,22 @@ public class JFrameSportart extends JFrame {
 		JOptionPane.showMessageDialog(this, text +" mit der ID " +id +" wurde hinzugefügt", "Informationsmeldung", JOptionPane.INFORMATION_MESSAGE);
 	}
 	// es wird geprüft, ob ein Feld leer ist
-		private boolean felderPruefen(JTextField textField) {
-			boolean pruefe = true;
-			if (textField.getText() == null){
-				pruefe = false;
-			}
-			else if(textField.getText().equals("")) {
-				pruefe = false;
-			}
-			else if(textField.getText().isEmpty() == true) {
-				pruefe = false;
-			}
-			else if(textField.getText().equals(" ")) {
-				pruefe = false;
-			}
-			return pruefe;
+	private boolean felderPruefen(JTextField textField) {
+		boolean pruefe = true;
+		if (textField.getText() == null){
+			pruefe = false;
 		}
+		else if(textField.getText().equals("")) {
+			pruefe = false;
+		}
+		else if(textField.getText().isEmpty() == true) {
+			pruefe = false;
+		}
+		else if(textField.getText().equals(" ")) {
+			pruefe = false;
+		}
+		return pruefe;
+	}
 }
 
 

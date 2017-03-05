@@ -1,5 +1,6 @@
 package gui;
 
+//Imports
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -45,9 +46,9 @@ public class JFrameTraining extends JFrame {
 	private JButton buttonLast;
 	private JPanel panel;
 	private JLabel labelDauer;
-	
+
 	private MannschaftDao mannschaftDao;
-	
+
 	/**
 	 * @wbp.nonvisual location=54,-41
 	 */
@@ -82,6 +83,8 @@ public class JFrameTraining extends JFrame {
 	 * Create the frame.
 	 * @throws ClassNotFoundException 
 	 */
+
+	//Konstruktor
 	public JFrameTraining() throws ClassNotFoundException {
 		mannschaftDao = new MannschaftDao();
 		initGUI();
@@ -269,6 +272,7 @@ public class JFrameTraining extends JFrame {
 			textFieldDauer.setColumns(10);
 		}
 	}
+	//Wenn Button Mannschaft suchen gedrückt -> Mannschaft wird gesucht
 	protected void buttonMannschaftSuchenActionPerformed(ActionEvent e) {
 		String eingabe = textFieldMannschaftSuchen.getText();
 		Mannschaft mannschaftAktiv;
@@ -289,7 +293,8 @@ public class JFrameTraining extends JFrame {
 			showErrorPane(e1);
 		}
 	}
-	
+
+	//Erste Mannschaft anzeigen
 	protected void buttonFirstActionPerformed(ActionEvent e) {
 		try {
 			Mannschaft mannschaftFirst = new Mannschaft();
@@ -299,6 +304,7 @@ public class JFrameTraining extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	// vorherige Mannschaft anzeigen
 	protected void buttonPreviousActionPerformed(ActionEvent e) {
 		Mannschaft mannschaftAktiv = new Mannschaft();
 		mannschaftAktiv = create();
@@ -309,7 +315,8 @@ public class JFrameTraining extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
+	//nächste Mannschaft anzeigen
 	protected void buttonNextActionPerformed(ActionEvent e) {
 		Mannschaft mannschaftAktiv = new Mannschaft();
 		mannschaftAktiv = create();
@@ -320,6 +327,7 @@ public class JFrameTraining extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	//letzte Mannschaft anzeigen
 	protected void buttonLastActionPerformed(ActionEvent e) {
 		try {
 			Mannschaft mannschaftLast = mannschaftDao.last();
@@ -329,26 +337,28 @@ public class JFrameTraining extends JFrame {
 		}
 	}
 
+	//Methode showMannschaft()-> Mannschaft anzeigen lassen
 	private void showMannschaft(Mannschaft mannschaft) {
 		textFieldMannschaftId.setText(Integer.toString(mannschaft.getId()));
 		textFieldMannschaftName.setText(mannschaft.getName());
 		textFieldSportartId.setText(Integer.toString(mannschaft.getSportart().getId()));
 		textFieldSportartName.setText(mannschaft.getSportart().getName());
 	}
-	
+
 	private void showErrorPane(Exception e) {
 		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
+	//Methode create() -> neue Mannschaft erstellen
 	private Mannschaft create() {
 		Mannschaft mannschaftAktiv = new Mannschaft();
 		Sportart sportartAktiv = new Sportart();
 		try{
-		sportartAktiv.setId(Integer.parseInt(textFieldSportartId.getText()));
-		sportartAktiv.setName(textFieldSportartName.getText());
-		mannschaftAktiv.setSportart(sportartAktiv);
-		mannschaftAktiv.setId(Integer.parseInt(textFieldMannschaftId.getText()));
-		mannschaftAktiv.setName(textFieldMannschaftName.getText());
+			sportartAktiv.setId(Integer.parseInt(textFieldSportartId.getText()));
+			sportartAktiv.setName(textFieldSportartName.getText());
+			mannschaftAktiv.setSportart(sportartAktiv);
+			mannschaftAktiv.setId(Integer.parseInt(textFieldMannschaftId.getText()));
+			mannschaftAktiv.setName(textFieldMannschaftName.getText());
 		}catch(NumberFormatException n){
 			n.getMessage();
 		}

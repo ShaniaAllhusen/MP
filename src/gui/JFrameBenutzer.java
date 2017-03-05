@@ -1,5 +1,6 @@
 package gui;
 
+//Imports
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -19,9 +20,6 @@ import java.awt.event.ActionEvent;
 
 public class JFrameBenutzer extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldSuchen;
@@ -62,6 +60,8 @@ public class JFrameBenutzer extends JFrame {
 	 * Create the frame.
 	 * @throws ClassNotFoundException 
 	 */
+	
+	//Konstruktor
 	public JFrameBenutzer() throws ClassNotFoundException {
 		benutzerDao = new BenutzerDao();
 		initGUI();
@@ -82,6 +82,7 @@ public class JFrameBenutzer extends JFrame {
 			textFieldSuchen.setColumns(10);
 		}
 		{
+			
 			buttonSuchen = new JButton("Suchen");
 			buttonSuchen.setMnemonic('B');
 			buttonSuchen.setToolTipText("Hier k\u00F6nnen Sie ein Benutzerprofil nach der Id oder nem Benutzernamen suchen (Alt + B)");
@@ -99,7 +100,7 @@ public class JFrameBenutzer extends JFrame {
 			buttonAendern.setToolTipText("\u00C4nderungen am Benutzerprofil speichern (Alt + S)");
 			buttonAendern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					buttonNewButtonActionPerformed(e);
+					buttonAendernActionPerformed(e);
 				}
 			});
 			buttonAendern.setBounds(289, 110, 135, 23);
@@ -211,6 +212,7 @@ public class JFrameBenutzer extends JFrame {
 			contentPane.add(buttonLast);
 		}
 	}
+	//Wenn Button Suchen gedrückt -> Benutzer wird gesucht
 	protected void buttonSuchenActionPerformed(ActionEvent e) {
 		String eingabe = textFieldSuchen.getText();
 		Benutzer benutzerAktiv;
@@ -233,8 +235,6 @@ public class JFrameBenutzer extends JFrame {
 
 	}
 
-
-
 	private void showBenutzer(Benutzer benutzer) {
 		textFieldID.setText(Integer.toString(benutzer.getId()));
 		textFieldUsername.setText(benutzer.getUsername());
@@ -247,6 +247,8 @@ public class JFrameBenutzer extends JFrame {
 	private void showInfoPane(String text, int id) {
 		JOptionPane.showMessageDialog(this, text +" mit der ID " +id +" wurde hinzugefügt", "Informationsmeldung", JOptionPane.INFORMATION_MESSAGE);
 	}
+	
+	//Wenn Button Hinzufügen gedrückt -> Benutzer wird hinzugefügt
 	protected void buttonHinzufuegenActionPerformed(ActionEvent e) {
 		String username = textFieldUsername.getText();
 		String passwort = textFieldPasswort.getText();
@@ -262,7 +264,8 @@ public class JFrameBenutzer extends JFrame {
 		}
 	}
 
-	protected void buttonNewButtonActionPerformed(ActionEvent e) {
+	//Wenn Button Ändern gedrückt -> Änderung wird gespeichert
+	protected void buttonAendernActionPerformed(ActionEvent e) { //
 		Benutzer benutzer = create();
 		try {
 			benutzerDao.update(benutzer);
@@ -270,7 +273,8 @@ public class JFrameBenutzer extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-
+	
+	//Wenn Button Löschen gedrückt -> Benutzer wird gelöscht
 	protected void buttonLoeschenActionPerformed(ActionEvent e) {
 		Benutzer benutzer = create();
 		try {
@@ -281,6 +285,7 @@ public class JFrameBenutzer extends JFrame {
 		}
 	}
 
+	// Methode Create() = Neuer Benutzer wird angelegt
 	private Benutzer create(){
 		int id = Integer.parseInt(textFieldID.getText());
 		String username = textFieldUsername.getText();
@@ -292,11 +297,14 @@ public class JFrameBenutzer extends JFrame {
 		return benutzer;
 	}
 
+	// Methode felderLeeren() = Eintragungen in den Textfeldern werden raus genommen
 	private void felderLeeren() {
 		textFieldID.setText("");
 		textFieldUsername.setText("");
 		textFieldPasswort.setText("");
 	}
+	
+	// Ersten Benutzer anzeigen
 	protected void buttonActionPerformed(ActionEvent e) {
 		try {
 			Benutzer benutzerFirst = benutzerDao.first();
@@ -306,6 +314,7 @@ public class JFrameBenutzer extends JFrame {
 
 		}
 	}
+	// vorherigen Benutzer anzeigen
 	protected void button_1ActionPerformed(ActionEvent e) {
 		Benutzer benutzerAktiv = create();
 
@@ -316,6 +325,8 @@ public class JFrameBenutzer extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	
+	// nächsten Benutzer anzeigen
 	protected void button_2ActionPerformed(ActionEvent e) {
 		Benutzer benutzerAktiv = create();
 		try {
@@ -325,6 +336,8 @@ public class JFrameBenutzer extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	
+	// letzten Benutzer eintragen
 	protected void button_3ActionPerformed(ActionEvent e) {
 		try {
 			Benutzer benutzerLast = benutzerDao.last();

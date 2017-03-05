@@ -1,5 +1,6 @@
 package gui;
 
+//Imports
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -67,6 +68,8 @@ public class JFrameVerwaltung extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	//Konstruktor
 	public JFrameVerwaltung() {
 		try {
 			initGUI();
@@ -99,7 +102,11 @@ public class JFrameVerwaltung extends JFrame {
 					button_Abmelden.setMnemonic('l');
 					button_Abmelden.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							button_AbmeldenActionPerformed(e);
+							try {
+								button_AbmeldenActionPerformed(e);
+							} catch (ClassNotFoundException e1) {
+								e1.printStackTrace();
+							}
 						}
 					});
 					button_Abmelden.setToolTipText("Hier koennen sie sich wieder abmelden");
@@ -308,7 +315,7 @@ public class JFrameVerwaltung extends JFrame {
 	}
 
 	// Wenn Button anmelden gedrückt, dann rufe wieder JFrame HallenPlan auf
-	protected void button_AbmeldenActionPerformed(ActionEvent e) { 
+	protected void button_AbmeldenActionPerformed(ActionEvent e) throws ClassNotFoundException { 
 		HallenPlan frame1 = new HallenPlan();
 		frame1.setVisible(true);
 		this.dispose();
@@ -350,14 +357,17 @@ public class JFrameVerwaltung extends JFrame {
 //		return tableContentArray;
 	//}
 
+	// Wenn Button Training verwalten gedrückt -> öffne JFrame Training
 	protected void buttonTrainingVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
 		JFrameTraining jFrameTraining = new JFrameTraining();
 		jFrameTraining.setVisible(true);
 	}
+	// Wenn Button Mitglied verwalten gedrückt -> öffne JFrame Mitglied
 	protected void buttonNewMitgliederVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
 		JFrameMitglied jFrameMitglied = new JFrameMitglied();
 		jFrameMitglied.setVisible(true);
 	}
+	// Wenn Button Benutzer verwalten gedrückt -> öffne JFrame Benutzer
 	protected void buttonBenutzerVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
 		JFrameBenutzer jFrameBenutzer = new JFrameBenutzer();
 		jFrameBenutzer.setVisible(true);

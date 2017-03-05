@@ -1,6 +1,6 @@
 package gui;
 
-
+//Imports
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -61,6 +61,8 @@ public class JFrameSportart extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+
+	//	Konstruktor
 	public JFrameSportart() {
 		initGUI();
 		try {
@@ -90,24 +92,25 @@ public class JFrameSportart extends JFrame {
 			buttonSuchen.setToolTipText("Sportart nach Namen oder Id suchen (Alt + S)");
 			buttonSuchen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-				String eingabe = textField.getText();
-				Sportart sportartAktiv;
-				boolean prüfen;
-				int id;
-				try {
-					prüfen = dao.eingabePruefen(eingabe);
-					sportartAktiv = new Sportart();
-					if(prüfen==true) {
-						id = Integer.parseInt(eingabe);
-						sportartAktiv = dao.select(id);
+					// Wenn Button Suchen gedrückt -> Sportart wird gesucht
+					String eingabe = textField.getText();
+					Sportart sportartAktiv;
+					boolean prüfen;
+					int id;
+					try {
+						prüfen = dao.eingabePruefen(eingabe);
+						sportartAktiv = new Sportart();
+						if(prüfen==true) {
+							id = Integer.parseInt(eingabe);
+							sportartAktiv = dao.select(id);
+						}
+						else {
+							sportartAktiv = dao.select(eingabe);
+						}
+						showSportart(sportartAktiv);
+					} catch (NoSportartFoundException e1) {
+						showErrorPane(e1);
 					}
-					else {
-						sportartAktiv = dao.select(eingabe);
-					}
-					showSportart(sportartAktiv);
-				} catch (NoSportartFoundException e1) {
-					showErrorPane(e1);
-				}
 
 				}
 			});
@@ -145,7 +148,7 @@ public class JFrameSportart extends JFrame {
 			buttonAendern.setToolTipText("\u00C4nderungen an der Sportart speichern (Alt + \u00C4)");
 			buttonAendern.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					buttonAendernActionPerformed(e);
+					// Wenn Button Ändern gedrückt -> Änderungen werden gespeichert
 					sportart.setName(textFieldName.getText());
 					try {
 						dao.update(sportart);
@@ -164,6 +167,7 @@ public class JFrameSportart extends JFrame {
 			buttonHinzufuegen.setBounds(315, 61, 141, 23);
 			buttonHinzufuegen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					// Wenn Button hinzufügen gedrückt -> Sportart wird hinzugefügt
 					String name = textFieldName.getText();
 					sportart = new Sportart();
 					sportart.setName(name);
@@ -185,6 +189,7 @@ public class JFrameSportart extends JFrame {
 			buttonLoeschen.setToolTipText("Die ausgew\u00E4hlte Sportart l\u00F6schen (Alt + L)");
 			buttonLoeschen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					// Wenn Button löschen gedrückt -> Sportart wird gelöscht
 					sportart.setName((textFieldName.getText()));
 					try {
 						dao.delete(sportart);
@@ -249,15 +254,15 @@ public class JFrameSportart extends JFrame {
 			contentPane.add(buttonLast);
 		}
 	}
-	protected void buttonAendernActionPerformed(ActionEvent e) {
-	}
 
+	// Methode showSportart() -> Sortart wird angezeigt
 	private void showSportart(Sportart sportart) {
 		textFieldId.setText(Integer.toString(sportart.getId()));
 		textFieldName.setText(sportart.getName());
 
 	}
 
+	// Erste Sportart anzeigen
 	protected void buttonFirstActionPerformed(ActionEvent e) {
 		try {
 			Sportart sportartFirst = dao.first();
@@ -266,6 +271,7 @@ public class JFrameSportart extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	// vorherige Sportart anzeigen
 	protected void buttonPreviousActionPerformed(ActionEvent e) {
 		Sportart sportartAktiv = new Sportart();
 		sportartAktiv.setId(Integer.parseInt(textFieldId.getText()));
@@ -277,6 +283,7 @@ public class JFrameSportart extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	// letzte Sportart anzeigen
 	protected void buttonLastActionPerformed(ActionEvent e) {
 		try {
 			Sportart sportartLast = dao.last();
@@ -285,11 +292,11 @@ public class JFrameSportart extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	private void showErrorPane(Exception e) {
 		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	private void showInfoPane(String text, int id) {
 		JOptionPane.showMessageDialog(this, text +" mit der ID " +id +" wurde hinzugefügt", "Informationsmeldung", JOptionPane.INFORMATION_MESSAGE);
 	}

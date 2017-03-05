@@ -1,7 +1,7 @@
 package gui;
 
+//Imports
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,13 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.TableCellRenderer;
 
 import Dao.TableModelSelfMade;
 import Dao.TestRenderer;
@@ -28,9 +26,6 @@ import Dao.VereinDao;
 
 public class HallenPlan extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
@@ -62,7 +57,9 @@ public class HallenPlan extends JFrame {
 	 * Create the frame.
 	 * @throws ClassNotFoundException 
 	 */
-	public HallenPlan() {
+
+	//Konstruktor
+	public HallenPlan() throws ClassNotFoundException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 819, 460);
 		contentPane = new JPanel();
@@ -70,30 +67,27 @@ public class HallenPlan extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		// Tabelle in ScrollPane und Festlegung der Attribute
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setEnabled(false);
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
 		scrollPane.setBounds(10, 23, 600, 372);
 		contentPane.add(scrollPane);
-//		table.setColumnSelectionAllowed(false);
-//		table.setCellSelectionEnabled(false);
-//		table.setEnabled(false);
+		table.setColumnSelectionAllowed(false);
+		table.setCellSelectionEnabled(false);
+		table.setEnabled(false);
 		table = new JTable(8, 96);
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
-		try{
-		VereinDao dao;
-		dao = new VereinDao();
-		TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
-		table.setModel(model);
+//		VereinDao dao;
+//		dao = new VereinDao();
+//		TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
+//		table.setModel(model);
 		table.updateUI();
 		repaint();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+
+		// Versuch JTable anzeigen
 		//		try {
 		//			
 		//			table.setModel(new DefaultTableModel(new VereinDao().getWerteWochentag(), columns)); //FIXME
@@ -110,8 +104,10 @@ public class HallenPlan extends JFrame {
 		//		} catch (SQLException e) {
 		//			e.printStackTrace();
 		//		}
+
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 
+		//Panel
 		panel = new JPanel();
 		panel.setToolTipText("Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein und druecken Sie dann auf den Button \"Login\", fuer die Anmeldung. Wenn Sie angemeldet sind, koennen Sie  die Tabelle veraendern.");
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Anmeldung", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -119,6 +115,7 @@ public class HallenPlan extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
+		//Textfield
 		textFieldUser = new JTextField();
 		textFieldUser.setToolTipText("Bitte geben Sie hier Ihren Benutzernamen ein");
 		textFieldUser.setBounds(6, 40, 152, 28);
@@ -131,6 +128,7 @@ public class HallenPlan extends JFrame {
 		panel.add(textFieldpassword);
 		textFieldpassword.setColumns(10);
 
+		// Label
 		lblUser = new JLabel("User :");
 		lblUser.setBounds(6, 16, 100, 28);
 		panel.add(lblUser);
@@ -139,10 +137,12 @@ public class HallenPlan extends JFrame {
 		lblPassword.setBounds(6, 84, 152, 28);
 		panel.add(lblPassword);
 
+		// Button Login
 		btnLogin = new JButton("Login");
-		btnLogin.setToolTipText("Betaetigen Sie diesen Button um sich anzumelden.");
+		btnLogin.setToolTipText("Betätigen Sie diesen Button um sich anzumelden.");
 		btnLogin.setMnemonic(KeyEvent.VK_ENTER);
 		btnLogin.addActionListener(new ActionListener() {
+			//  Login Methode
 			public void actionPerformed(ActionEvent e) {
 				boolean strFrame = false;
 				int pruefen = 2;
@@ -172,24 +172,25 @@ public class HallenPlan extends JFrame {
 		panel.add(btnLogin);
 	}
 
-	static class WordWrapCellRenderer extends JTextArea implements TableCellRenderer {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		WordWrapCellRenderer() {
-			setLineWrap(true);
-			setWrapStyleWord(true);
-		}
-
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-			setText((value == null) ? "" : value.toString());
-			setSize(table.getColumnModel().getColumn(column).getWidth(), getPreferredSize().height);
-			if (table.getRowHeight(row) != getPreferredSize().height) {
-				table.setRowHeight(row, getPreferredSize().height);
-			}
-			return this;
-		}
-	}
+	// Zeilenumbruch Versuch
+	//	static class WordWrapCellRenderer extends JTextArea implements TableCellRenderer {
+	//		/**
+	//		 * 
+	//		 */
+	//		private static final long serialVersionUID = 1L;
+	//
+	//		WordWrapCellRenderer() {
+	//			setLineWrap(true);
+	//			setWrapStyleWord(true);
+	//		}
+	//
+	//		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	//			setText((value == null) ? "" : value.toString());
+	//			setSize(table.getColumnModel().getColumn(column).getWidth(), getPreferredSize().height);
+	//			if (table.getRowHeight(row) != getPreferredSize().height) {
+	//				table.setRowHeight(row, getPreferredSize().height);
+	//			}
+	//			return this;
+	//		}
+	//	}
 }

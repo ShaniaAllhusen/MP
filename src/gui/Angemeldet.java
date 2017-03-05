@@ -17,9 +17,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
-import Dao.TableModelSelfMade;
 import Dao.TestRenderer;
-import Dao.VereinDao;
 
 import java.awt.Color;
 
@@ -67,6 +65,8 @@ public class Angemeldet extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+
+	// Konstruktor
 	public Angemeldet() {
 		try {
 			initGUI();
@@ -94,30 +94,39 @@ public class Angemeldet extends JFrame {
 				labelBild.setToolTipText("Sport");
 				labelBild.setHorizontalAlignment(SwingConstants.CENTER);
 				{
+					// Button Abmelden
 					button_Abmelden = new JButton("Abmelden");
 					button_Abmelden.setVerifyInputWhenFocusTarget(false);
 					button_Abmelden.setMnemonic('l');
 					button_Abmelden.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							button_AbmeldenActionPerformed(e);
+							try {
+								button_AbmeldenActionPerformed(e);
+							} catch (ClassNotFoundException e1) {
+								e1.printStackTrace();
+							}
 						}
 					});
 					button_Abmelden.setToolTipText("Hier koennen sie sich wieder abmelden");
 				}
 				{
+					// Button Aktualisieren
 					buttonAktualisieren = new JButton("Aktualisieren");
 					buttonAktualisieren.setMnemonic('a');
 					buttonAktualisieren.setToolTipText("Wenn Sie hier klicken wird die Tabelle aktualisiert");
 					{
 						{
+							// Button Sportarten
 							buttonSportartVerwalten = new JButton("Sportarten verwalten");
 							buttonSportartVerwalten.setMnemonic('s');
 							buttonSportartVerwalten.setToolTipText("Hier k\u00F6nnen Sie Sportarten anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
 							{
+								// Button Mannschaften
 								buttonMannschaftenVerwalten = new JButton("Mannschaften verwalten");
 								buttonMannschaftenVerwalten.setMnemonic('m');
 								buttonMannschaftenVerwalten.setToolTipText("Hier k\u00F6nnen Sie Mannschaften anzeigen lassen, hinzuf\u00FCgen, \u00E4ndern und l\u00F6schen.");
 
+								// Button Zeitblöcke
 								btnNewButtonZeitblockaendern = new JButton("Zeitbl\u00F6cke verwalten");
 								btnNewButtonZeitblockaendern.setMnemonic('z');
 								btnNewButtonZeitblockaendern.addActionListener(new ActionListener() {
@@ -135,6 +144,7 @@ public class Angemeldet extends JFrame {
 									}
 								});
 								{
+									// Button Verwaltung
 									buttonVerwaltung = new JButton("Verwaltung");
 									buttonVerwaltung.setMnemonic('v');
 									buttonVerwaltung.addActionListener(new ActionListener() {
@@ -147,6 +157,8 @@ public class Angemeldet extends JFrame {
 										}
 									});
 								}
+								
+								// ActionListener zu den Button
 								buttonMannschaftenVerwalten.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										try {
@@ -175,7 +187,7 @@ public class Angemeldet extends JFrame {
 		{
 			labelHerzlichWillkommen = new JLabel("Herzlich Willkommen!");
 			labelHerzlichWillkommen.setHorizontalAlignment(SwingConstants.CENTER);
-			labelHerzlichWillkommen.setToolTipText("Schoen, dass sie da sind!");
+			labelHerzlichWillkommen.setToolTipText("Schön, dass sie da sind!");
 		}
 
 		{
@@ -200,18 +212,19 @@ public class Angemeldet extends JFrame {
 
 		}
 
+		// Tabelle in ScrollPane und Festlegung der Attribute
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
 		scrollPane.setBounds(10, 35, 522, 318);
 		contentPane.add(scrollPane);
 		table = new JTable();
-		//TODO	table = new JTable(new DefaultTableModel(dao.getZeitblock(),new String[] {"Zeit", "M", "D", "M","D","F","S","S" }));
+		//TODO table = new JTable(new DefaultTableModel(dao.getZeitblock(),new String[] {"Zeit", "M", "D", "M","D","F","S","S" }));
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
-		VereinDao dao = new VereinDao();
-		TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
-		table.setModel(model);
+		//	VereinDao dao = new VereinDao();
+		//	TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
+		//	table.setModel(model);
 		table.updateUI();
 		repaint();
 
@@ -246,6 +259,7 @@ public class Angemeldet extends JFrame {
 												.addGap(470))
 				);
 
+		// Button Training verwalten
 		buttonTrainingVerwalten = new JButton("Training verwalten");
 		buttonTrainingVerwalten.setMnemonic('t');
 		buttonTrainingVerwalten.addActionListener(new ActionListener() {
@@ -295,12 +309,24 @@ public class Angemeldet extends JFrame {
 				);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
-
-
 	}
+	
+//	public String[][] getTableContentArray(){
+	//		String[][] tableContentArray = new String[96][8];
+	//		
+	//		// Zeitblöcke von DAO holen
+	//		for(Block zeitblock: zeitblöcke){
+	//			int column;
+	//		}
+	//		int start = Block.getZeitbeginn();
+	//		// Start == 60
+	//		int row = (start)
+	//		
+	//		return tableContentArray;
+	//}
 
 	// Wenn Button anmelden gedrückt, dann rufe wieder JFrame HallenPlan auf
-	protected void button_AbmeldenActionPerformed(ActionEvent e) { 
+	protected void button_AbmeldenActionPerformed(ActionEvent e) throws ClassNotFoundException { 
 		HallenPlan frame1 = new HallenPlan();
 		frame1.setVisible(true);
 		this.dispose();
@@ -319,25 +345,13 @@ public class Angemeldet extends JFrame {
 		jFrameMannschaft.setVisible(true);
 	}
 
-	//	public String[][] getTableContentArray(){
-	//		String[][] tableContentArray = new String[96][8];
-	//		
-	//		// Zeitblöcke von DAO holen
-	//		for(Block zeitblock: zeitblöcke){
-	//			int column;
-	//		}
-	//		int start = Block.getZeitbeginn();
-	//		// Start == 60
-	//		int row = (start)
-	//		
-	//		return tableContentArray;
-	//}
-
 	// Wenn Button Training verwalten gedrückt, dann rufe JFrame Training auf
 	protected void buttonTrainingVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
 		JFrameTraining jFrameTraining = new JFrameTraining();
 		jFrameTraining.setVisible(true);
 	}
+
+	// Wenn Button Verwaaltung gedrückt, dann rufe JFrame Verwaltung auf
 	protected void buttonBenutzerVerwaltenActionPerformed(ActionEvent e) throws ClassNotFoundException {
 		JFrameVerwaltung jFrameVerwaltung = new JFrameVerwaltung();
 		jFrameVerwaltung.setVisible(true);

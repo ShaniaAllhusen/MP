@@ -1,5 +1,6 @@
 package gui;
 
+//Imports
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -108,6 +109,8 @@ public class JFrameMitglied extends JFrame {
 	 * Create the frame.
 	 * @throws ClassNotFoundException 
 	 */
+
+	//Konstruktor
 	public JFrameMitglied() throws ClassNotFoundException {
 		benutzerDao = new BenutzerDao();
 		mitgliedDao = new MitgliedDao();
@@ -500,6 +503,7 @@ public class JFrameMitglied extends JFrame {
 			}
 		}
 	}
+	// Wenn Button Suchen gedrückt -> Benutzer wird gesucht
 	protected void buttonBenutzerprofilSuchenActionPerformed(ActionEvent e) throws NoBenutzerFound {
 		String eingabe = textFieldBenutzerprofilSuchen.getText();
 		Benutzer benutzerAktiv;
@@ -522,7 +526,7 @@ public class JFrameMitglied extends JFrame {
 
 	}
 
-
+	// Methode showBenutzer() -> Attribute von dem jeweiligen Benutzer werden angezeigt
 	private void showBenutzer(Benutzer benutzer) {
 		textFieldBenutzerSucheID.setText(Integer.toString(benutzer.getId()));
 		textFieldBenutzerSucheName.setText(benutzer.getUsername());
@@ -537,6 +541,7 @@ public class JFrameMitglied extends JFrame {
 		JOptionPane.showMessageDialog(this, text +" mit der ID " +id +" wurde hinzugefügt", "Informationsmeldung", JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	// Wenn Button Suchen gedrückt -> Mitglied wird gesucht
 	protected void buttonMitgliedSuchenActionPerformed(ActionEvent e) {
 		String eingabe = textFieldMitgliedSuchen.getText();
 		Mitglied mitglied;
@@ -564,11 +569,15 @@ public class JFrameMitglied extends JFrame {
 		textFieldBenutzername.setText(mitglied.getBenutzer().getUsername());
 		textFieldPasswort.setText(mitglied.getBenutzer().getPasswort());
 	}
+
+	//Erstes Mitglied anzeigen
 	protected void buttonMitgliedFirstActionPerformed(ActionEvent e) {
 		Mitglied mitgliedFirst = new Mitglied();
 		mitgliedFirst = mitgliedDao.first();
 		showMitglied(mitgliedFirst);
 	}
+
+	// vorheriges Mitglied anzeigen
 	protected void buttonMitgliedPreviousActionPerformed(ActionEvent e) {
 		Mitglied mitgliedAktiv = new Mitglied();
 		mitgliedAktiv = create();
@@ -580,27 +589,30 @@ public class JFrameMitglied extends JFrame {
 		}
 	}
 
+	// Methode create() -> Neues Mitglied wird erstellt
 	public Mitglied create() {
 		Mitglied mitgliedAktiv = new Mitglied();
 		try{
-		Benutzer benutzerAktiv = new Benutzer();
-		benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerId.getText()));
-		benutzerAktiv.setUsername(textFieldBenutzername.getText());
-		benutzerAktiv.setPasswort(textFieldPasswort.getText());
-		mitgliedAktiv.setBenutzer(benutzerAktiv);
+			Benutzer benutzerAktiv = new Benutzer();
+			benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerId.getText()));
+			benutzerAktiv.setUsername(textFieldBenutzername.getText());
+			benutzerAktiv.setPasswort(textFieldPasswort.getText());
+			mitgliedAktiv.setBenutzer(benutzerAktiv);
 
-		mitgliedAktiv.setId(Integer.parseInt(textFieldMitgliedId.getText()));
-		mitgliedAktiv.setVorname(textFieldVorname.getText());
-		mitgliedAktiv.setNachname(textFieldNachname.getText());
-		mitgliedAktiv.setGeburtsdatum(textFieldGeburtsdatum.getText());
-		mitgliedAktiv.setStrasse(textFieldStrasse.getText());
-		mitgliedAktiv.setPlz(textFieldPostleitzahl.getText());
-		mitgliedAktiv.setOrt(textFieldOrt.getText());
+			mitgliedAktiv.setId(Integer.parseInt(textFieldMitgliedId.getText()));
+			mitgliedAktiv.setVorname(textFieldVorname.getText());
+			mitgliedAktiv.setNachname(textFieldNachname.getText());
+			mitgliedAktiv.setGeburtsdatum(textFieldGeburtsdatum.getText());
+			mitgliedAktiv.setStrasse(textFieldStrasse.getText());
+			mitgliedAktiv.setPlz(textFieldPostleitzahl.getText());
+			mitgliedAktiv.setOrt(textFieldOrt.getText());
 		}catch(NumberFormatException n){
 			n.getMessage();
 		}
 		return mitgliedAktiv;
 	}
+
+	//Nächstes Mitglied anzeigen
 	protected void buttonMitgliedNextActionPerformed(ActionEvent e) {
 
 		Mitglied mitgliedAktiv = new Mitglied();
@@ -608,6 +620,8 @@ public class JFrameMitglied extends JFrame {
 		Mitglied mitgliedNext = mitgliedDao.next(mitgliedAktiv);
 		showMitglied(mitgliedNext);
 	}
+
+	//Letztes Mitglied anzeigen
 	protected void buttonMitgliedLastActionPerformed(ActionEvent e) {
 		try {
 			Mitglied mitgliedLast = mitgliedDao.last();
@@ -618,6 +632,7 @@ public class JFrameMitglied extends JFrame {
 
 	}
 
+	//Ersten Benutzer anzeigen
 	protected void buttonBenutzerFirstActionPerformed(ActionEvent e) {
 		try {
 			Benutzer benutzerFirst = benutzerDao.first();
@@ -627,6 +642,7 @@ public class JFrameMitglied extends JFrame {
 
 		}
 	}
+	//vorherigen Benutzer anzeigen
 	protected void buttonBenutzerPreviousActionPerformed(ActionEvent e) {
 		Benutzer benutzerAktiv = new Benutzer();
 		benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerSucheID.getText()));
@@ -640,6 +656,7 @@ public class JFrameMitglied extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	//nächsten Benutzer anzeigen
 	protected void buttonBenutzerNextActionPerformed(ActionEvent e) {
 		Benutzer benutzerAktiv = new Benutzer();
 		benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerSucheID.getText()));
@@ -652,6 +669,7 @@ public class JFrameMitglied extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	//	Letzten Benutzer anzeigen
 	protected void buttonBenutzerLastActionPerformed(ActionEvent e) {
 		try {
 			Benutzer benutzerLast = benutzerDao.last();
@@ -660,6 +678,7 @@ public class JFrameMitglied extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	// Neuen Benutzer hinzufügen
 	protected void buttonBenutzerprofilHinzufgenActionPerformed(ActionEvent e) {
 		String username = textFieldBenutzerSucheName.getText();
 		String passwort = textFieldBenutzerSuchePasswort.getText();
@@ -676,6 +695,7 @@ public class JFrameMitglied extends JFrame {
 		}
 	}
 
+	// Neues Mitglied hinzufügen
 	protected void buttonMitgliedHinzufuegenActionPerformed(ActionEvent e) {
 		Mitglied mitgliedAktiv = new Mitglied();
 		Benutzer benutzerAktiv = new Benutzer();
@@ -710,6 +730,7 @@ public class JFrameMitglied extends JFrame {
 		}
 
 	}
+	//Wenn Button Mitglied löschen gedrückt -> Mitglied wird gelöscht
 	protected void buttonMitgliedLoeschenActionPerformed(ActionEvent e) {
 		Mitglied mitglied = create();
 		try {
@@ -720,6 +741,7 @@ public class JFrameMitglied extends JFrame {
 		}
 	}
 
+	// Methode FelderLeeren() -> Löscht alle Eingaben in den jeweiligen Feldern
 	private void felderLeeren() {
 		textFieldMitgliedId.setText("");
 		textFieldVorname.setText("");
@@ -732,6 +754,8 @@ public class JFrameMitglied extends JFrame {
 		textFieldBenutzername.setText("");
 		textFieldPasswort.setText("");
 	}
+	
+	// Wenn Button Aktualisieren gedrückt -> Daten in der Datenbank werden aktualisiert/update
 	protected void buttonDatenAktualisierenActionPerformed(ActionEvent e) {
 		Mitglied mitglied = create();
 		try {
@@ -740,13 +764,14 @@ public class JFrameMitglied extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-
+	// Methode benutzerSucheFelderLeeren() -> Löscht alle Eingaben in den jeweiligen Feldern
 	private void benutzerSucheFelderLeeren() {
 		textFieldBenutzerSucheID.setText("");
 		textFieldBenutzerSucheName.setText("");
 		textFieldBenutzerSuchePasswort.setText("");
 	}
 
+	// Wenn Button Benutzerprofil übernehmen gedrückt -> Benutzerprofil wird übernommen
 	protected void buttonBenutzerprofilUebernehmenActionPerformed(ActionEvent e) {
 		textFieldBenutzerId.setText(textFieldBenutzerSucheID.getText());
 		textFieldBenutzername.setText(textFieldBenutzerSucheName.getText());

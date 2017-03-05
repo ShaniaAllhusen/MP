@@ -228,15 +228,7 @@ public class JFrameSportart extends JFrame {
 			buttonNext.setToolTipText("N\u00E4chste Sportart");
 			buttonNext.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Sportart sportartAktiv = new Sportart();
-					sportartAktiv.setId(Integer.parseInt(textFieldId.getText()));
-					sportartAktiv.setName(textFieldName.getText());
-					try {
-						Sportart sportartNext = dao.next(sportartAktiv);
-						showSportart(sportartNext);
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
+					buttonNextActionPerformed(e);
 				}
 			});
 			buttonNext.setBounds(163, 130, 62, 23);
@@ -274,13 +266,23 @@ public class JFrameSportart extends JFrame {
 	// vorherige Sportart anzeigen
 	protected void buttonPreviousActionPerformed(ActionEvent e) {
 		Sportart sportartAktiv = new Sportart();
-		sportartAktiv.setId(Integer.parseInt(textFieldId.getText()));
-		sportartAktiv.setName(textFieldName.getText());
-		try {
-			Sportart sportartPrevious = dao.previous(sportartAktiv);
-			showSportart(sportartPrevious);
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		if(felderPruefen(textFieldId)==true) {
+			try{
+				sportartAktiv.setId(Integer.parseInt(textFieldId.getText()));
+				sportartAktiv.setName(textFieldName.getText());
+			} catch(NumberFormatException n){
+				n.getMessage();
+			}
+			try {
+				Sportart sportartPrevious = dao.previous(sportartAktiv);
+				showSportart(sportartPrevious);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie zuerst eine Sportart aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	// letzte Sportart anzeigen
@@ -292,6 +294,30 @@ public class JFrameSportart extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	
+	//nächste Sportart anzeigen
+	protected void buttonNextActionPerformed(ActionEvent e) {
+		
+		Sportart sportartAktiv = new Sportart();
+		if(felderPruefen(textFieldId)==true) {
+			try{
+				sportartAktiv.setId(Integer.parseInt(textFieldId.getText()));
+				sportartAktiv.setName(textFieldName.getText());
+			}catch(NumberFormatException n){
+				n.getMessage();
+			}
+			try {
+				Sportart sportartNext = dao.next(sportartAktiv);
+				showSportart(sportartNext);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Bitte wählen Sie zuerst eine Sportart aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 
 	private void showErrorPane(Exception e) {
 		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
@@ -300,6 +326,23 @@ public class JFrameSportart extends JFrame {
 	private void showInfoPane(String text, int id) {
 		JOptionPane.showMessageDialog(this, text +" mit der ID " +id +" wurde hinzugefügt", "Informationsmeldung", JOptionPane.INFORMATION_MESSAGE);
 	}
+	// es wird geprüft, ob ein Feld leer ist
+		private boolean felderPruefen(JTextField textField) {
+			boolean pruefe = true;
+			if (textField.getText() == null){
+				pruefe = false;
+			}
+			else if(textField.getText().equals("")) {
+				pruefe = false;
+			}
+			else if(textField.getText().isEmpty() == true) {
+				pruefe = false;
+			}
+			else if(textField.getText().equals(" ")) {
+				pruefe = false;
+			}
+			return pruefe;
+		}
 }
 
 

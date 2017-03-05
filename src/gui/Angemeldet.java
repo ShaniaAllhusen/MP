@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
 import Dao.TableModelSelfMade;
+import Dao.TestRenderer;
 import Dao.VereinDao;
 
 import java.awt.Color;
@@ -35,7 +36,6 @@ public class Angemeldet extends JFrame {
 	private JLabel labelHerzlichWillkommen;
 	private JTable table;
 
-	private TableModelSelfMade tablemodelselfmade;
 	private JButton buttonAktualisieren;
 	private JButton buttonSportartVerwalten;
 	private JButton buttonMannschaftenVerwalten;
@@ -142,7 +142,6 @@ public class Angemeldet extends JFrame {
 											try {
 												buttonBenutzerVerwaltenActionPerformed(e);
 											} catch (ClassNotFoundException e1) {
-												// TODO Auto-generated catch block
 												e1.printStackTrace();
 											}
 										}
@@ -299,13 +298,6 @@ public class Angemeldet extends JFrame {
 
 
 	}
-
-	//	public void tabellebilden() {
-	//		String[][] tabellenanzeige = new String[48][8];
-	//		for (int i = 0; i < tabellenanzeige.length; i++) {
-	//
-	//		}
-	//	} //FIXME
 
 	// Wenn Button anmelden gedrückt, dann rufe wieder JFrame HallenPlan auf
 	protected void button_AbmeldenActionPerformed(ActionEvent e) { 

@@ -28,6 +28,10 @@ import java.awt.Color;
 
 public class JFrameMannschaft extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton buttonSuchen;
 	private JTextField textFieldSuche;

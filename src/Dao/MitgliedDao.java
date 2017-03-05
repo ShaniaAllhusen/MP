@@ -8,9 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import tabellenklassen.Benutzer;
-import tabellenklassen.Mannschaft;
 import tabellenklassen.Mitglied;
-import tabellenklassen.Sportart;
 
 public class MitgliedDao {
 	private String CLASSNAME = "org.sqlite.JDBC";
@@ -256,7 +254,6 @@ public class MitgliedDao {
 					preparedStatement.close();
 					conn.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

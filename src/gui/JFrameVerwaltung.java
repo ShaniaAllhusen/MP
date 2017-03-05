@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,8 +16,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
-
-import Dao.VereinDao;
 
 import java.awt.Color;
 
@@ -194,11 +191,7 @@ public class JFrameVerwaltung extends JFrame {
 		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
 		table = new JTable(48,8);
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
-		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
 		scrollPane.setViewportView(table);
-		String[] columns = new String[] {
-				"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"
-		};
  
 		table.updateUI();
 		repaint();
@@ -252,7 +245,6 @@ public class JFrameVerwaltung extends JFrame {
 				try {
 					buttonNewMitgliederVerwaltenActionPerformed(e);
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -265,7 +257,6 @@ public class JFrameVerwaltung extends JFrame {
 				try {
 					buttonBenutzerVerwaltenActionPerformed(e);
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

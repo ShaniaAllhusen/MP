@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import tabellenklassen.Benutzer;
-import tabellenklassen.Sportart;
 
 public class BenutzerDao {
 

@@ -16,8 +16,6 @@ import javax.swing.UIManager;
 
 import java.awt.Color;
 
-import javax.swing.JTree;
-
 import tabellenklassen.Mannschaft;
 import tabellenklassen.Sportart;
 import Dao.MannschaftDao;
@@ -28,8 +26,12 @@ import java.awt.event.ActionEvent;
 
 public class JFrameTraining extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JComboBox comboBox;
+	private JComboBox<?> comboBox;
 	private JLabel labelWochentag;
 	private JTextField textFieldMannschaftSuchen;
 	private JButton buttonMannschaftSuchen;

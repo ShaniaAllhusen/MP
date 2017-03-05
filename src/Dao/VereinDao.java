@@ -126,6 +126,7 @@ public class VereinDao {
 
 	//Datensätze aus der Tabelle lesen
 	public Object[] getWerteWochentag(int wochentagId) throws SQLException {
+		int count = 0; 
 		PreparedStatement preparedStatement = null;
 		Connection conn = DriverManager.getConnection(CONNECTIONSTRING + datei);
 		ArrayList<Object> list = new ArrayList<Object>();
@@ -141,7 +142,8 @@ public class VereinDao {
 
 		while (rs.next()) {
 			if (wochentagId == 0) {
-				//FIXME List add fabis komische methode
+				// FIXME gui.ZeitBloecke.zeitberechnen(count);
+				count++;
 			} else if (wochentagId != 0) {
 				list.add(rs.getString("mannschaft_name"));
 				list.add(rs.getString("sportart_name"));

@@ -165,9 +165,10 @@ public class ZeitBloecke extends JFrame {
 				min = min%dauer;
 						stunde++;
 			}
-			uhrzeit[i] = stunde+":"+min;
+			uhrzeit[i] = String.valueOf(stunde)+":"+String.valueOf(min);
+		
 		}
-			
+		System.out.println(uhrzeit[z]);
 			return uhrzeit[z];
 }
 

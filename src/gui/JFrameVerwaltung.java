@@ -48,7 +48,7 @@ public class JFrameVerwaltung extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -90,7 +90,7 @@ public class JFrameVerwaltung extends JFrame {
 			{
 				panel = new JPanel();
 				panel.setBorder(new TitledBorder(null, "Verwaltung", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-				labelBild = new JLabel(new ImageIcon(Angemeldet.class.getResource("/gui/Unbenannt.png")));
+				labelBild = new JLabel(new ImageIcon(JFrameAngemeldet.class.getResource("/gui/Sportbild.png")));
 				labelBild.setToolTipText("Sport");
 				labelBild.setHorizontalAlignment(SwingConstants.CENTER);
 				{
@@ -103,6 +103,8 @@ public class JFrameVerwaltung extends JFrame {
 							try {
 								button_AbmeldenActionPerformed(e);
 							} catch (ClassNotFoundException e1) {
+								e1.printStackTrace();
+							} catch (SQLException e1) {
 								e1.printStackTrace();
 							}
 						}
@@ -134,7 +136,7 @@ public class JFrameVerwaltung extends JFrame {
 										EventQueue.invokeLater(new Runnable() {
 											public void run() {
 												try {
-													ZeitBloecke frame = new ZeitBloecke();
+													JFrameZeitBloecke frame = new JFrameZeitBloecke();
 													frame.setVisible(true);
 												} catch (Exception e) {
 													e.printStackTrace();
@@ -143,7 +145,7 @@ public class JFrameVerwaltung extends JFrame {
 										});
 									}
 								});
-								
+
 								// ActionListener zu den Button
 								buttonMannschaftenVerwalten.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
@@ -177,10 +179,9 @@ public class JFrameVerwaltung extends JFrame {
 		}
 
 		{
-			new ImageIcon("Unbenannt.png");
+			new ImageIcon("Sportbild.png");
 		}
 		{
-
 
 			//			String[] columnName = {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"};
 			//			String[][] data = new String[7][22];
@@ -205,15 +206,15 @@ public class JFrameVerwaltung extends JFrame {
 		contentPane.add(scrollPane);
 		JTable table;
 		VereinDao dao = new VereinDao();
-		table = new JTable(new DefaultTableModel(dao.getDaten(),new String[] {"Zeit", "Montag", "Dienstag", "Mittwoch","Donnerstag","Freitag","Samstag","Sonntag" }));
+		//table = new JTable(new DefaultTableModel(dao.getDaten(),new String[] {"Zeit", "Montag", "Dienstag", "Mittwoch","Donnerstag","Freitag","Samstag","Sonntag" }));
+		table = new JTable(new DefaultTableModel(dao.getEinfacheWerte(),new String[] {"", "Montag", "Dienstag", "Mittwoch","Donnerstag","Freitag","Samstag","Sonntag" }));
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
-		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
+		table.setDefaultRenderer(String.class, new TestRenderer());
 		scrollPane.setViewportView(table);
-//			TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
-//			table.setModel(model);
+		//TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
+		//table.setModel(model);
 		table.updateUI();
 		repaint();
-
 
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -272,46 +273,46 @@ public class JFrameVerwaltung extends JFrame {
 		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
+				gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(3)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(labelBild, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_panel.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(buttonMannschaftenVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnNewButtonZeitblockaendern, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(buttonAktualisieren, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
-						.addComponent(buttonSportartVerwalten, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(buttonTrainingVerwalten, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(buttonBenutzerVerwalten, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-						.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
-					.addContainerGap())
-		);
+						.addGap(3)
+						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addComponent(labelBild, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+								.addGroup(Alignment.LEADING, gl_panel.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(buttonMannschaftenVerwalten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnNewButtonZeitblockaendern, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(buttonAktualisieren, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+										.addComponent(buttonSportartVerwalten, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(buttonTrainingVerwalten, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(buttonBenutzerVerwalten, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+										.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+										.addContainerGap())
+				);
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+				gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnNewButtonZeitblockaendern, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonMannschaftenVerwalten, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonSportartVerwalten)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonTrainingVerwalten)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttonBenutzerVerwalten)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-		);
+						.addComponent(buttonAktualisieren, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(btnNewButtonZeitblockaendern, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(buttonMannschaftenVerwalten, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(buttonSportartVerwalten)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(buttonTrainingVerwalten)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(buttonBenutzerVerwalten)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(button_Abmelden, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(labelBild, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap())
+				);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 	}
-	
-//	public String[][] getTableContentArray(){
+
+	//	public String[][] getTableContentArray(){
 	//		String[][] tableContentArray = new String[96][8];
 	//		
 	//		// Zeitblöcke von DAO holen
@@ -326,8 +327,8 @@ public class JFrameVerwaltung extends JFrame {
 	//}
 
 	// Wenn Button anmelden gedrückt, dann rufe wieder JFrame HallenPlan auf
-	protected void button_AbmeldenActionPerformed(ActionEvent e) throws ClassNotFoundException { 
-		HallenPlan frame1 = new HallenPlan();
+	protected void button_AbmeldenActionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException { 
+		JFrameHallenPlan frame1 = new JFrameHallenPlan();
 		frame1.setVisible(true);
 		this.dispose();
 		frame1.setLocationRelativeTo(null);

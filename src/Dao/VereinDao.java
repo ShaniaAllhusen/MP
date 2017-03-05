@@ -147,9 +147,27 @@ public class VereinDao {
 		}
 		
 		return list.toArray(new Object[list.size()]);
-
 	}
+	
+	public String[][] getEinfacheWerte() throws SQLException {
+			PreparedStatement preparedStatement = null;
+			Connection conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
 
+			ArrayList<String[]> list = new ArrayList<String[]>();
+
+			String sql = "select name as 'sportart' from sportart";
+			preparedStatement = conn.prepareStatement(sql);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				String[] data = {rs.getString("sportart")};
+				list.add(data);
+			}
+
+			return list.toArray(new String[list.size()][list.get(0).length]);
+	}
+	
+	
 //	public ArrayList<TwoLines> getTable() throws SQLException { //Falsch
 //		PreparedStatement preparedStatement = null;
 //		Connection conn = DriverManager.getConnection(CONNECTIONSTRING + datei); 
@@ -170,7 +188,7 @@ public class VereinDao {
 //		}
 //
 //		return list;
-// FIXME 
+
 //		public String zeitenBerechnen(int auswahl) {
 //			Zeitblock zeitblock = new Zeitblock();
 //

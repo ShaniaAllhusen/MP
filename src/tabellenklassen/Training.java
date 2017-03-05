@@ -4,7 +4,6 @@ public class Training {
 
 	private int id;
 	private Mannschaft mannschaft;
-	private Halle halle;
 	
 	public Training() {
 	}
@@ -20,11 +19,5 @@ public class Training {
 	}
 	public void setMannschaft(Mannschaft mannschaft) {
 		this.mannschaft = mannschaft;
-	}
-	public Halle getHalle() {
-		return halle;
-	}
-	public void setHalle(Halle halle) {
-		this.halle = halle;
 	}
 }

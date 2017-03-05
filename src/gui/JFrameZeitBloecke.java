@@ -17,7 +17,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ZeitBloecke extends JFrame {
+public class JFrameZeitBloecke extends JFrame {
 
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class ZeitBloecke extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZeitBloecke frame = new ZeitBloecke();
+					JFrameZeitBloecke frame = new JFrameZeitBloecke();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +53,7 @@ public class ZeitBloecke extends JFrame {
 	 */
 	
 	//Konstruktor
-	public ZeitBloecke() {
+	public JFrameZeitBloecke() {
 		setTitle("ZeitBl\u00F6cke_Ausw\u00E4hlen");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 509, 200);

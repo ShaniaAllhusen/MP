@@ -13,11 +13,8 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableCellRenderer;
 
-public class TestRenderer extends JTextArea 
-implements TableCellRenderer {
-	/**
-	 * 
-	 */
+public class TestRenderer extends JTextArea implements TableCellRenderer {
+	
 	private static final long serialVersionUID = 1L;
 	private List<List<Integer>> rowColHeight = new ArrayList<List<Integer>>();
 
@@ -28,6 +25,7 @@ implements TableCellRenderer {
 		setOpaque(true);
 	}
 
+	// Farben setzen
 	public Component getTableCellRendererComponent(
 			JTable table, Object value, boolean isSelected, boolean hasFocus,
 			int row, int column) {
@@ -58,17 +56,10 @@ implements TableCellRenderer {
 	}
 	
 	
-	/**
-	 * Calculate the new preferred height for a given row, and sets the height on the table.
-	 */
+	//Bestimmt die Höhe
 	private void adjustRowHeight(JTable table, int row, int column) {
-		//The trick to get this to work properly is to set the width of the column to the 
-		//textarea. The reason for this is that getPreferredSize(), without a width tries 
-		//to place all the text in one line. By setting the size with the with of the column, 
-		//getPreferredSize() returnes the proper height which the row should have in
-		//order to make room for the text.
-		int cWidth = table.getTableHeader().getColumnModel().getColumn(column).getWidth();
-		setSize(new Dimension(cWidth, 1000));
+		int Width = table.getTableHeader().getColumnModel().getColumn(column).getWidth();
+		setSize(new Dimension(Width, 1000));
 		int prefH = getPreferredSize().height;
 		while (rowColHeight.size() <= row) {
 			rowColHeight.add(new ArrayList<Integer>(column));

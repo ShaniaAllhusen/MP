@@ -17,7 +17,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
-import Dao.TestRenderer;
 import Dao.VereinDao;
 
 import java.awt.Color;
@@ -28,12 +27,14 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class Angemeldet extends JFrame {
+public class JFrameAngemeldet extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton button_Abmelden;
 	private JLabel labelHerzlichWillkommen;
+	
+	@SuppressWarnings("unused")
 	private JTable table;
 
 	private JButton buttonAktualisieren;
@@ -52,7 +53,7 @@ public class Angemeldet extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Angemeldet frame = new Angemeldet();
+					JFrameAngemeldet frame = new JFrameAngemeldet();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,7 +67,7 @@ public class Angemeldet extends JFrame {
 	 */
 
 	// Konstruktor
-	public Angemeldet() {
+	public JFrameAngemeldet() {
 		try {
 			initGUI();
 		} catch (ClassNotFoundException e) {
@@ -89,7 +90,7 @@ public class Angemeldet extends JFrame {
 			{
 				panel = new JPanel();
 				panel.setBorder(new TitledBorder(null, "Verwaltung", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-				labelBild = new JLabel(new ImageIcon(Angemeldet.class.getResource("/gui/Unbenannt.png")));
+				labelBild = new JLabel(new ImageIcon(JFrameAngemeldet.class.getResource("/gui/Sportbild.png")));
 				labelBild.setToolTipText("Sport");
 				labelBild.setHorizontalAlignment(SwingConstants.CENTER);
 				{
@@ -102,6 +103,8 @@ public class Angemeldet extends JFrame {
 							try {
 								button_AbmeldenActionPerformed(e);
 							} catch (ClassNotFoundException e1) {
+								e1.printStackTrace();
+							} catch (SQLException e1) {
 								e1.printStackTrace();
 							}
 						}
@@ -133,7 +136,7 @@ public class Angemeldet extends JFrame {
 										EventQueue.invokeLater(new Runnable() {
 											public void run() {
 												try {
-													ZeitBloecke frame = new ZeitBloecke();
+													JFrameZeitBloecke frame = new JFrameZeitBloecke();
 													frame.setVisible(true);
 												} catch (Exception e) {
 													e.printStackTrace();
@@ -163,7 +166,7 @@ public class Angemeldet extends JFrame {
 					}
 					buttonAktualisieren.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							table.updateUI();
+							repaint();
 						}
 					});
 				}
@@ -199,17 +202,18 @@ public class Angemeldet extends JFrame {
 
 		// Tabelle in ScrollPane und Festlegung der Attribute
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
+		scrollPane.setToolTipText("Dies ist der Wochenplan");
 		scrollPane.setBounds(10, 35, 522, 318);
 		contentPane.add(scrollPane);
 		JTable table;
 		VereinDao dao = new VereinDao();
-		table = new JTable(new DefaultTableModel(dao.getDaten(),new String[] {"Zeit", "Montag", "Dienstag", "Mittwoch","Donnerstag","Freitag","Samstag","Sonntag" }));
+		//table = new JTable(new DefaultTableModel(dao.getDaten(),new String[] {"Zeit", "Montag", "Dienstag", "Mittwoch","Donnerstag","Freitag","Samstag","Sonntag" }));
+		table = new JTable(new DefaultTableModel(dao.getEinfacheWerte(),new String[] {"", "Montag", "Dienstag", "Mittwoch","Donnerstag","Freitag","Samstag","Sonntag" }));
 		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
-		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
+		// table.setDefaultRenderer(String.class, new TestRenderer());
 		scrollPane.setViewportView(table);
-//			TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
-//			table.setModel(model);
+		// TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
+		// table.setModel(model);
 		table.updateUI();
 		repaint();
 
@@ -309,8 +313,8 @@ public class Angemeldet extends JFrame {
 	//}
 
 	// Wenn Button anmelden gedrückt, dann rufe wieder JFrame HallenPlan auf
-	protected void button_AbmeldenActionPerformed(ActionEvent e) throws ClassNotFoundException { 
-		HallenPlan frame1 = new HallenPlan();
+	protected void button_AbmeldenActionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException { 
+		JFrameHallenPlan frame1 = new JFrameHallenPlan();
 		frame1.setVisible(true);
 		this.dispose();
 		frame1.setLocationRelativeTo(null);

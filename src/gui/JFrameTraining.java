@@ -117,7 +117,7 @@ public class JFrameTraining extends JFrame {
 			panel.setLayout(null);
 			{
 				textFieldMannschaftSuchen = new JTextField();
-				textFieldMannschaftSuchen.setToolTipText("Geben Sie hier die ID oder den NAmen der Mannschaft an, die Sie suchen wollen");
+				textFieldMannschaftSuchen.setToolTipText("Geben Sie hier die ID oder den Namen der Mannschaft an, die Sie suchen wollen");
 				textFieldMannschaftSuchen.setBounds(10, 27, 175, 20);
 				panel.add(textFieldMannschaftSuchen);
 				textFieldMannschaftSuchen.setColumns(10);

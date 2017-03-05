@@ -30,6 +30,7 @@ import java.util.Date;
 
 public class JFrameMitglied extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel labelMitgliedId;
 	private JLabel labelVorname;
@@ -908,6 +909,7 @@ public class JFrameMitglied extends JFrame {
 		try {
 			geburtsdatum = textFieldGeburtsdatum.getText();
 			SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+			@SuppressWarnings("unused")
 			Date d = null;
 
 			try {

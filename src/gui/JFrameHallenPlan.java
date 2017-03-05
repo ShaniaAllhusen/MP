@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,12 +20,11 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
-import Dao.TableModelSelfMade;
-import Dao.TestRenderer;
 import Dao.VereinDao;
 
-public class HallenPlan extends JFrame {
+public class JFrameHallenPlan extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -43,7 +43,7 @@ public class HallenPlan extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HallenPlan frame = new HallenPlan();
+					JFrameHallenPlan frame = new JFrameHallenPlan();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
@@ -56,10 +56,11 @@ public class HallenPlan extends JFrame {
 	/**
 	 * Create the frame.
 	 * @throws ClassNotFoundException 
+	 * @throws SQLException 
 	 */
 
 	//Konstruktor
-	public HallenPlan() throws ClassNotFoundException {
+	public JFrameHallenPlan() throws ClassNotFoundException, SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 819, 460);
 		contentPane = new JPanel();
@@ -70,17 +71,18 @@ public class HallenPlan extends JFrame {
 		// Tabelle in ScrollPane und Festlegung der Attribute
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setEnabled(false);
-		scrollPane.setToolTipText("Dies ist der Wochenplan, der oben ausgewaehlten Halle");
+		scrollPane.setToolTipText("Dies ist der Wochenplan");
 		scrollPane.setBounds(10, 23, 600, 372);
 		contentPane.add(scrollPane);
-		table = new JTable(8, 96);
-		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
-		table.setDefaultRenderer(String.class, new TestRenderer());  // TODO
-		scrollPane.setViewportView(table);
 		VereinDao dao;
 		dao = new VereinDao();
-		TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
-		table.setModel(model);
+		//table = new JTable(new DefaultTableModel(dao.getDaten(),new String[] {"Zeit", "Montag", "Dienstag", "Mittwoch","Donnerstag","Freitag","Samstag","Sonntag" }));
+		table = new JTable(new DefaultTableModel(dao.getEinfacheWerte(), new String[] {"", "Montag", "Dienstag", "Mittwoch","Donnerstag","Freitag","Samstag","Sonntag" }));
+		table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+		//table.setDefaultRenderer(String.class, new TestRenderer());
+		scrollPane.setViewportView(table);
+		//TableModelSelfMade model = new TableModelSelfMade(dao.getDaten());
+		//table.setModel(model);
 		table.updateUI();
 		repaint();
 
@@ -158,7 +160,7 @@ public class HallenPlan extends JFrame {
 						wrkframe.setVisible(true);
 					}
 					else {
-						Angemeldet wrkframe = new Angemeldet();
+						JFrameAngemeldet wrkframe = new JFrameAngemeldet();
 						wrkframe.setVisible(true);
 					}
 					dispose();

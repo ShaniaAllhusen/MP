@@ -287,11 +287,15 @@ public class MannschaftDao {
 		Sportart sportart = new Sportart();
 		Mannschaft mannschaft = new Mannschaft();
 		//resultSet.next();
+		try{
 		sportart.setId(resultSet.getInt("s.id"));
 		sportart.setName(resultSet.getString("s.name"));
 		mannschaft.setId(resultSet.getInt("m.id"));
 		mannschaft.setName(resultSet.getString("m.name"));
 		mannschaft.setSportart(sportart);
+		}catch(SQLException s){
+			s.getMessage();
+		}
 		return mannschaft;
 	}
 

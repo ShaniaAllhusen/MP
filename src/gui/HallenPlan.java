@@ -23,10 +23,15 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.TableCellRenderer;
 
 import Dao.TableModelSelfMade;
+import Dao.TestRenderer;
 import Dao.VereinDao;
 
 public class HallenPlan extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField textFieldUser;
@@ -35,7 +40,6 @@ public class HallenPlan extends JFrame {
 	private JLabel lblPassword;
 	private JPanel panel;
 	private JButton btnLogin;
-	private TableModelSelfMade tablemodelselfmade;
 
 	/**
 	 * Launch the application.
@@ -169,6 +173,11 @@ public class HallenPlan extends JFrame {
 	}
 
 	static class WordWrapCellRenderer extends JTextArea implements TableCellRenderer {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		WordWrapCellRenderer() {
 			setLineWrap(true);
 			setWrapStyleWord(true);

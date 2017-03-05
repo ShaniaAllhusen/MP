@@ -75,7 +75,6 @@ public class IO {
 	public static double[] readDoubleArray() throws IOException {
 		System.out.println("Anzahl der Zahlen: ");
 		int anzahl = IO.readInteger();
-		double[] data = new double[anzahl];
 		return readDoubleArray(anzahl);
 	}
 
@@ -96,8 +95,6 @@ public class IO {
 	public static int[] readIntegerArray() throws IOException {
 		System.out.println("Anzahl der Zahlen: ");
 		int anzahl = IO.readInteger();
-		int[] data = new int[anzahl];
-
 		return readIntegerArray(anzahl);
 	}
 

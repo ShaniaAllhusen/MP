@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -20,6 +19,10 @@ import java.awt.event.ActionEvent;
 
 public class JFrameBenutzer extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldSuchen;
 	private JButton buttonSuchen;
@@ -38,7 +41,6 @@ public class JFrameBenutzer extends JFrame {
 	private JButton buttonLast;
 
 	private BenutzerDao benutzerDao;
-	private Benutzer benutzer;
 
 	/**
 	 * Launch the application.

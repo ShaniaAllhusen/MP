@@ -1,19 +1,13 @@
 package Dao;
 
-import gui.ZeitBloecke;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
-import tabellenklassen.Zeitblock;
   
 
 public class VereinDao {
@@ -101,8 +95,7 @@ public class VereinDao {
 				for (int j = 1; j < 8; j++) {
 					System.out.println(j);
 					try {
-						//daten[i][j] = getWerteWochentag(j)[i];
-						daten[i][j] = "Kurt";
+						daten[i][j] = getWerteWochentag(j)[i];
 					} catch (ArrayIndexOutOfBoundsException e) {
 					
 					}

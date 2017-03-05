@@ -1,4 +1,4 @@
-package gui;
+package Dao;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -14,6 +14,10 @@ import javax.swing.table.TableCellRenderer;
 
 public class TestRenderer extends JTextArea 
 implements TableCellRenderer {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<List<Integer>> rowColHeight = new ArrayList<List<Integer>>();
 
 	public TestRenderer() {

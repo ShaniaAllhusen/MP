@@ -9,8 +9,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-import org.omg.CORBA.portable.ValueBase;
-
 import tabellenklassen.Zeitblock;
 
 import java.awt.EventQueue;

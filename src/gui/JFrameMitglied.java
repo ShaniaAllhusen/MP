@@ -84,6 +84,7 @@ public class JFrameMitglied extends JFrame {
 	private BenutzerDao benutzerDao;
 
 	private MitgliedDao mitgliedDao;
+	private JLabel labelPflichtfeld;
 
 
 	/**
@@ -114,7 +115,7 @@ public class JFrameMitglied extends JFrame {
 	private void initGUI() {
 		setTitle("Mitglieder verwalten");
 		setDefaultCloseOperation(JFrameMannschaft.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 637, 434);
+		setBounds(100, 100, 637, 451);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -127,22 +128,22 @@ public class JFrameMitglied extends JFrame {
 			contentPane.add(panelPersönlicheDaten);
 			panelPersönlicheDaten.setLayout(null);
 			{
-				labelMitgliedId = new JLabel("Id");
+				labelMitgliedId = new JLabel("Id*");
 				labelMitgliedId.setBounds(6, 17, 200, 26);
 				panelPersönlicheDaten.add(labelMitgliedId);
 			}
 			{
-				labelVorname = new JLabel("Vorname");
+				labelVorname = new JLabel("Vorname*");
 				labelVorname.setBounds(6, 40, 200, 26);
 				panelPersönlicheDaten.add(labelVorname);
 			}
 			{
-				labelNachname = new JLabel("Nachname");
+				labelNachname = new JLabel("Nachname*");
 				labelNachname.setBounds(6, 66, 200, 26);
 				panelPersönlicheDaten.add(labelNachname);
 			}
 			{
-				labelGeburtsdatum = new JLabel("Geburtsdatum");
+				labelGeburtsdatum = new JLabel("Geburtsdatum*");
 				labelGeburtsdatum.setBounds(6, 91, 200, 26);
 				panelPersönlicheDaten.add(labelGeburtsdatum);
 			}
@@ -184,17 +185,17 @@ public class JFrameMitglied extends JFrame {
 			contentPane.add(panelAdresse);
 			panelAdresse.setLayout(null);
 			{
-				labelStrae = new JLabel("Stra\u00DFe");
+				labelStrae = new JLabel("Stra\u00DFe*");
 				labelStrae.setBounds(6, 19, 200, 26);
 				panelAdresse.add(labelStrae);
 			}
 			{
-				labelPostleitzahl = new JLabel("Postleitzahl");
+				labelPostleitzahl = new JLabel("Postleitzahl*");
 				labelPostleitzahl.setBounds(6, 51, 200, 26);
 				panelAdresse.add(labelPostleitzahl);
 			}
 			{
-				labelOrt = new JLabel("Ort");
+				labelOrt = new JLabel("Ort*");
 				labelOrt.setBounds(6, 78, 200, 26);
 				panelAdresse.add(labelOrt);
 			}
@@ -496,6 +497,11 @@ public class JFrameMitglied extends JFrame {
 				buttonMitgliedLast.setBounds(218, 48, 67, 23);
 				panelMitgliedAussuchen.add(buttonMitgliedLast);
 			}
+		}
+		{
+			labelPflichtfeld = new JLabel("* Pflichtfeld");
+			labelPflichtfeld.setBounds(16, 393, 117, 14);
+			contentPane.add(labelPflichtfeld);
 		}
 	}
 	protected void buttonBenutzerprofilSuchenActionPerformed(ActionEvent e) throws NoBenutzerFound {

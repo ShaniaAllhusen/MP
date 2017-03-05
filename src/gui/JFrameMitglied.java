@@ -1,6 +1,5 @@
 package gui;
 
-//Imports
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -23,16 +22,14 @@ import Dao.NoBenutzerFound;
 import Dao.MitgliedDao;
 import Dao.NoMitgliedFound;
 
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class JFrameMitglied extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel labelMitgliedId;
 	private JLabel labelVorname;
@@ -87,6 +84,7 @@ public class JFrameMitglied extends JFrame {
 	private BenutzerDao benutzerDao;
 
 	private MitgliedDao mitgliedDao;
+	private JLabel labelPflichtfeld;
 
 
 	/**
@@ -109,8 +107,6 @@ public class JFrameMitglied extends JFrame {
 	 * Create the frame.
 	 * @throws ClassNotFoundException 
 	 */
-
-	//Konstruktor
 	public JFrameMitglied() throws ClassNotFoundException {
 		benutzerDao = new BenutzerDao();
 		mitgliedDao = new MitgliedDao();
@@ -119,7 +115,7 @@ public class JFrameMitglied extends JFrame {
 	private void initGUI() {
 		setTitle("Mitglieder verwalten");
 		setDefaultCloseOperation(JFrameMannschaft.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 637, 434);
+		setBounds(100, 100, 637, 451);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -132,22 +128,22 @@ public class JFrameMitglied extends JFrame {
 			contentPane.add(panelPersönlicheDaten);
 			panelPersönlicheDaten.setLayout(null);
 			{
-				labelMitgliedId = new JLabel("Id");
+				labelMitgliedId = new JLabel("Id*");
 				labelMitgliedId.setBounds(6, 17, 200, 26);
 				panelPersönlicheDaten.add(labelMitgliedId);
 			}
 			{
-				labelVorname = new JLabel("Vorname");
+				labelVorname = new JLabel("Vorname*");
 				labelVorname.setBounds(6, 40, 200, 26);
 				panelPersönlicheDaten.add(labelVorname);
 			}
 			{
-				labelNachname = new JLabel("Nachname");
+				labelNachname = new JLabel("Nachname*");
 				labelNachname.setBounds(6, 66, 200, 26);
 				panelPersönlicheDaten.add(labelNachname);
 			}
 			{
-				labelGeburtsdatum = new JLabel("Geburtsdatum");
+				labelGeburtsdatum = new JLabel("Geburtsdatum*");
 				labelGeburtsdatum.setBounds(6, 91, 200, 26);
 				panelPersönlicheDaten.add(labelGeburtsdatum);
 			}
@@ -189,17 +185,17 @@ public class JFrameMitglied extends JFrame {
 			contentPane.add(panelAdresse);
 			panelAdresse.setLayout(null);
 			{
-				labelStrae = new JLabel("Stra\u00DFe");
+				labelStrae = new JLabel("Stra\u00DFe*");
 				labelStrae.setBounds(6, 19, 200, 26);
 				panelAdresse.add(labelStrae);
 			}
 			{
-				labelPostleitzahl = new JLabel("Postleitzahl");
+				labelPostleitzahl = new JLabel("Postleitzahl*");
 				labelPostleitzahl.setBounds(6, 51, 200, 26);
 				panelAdresse.add(labelPostleitzahl);
 			}
 			{
-				labelOrt = new JLabel("Ort");
+				labelOrt = new JLabel("Ort*");
 				labelOrt.setBounds(6, 78, 200, 26);
 				panelAdresse.add(labelOrt);
 			}
@@ -502,8 +498,12 @@ public class JFrameMitglied extends JFrame {
 				panelMitgliedAussuchen.add(buttonMitgliedLast);
 			}
 		}
+		{
+			labelPflichtfeld = new JLabel("* Pflichtfeld");
+			labelPflichtfeld.setBounds(16, 393, 117, 14);
+			contentPane.add(labelPflichtfeld);
+		}
 	}
-	// Wenn Button Suchen gedrückt -> Benutzer wird gesucht
 	protected void buttonBenutzerprofilSuchenActionPerformed(ActionEvent e) throws NoBenutzerFound {
 		String eingabe = textFieldBenutzerprofilSuchen.getText();
 		Benutzer benutzerAktiv;
@@ -519,29 +519,13 @@ public class JFrameMitglied extends JFrame {
 			else {
 				benutzerAktiv = benutzerDao.select(eingabe);
 			}
-			showBenutzer(benutzerAktiv);
+			showSucheBenutzer(benutzerAktiv);
 		} catch (NoBenutzerFound e1) {
 			showErrorPane(e1);
 		}
 
 	}
 
-	// Methode showBenutzer() -> Attribute von dem jeweiligen Benutzer werden angezeigt
-	private void showBenutzer(Benutzer benutzer) {
-		textFieldBenutzerSucheID.setText(Integer.toString(benutzer.getId()));
-		textFieldBenutzerSucheName.setText(benutzer.getUsername());
-		textFieldBenutzerSuchePasswort.setText(benutzer.getPasswort());
-
-	}
-	private void showErrorPane(Exception e) {
-		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
-	}
-
-	private void showInfoPane(String text, int id) {
-		JOptionPane.showMessageDialog(this, text +" mit der ID " +id +" wurde hinzugefügt", "Informationsmeldung", JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	// Wenn Button Suchen gedrückt -> Mitglied wird gesucht
 	protected void buttonMitgliedSuchenActionPerformed(ActionEvent e) {
 		String eingabe = textFieldMitgliedSuchen.getText();
 		Mitglied mitglied;
@@ -550,135 +534,158 @@ public class JFrameMitglied extends JFrame {
 			mitglied = new Mitglied();
 			id = Integer.parseInt(eingabe);
 			mitglied = mitgliedDao.select(id);
-			showMitglied(mitglied);
+			if(mitglied.getBenutzer() == null) {
+				showMitglied(mitglied);
+			}
+			else {
+				showMitglied(mitglied);
+				showBenutzer(mitglied);
+			}
 		} catch (NoMitgliedFound e1) {
 			showErrorPane(e1);
 		}
 	}
 
-
-	private void showMitglied(Mitglied mitglied) {
-		textFieldMitgliedId.setText(Integer.toString(mitglied.getId()));
-		textFieldVorname.setText(mitglied.getVorname());
-		textFieldNachname.setText(mitglied.getNachname());
-		textFieldGeburtsdatum.setText(mitglied.getGeburtsdatum());
-		textFieldStrasse.setText(mitglied.getStrasse());
-		textFieldPostleitzahl.setText(mitglied.getPlz());
-		textFieldOrt.setText(mitglied.getOrt());
-		textFieldBenutzerId.setText(Integer.toString(mitglied.getBenutzer().getId()));
-		textFieldBenutzername.setText(mitglied.getBenutzer().getUsername());
-		textFieldPasswort.setText(mitglied.getBenutzer().getPasswort());
-	}
-
-	//Erstes Mitglied anzeigen
 	protected void buttonMitgliedFirstActionPerformed(ActionEvent e) {
 		Mitglied mitgliedFirst = new Mitglied();
 		mitgliedFirst = mitgliedDao.first();
 		showMitglied(mitgliedFirst);
+		if(mitgliedFirst.getBenutzer() == null) {
+			showMitglied(mitgliedFirst);
+		}
+		else {
+			showMitglied(mitgliedFirst);
+			showBenutzer(mitgliedFirst);
+		}
 	}
 
-	// vorheriges Mitglied anzeigen
 	protected void buttonMitgliedPreviousActionPerformed(ActionEvent e) {
 		Mitglied mitgliedAktiv = new Mitglied();
-		mitgliedAktiv = create();
-		try {
-			Mitglied mitgliedPrevious  = mitgliedDao.previous(mitgliedAktiv);
-			showMitglied(mitgliedPrevious);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-	}
-
-	// Methode create() -> Neues Mitglied wird erstellt
-	public Mitglied create() {
-		Mitglied mitgliedAktiv = new Mitglied();
-		try{
-			Benutzer benutzerAktiv = new Benutzer();
-			benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerId.getText()));
-			benutzerAktiv.setUsername(textFieldBenutzername.getText());
-			benutzerAktiv.setPasswort(textFieldPasswort.getText());
-			mitgliedAktiv.setBenutzer(benutzerAktiv);
-
+		if (felderPruefen(textFieldMitgliedId) == true) {
+			if (felderPruefen(textFieldBenutzerId)== true) {
+				mitgliedAktiv = create();
+			}
+			else {
+				mitgliedAktiv = createOhneBenutzer();
+			}
 			mitgliedAktiv.setId(Integer.parseInt(textFieldMitgliedId.getText()));
-			mitgliedAktiv.setVorname(textFieldVorname.getText());
-			mitgliedAktiv.setNachname(textFieldNachname.getText());
-			mitgliedAktiv.setGeburtsdatum(textFieldGeburtsdatum.getText());
-			mitgliedAktiv.setStrasse(textFieldStrasse.getText());
-			mitgliedAktiv.setPlz(textFieldPostleitzahl.getText());
-			mitgliedAktiv.setOrt(textFieldOrt.getText());
-		}catch(NumberFormatException n){
-			n.getMessage();
+			try {
+				Mitglied mitgliedPrevious  = mitgliedDao.previous(mitgliedAktiv);
+				showMitglied(mitgliedPrevious);
+				if(mitgliedPrevious.getBenutzer() == null) {
+					showMitglied(mitgliedPrevious);
+				}
+				else {
+					showMitglied(mitgliedPrevious);
+					showBenutzer(mitgliedPrevious);
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
-		return mitgliedAktiv;
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie zuerst ein Mitglied aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
-	//Nächstes Mitglied anzeigen
 	protected void buttonMitgliedNextActionPerformed(ActionEvent e) {
-
 		Mitglied mitgliedAktiv = new Mitglied();
-		mitgliedAktiv = create();
-		Mitglied mitgliedNext = mitgliedDao.next(mitgliedAktiv);
-		showMitglied(mitgliedNext);
+		if (felderPruefen(textFieldMitgliedId) == true) {
+
+			if(felderPruefen(textFieldBenutzerId)==false) {
+				mitgliedAktiv = createOhneBenutzer();
+			}
+			else {
+				mitgliedAktiv = create();
+			}
+			mitgliedAktiv.setId(Integer.parseInt(textFieldMitgliedId.getText()));
+			Mitglied mitgliedNext = mitgliedDao.next(mitgliedAktiv);
+			showMitglied(mitgliedNext);
+			if(mitgliedNext.getBenutzer() == null) {
+				showMitglied(mitgliedNext);
+			}
+			else {
+				showMitglied(mitgliedNext);
+				showBenutzer(mitgliedNext);
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie zuerst ein Mitglied aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
-	//Letztes Mitglied anzeigen
 	protected void buttonMitgliedLastActionPerformed(ActionEvent e) {
 		try {
 			Mitglied mitgliedLast = mitgliedDao.last();
 			showMitglied(mitgliedLast);
+			if(mitgliedLast.getBenutzer() == null) {
+				showMitglied(mitgliedLast);
+			}
+			else {
+				showMitglied(mitgliedLast);
+				showBenutzer(mitgliedLast);
+			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-
 	}
 
-	//Ersten Benutzer anzeigen
 	protected void buttonBenutzerFirstActionPerformed(ActionEvent e) {
 		try {
 			Benutzer benutzerFirst = benutzerDao.first();
-			showBenutzer(benutzerFirst);
+			showSucheBenutzer(benutzerFirst);
 		} catch (Exception e1) {
 			e1.printStackTrace();
-
 		}
 	}
-	//vorherigen Benutzer anzeigen
+
 	protected void buttonBenutzerPreviousActionPerformed(ActionEvent e) {
 		Benutzer benutzerAktiv = new Benutzer();
-		benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerSucheID.getText()));
-		benutzerAktiv.setUsername(textFieldBenutzerSucheName.getText());
-		benutzerAktiv.setPasswort(textFieldBenutzerSuchePasswort.getText());
+		if(felderPruefen(textFieldBenutzerSucheID)==true) {
+			benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerSucheID.getText()));
+			benutzerAktiv.setUsername(textFieldBenutzerSucheName.getText());
+			benutzerAktiv.setPasswort(textFieldBenutzerSuchePasswort.getText());
 
-		try {
-			Benutzer benutzerPrevious = benutzerDao.previous(benutzerAktiv);
-			showBenutzer(benutzerPrevious);
-		} catch (Exception e1) {
-			e1.printStackTrace();
+			try {
+				Benutzer benutzerPrevious = benutzerDao.previous(benutzerAktiv);
+				showSucheBenutzer(benutzerPrevious);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie zuerst ein Benutzerprofil aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	//nächsten Benutzer anzeigen
 	protected void buttonBenutzerNextActionPerformed(ActionEvent e) {
 		Benutzer benutzerAktiv = new Benutzer();
-		benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerSucheID.getText()));
-		benutzerAktiv.setUsername(textFieldBenutzerSucheName.getText());
-		benutzerAktiv.setPasswort(textFieldBenutzerSuchePasswort.getText());
-		try {
-			Benutzer benutzerNext = benutzerDao.next(benutzerAktiv);
-			showBenutzer(benutzerNext);
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		if(felderPruefen(textFieldBenutzerSucheID)==true) {
+			benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerSucheID.getText()));
+			benutzerAktiv.setUsername(textFieldBenutzerSucheName.getText());
+			benutzerAktiv.setPasswort(textFieldBenutzerSuchePasswort.getText());
+			try {
+				Benutzer benutzerNext = benutzerDao.next(benutzerAktiv);
+				showSucheBenutzer(benutzerNext);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie zuerst ein Benutzerprofil aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	//	Letzten Benutzer anzeigen
 	protected void buttonBenutzerLastActionPerformed(ActionEvent e) {
 		try {
 			Benutzer benutzerLast = benutzerDao.last();
-			showBenutzer(benutzerLast);
+			showSucheBenutzer(benutzerLast);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 	}
-	// Neuen Benutzer hinzufügen
 	protected void buttonBenutzerprofilHinzufgenActionPerformed(ActionEvent e) {
 		String username = textFieldBenutzerSucheName.getText();
 		String passwort = textFieldBenutzerSuchePasswort.getText();
@@ -695,44 +702,81 @@ public class JFrameMitglied extends JFrame {
 		}
 	}
 
-	// Neues Mitglied hinzufügen
 	protected void buttonMitgliedHinzufuegenActionPerformed(ActionEvent e) {
 		Mitglied mitgliedAktiv = new Mitglied();
-		Benutzer benutzerAktiv = new Benutzer();
-		mitgliedAktiv.setVorname(textFieldVorname.getText());
-		mitgliedAktiv.setNachname(textFieldNachname.getText());
-		mitgliedAktiv.setGeburtsdatum(textFieldGeburtsdatum.getText());
-		mitgliedAktiv.setStrasse(textFieldStrasse.getText());
-		mitgliedAktiv.setPlz(textFieldPostleitzahl.getText());
-		mitgliedAktiv.setOrt(textFieldOrt.getText());
-		if ((textFieldBenutzerId.getText() != null) && (textFieldBenutzerId.getText() != "") && (textFieldBenutzerId.getText().isEmpty() == false)  && (textFieldBenutzerId.getText() != " ")) {
-			benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerId.getText()));
-			benutzerAktiv.setUsername(textFieldBenutzername.getText());
-			benutzerAktiv.setPasswort(textFieldPasswort.getText());
-			mitgliedAktiv.setBenutzer(benutzerAktiv);
-			try {
-				mitgliedDao.insertMitBenutzer(mitgliedAktiv);
-				textFieldMitgliedId.setText(Integer.toString(mitgliedAktiv.getId()));
-				showInfoPane("Mitglied", mitgliedAktiv.getId());
-			} catch (Exception e1) {
-				e1.printStackTrace();
+
+		// Geburtsdatum überprüfen, wenn das Geburtsdatum richtig ist werden die anderen Eingaben geprüft 
+		// damit erst nur die Fehlermeldung für die falsche Eingabe des Geburtsdatum angezeigt wird
+		boolean eingabeGeburtsdatum = false;
+		if(felderPruefen(textFieldGeburtsdatum) == true){
+			eingabeGeburtsdatum = geburtsdatumPruefen();
+		}
+		if (eingabeGeburtsdatum == true) {
+
+			// Postleitzahl wird geprüft, wenn die Postleitzahl richtig ist werden alle anderen Eingaben prüfen
+			// damit erst nur die Fehlermeldung für die falsche Eingabe der Postleitzahl angezeigt wird
+			boolean eingabePostleitzahl = false;
+			if(felderPruefen(textFieldPostleitzahl) == true) {
+				eingabePostleitzahl = postleitzahlPrufen();
+			}
+			if (eingabePostleitzahl == true) {
+
+				// alle Eingaben überprüfen
+				boolean eingabeVorname = felderPruefen(textFieldVorname);
+				boolean eingabeNachname = felderPruefen(textFieldNachname);
+				boolean eingabeStrasse = felderPruefen(textFieldStrasse);
+				boolean eingabeOrt = felderPruefen(textFieldOrt);
+
+				// wenn alle anderen Eingaben richtig sind weitermachen
+				if (eingabeVorname == true && eingabeNachname == true
+						&& eingabeGeburtsdatum == true
+						&& eingabeStrasse == true && eingabeOrt == true) {
+
+					// wenn es eine BenutzerId gibt wird versucht ein Mitglied mit Benutzerprofil erstellt
+					if (felderPruefen(textFieldBenutzerId) == true) {
+						mitgliedAktiv = create();
+						try {
+							mitgliedDao.insertMitBenutzer(mitgliedAktiv);
+							textFieldMitgliedId.setText(Integer
+									.toString(mitgliedAktiv.getId()));
+							showInfoPane("Mitglied", mitgliedAktiv.getId());
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+
+					// wenn es keine BenutzerId gibt wird versucht ein Mitglied ohne Benutzerprofil erstellt
+					else {
+						try {
+							mitgliedAktiv = createOhneBenutzer();
+							mitgliedDao.insertOhneBenutzer(mitgliedAktiv);
+							textFieldMitgliedId.setText(Integer
+									.toString(mitgliedAktiv.getId()));
+							showInfoPane("Mitglied", mitgliedAktiv.getId());
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+				}
+
+				// wenn falsche Eingaben gemacht wurden, wird eine Fehlermeldung angezeigt
+				else {
+					JOptionPane.showMessageDialog(this,
+							"Bitte füllen Sie alle Pflichtfelder aus.",
+							"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}
-
-		else {
-			try {
-				mitgliedDao.insertOhneBenutzer(mitgliedAktiv);
-				textFieldMitgliedId.setText(Integer.toString(mitgliedAktiv.getId()));
-				showInfoPane("Mitglied", mitgliedAktiv.getId());
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		}
-
 	}
-	//Wenn Button Mitglied löschen gedrückt -> Mitglied wird gelöscht
+
 	protected void buttonMitgliedLoeschenActionPerformed(ActionEvent e) {
-		Mitglied mitglied = create();
+		Mitglied mitglied = new Mitglied();
+		if (felderPruefen(textFieldBenutzerId)== true) {
+			mitglied = create();
+		}
+		else {
+			mitglied = createOhneBenutzer();
+		}
 		try {
 			mitgliedDao.delete(mitglied);
 			felderLeeren();
@@ -741,7 +785,194 @@ public class JFrameMitglied extends JFrame {
 		}
 	}
 
-	// Methode FelderLeeren() -> Löscht alle Eingaben in den jeweiligen Feldern
+	protected void buttonDatenAktualisierenActionPerformed(ActionEvent e) {
+		Mitglied mitgliedAktiv = new Mitglied();
+		// Geburtsdatum überprüfen, wenn das Geburtsdatum richtig ist werden die anderen Eingaben geprüft 
+		// damit erst nur die Fehlermeldung für die falsche Eingabe des Geburtsdatum angezeigt wird
+		boolean eingabeGeburtsdatum = false;
+		if(felderPruefen(textFieldGeburtsdatum) == true){
+			eingabeGeburtsdatum = geburtsdatumPruefen();
+		}
+		if (eingabeGeburtsdatum == true) {
+
+			// Postleitzahl wird geprüft, wenn die Postleitzahl richtig ist werden alle anderen Eingaben prüfen
+			// damit erst nur die Fehlermeldung für die falsche Eingabe der Postleitzahl angezeigt wird
+			boolean eingabePostleitzahl = false;
+			if(felderPruefen(textFieldPostleitzahl) == true) {
+				eingabePostleitzahl = postleitzahlPrufen();
+			}
+			if (eingabePostleitzahl == true) {
+
+				// alle Eingaben überprüfen
+				boolean eingabeVorname = felderPruefen(textFieldVorname);
+				boolean eingabeNachname = felderPruefen(textFieldNachname);
+				boolean eingabeStrasse = felderPruefen(textFieldStrasse);
+				boolean eingabeOrt = felderPruefen(textFieldOrt);
+
+				// wenn alle anderen Eingaben richtig sind weitermachen
+				if (eingabeVorname == true && eingabeNachname == true
+						&& eingabeGeburtsdatum == true
+						&& eingabeStrasse == true && eingabeOrt == true) {
+
+					// wenn es eine BenutzerId gibt wird versucht ein Mitglied mit Benutzerprofil erstellt
+					if (felderPruefen(textFieldBenutzerId) == true) {
+						try {
+							mitgliedAktiv = create();
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+
+					// wenn es keine BenutzerId gibt wird versucht ein Mitglied ohne Benutzerprofil erstellt
+					else {
+						try {
+							mitgliedAktiv = createOhneBenutzer();
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+					//Mitgliedsdaten werden aktualisiert
+					try {
+						mitgliedDao.update(mitgliedAktiv);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+
+				// wenn falsche Eingaben gemacht wurden, wird eine Fehlermeldung angezeigt
+				else {
+					JOptionPane.showMessageDialog(this,
+							"Bitte füllen Sie alle Pflichtfelder aus.",
+							"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+	}
+
+	protected void buttonBenutzerprofilUebernehmenActionPerformed(ActionEvent e) {
+		textFieldBenutzerId.setText(textFieldBenutzerSucheID.getText());
+		textFieldBenutzername.setText(textFieldBenutzerSucheName.getText());
+		textFieldPasswort.setText(textFieldBenutzerSuchePasswort.getText());
+		benutzerSucheFelderLeeren();
+	}
+
+	public Mitglied create() {
+		Mitglied mitgliedAktiv = createOhneBenutzer();
+		Benutzer benutzerAktiv = new Benutzer();
+		benutzerAktiv.setId(Integer.parseInt(textFieldBenutzerId.getText()));
+		benutzerAktiv.setUsername(textFieldBenutzername.getText());
+		benutzerAktiv.setPasswort(textFieldPasswort.getText());
+		mitgliedAktiv.setBenutzer(benutzerAktiv);
+		return mitgliedAktiv;
+	}
+
+	public Mitglied createOhneBenutzer () {
+		Mitglied mitgliedAktiv = new Mitglied();
+
+		mitgliedAktiv.setVorname(textFieldVorname.getText());
+		mitgliedAktiv.setNachname(textFieldNachname.getText());
+		mitgliedAktiv.setGeburtsdatum(textFieldGeburtsdatum.getText());
+		mitgliedAktiv.setStrasse(textFieldStrasse.getText());
+		mitgliedAktiv.setPlz(textFieldPostleitzahl.getText());
+		mitgliedAktiv.setOrt(textFieldOrt.getText());
+		return mitgliedAktiv;
+	}
+
+	private boolean geburtsdatumPruefen() {
+		boolean pruefe = false;
+		String geburtsdatum;
+
+		try {
+			geburtsdatum = textFieldGeburtsdatum.getText();
+			SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+			Date d = null;
+
+			try {
+				d = format.parse(geburtsdatum);
+				pruefe = true;
+			} catch(ParseException ex){
+				JOptionPane.showMessageDialog(this, "Bitte geben Sie ein korrektes Geburtsdatum ein.", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
+				pruefe = false;
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Bitte geben Sie ein korrektes Geburtsdatum ein.", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
+			pruefe = false;
+		}
+		return pruefe;
+	}
+
+	private boolean postleitzahlPrufen() {
+		boolean pruefe = false;
+		String postleitzahl;
+
+		try {
+			postleitzahl = textFieldPostleitzahl.getText();
+
+			// wenn die Eingabe 5 Zeichen lang ist, wird versucht daraus einen Integerwert zu machen
+			if(postleitzahl.length() == 5) {
+				try {
+					Integer.parseInt(postleitzahl);
+					pruefe = true;
+				} 
+
+				// wenn das nicht funktioniert, wird eine Fehlermeldung ausgegeben und pruefe wird auf false gesetzt
+				catch (NumberFormatException e) {
+					JOptionPane.showMessageDialog(this, "Bitte geben Sie eine korrekte Postleitzahl ein.", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
+					pruefe = false;
+				}
+			}
+
+			// wenn die Eingabe 5 Zeichen lang ist, wird eine Fehlermeldung ausgegeben und pruefe wird auf false gesetzt
+			else {
+				JOptionPane.showMessageDialog(this, "Bitte geben Sie eine korrekte Postleitzahl ein.", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Bitte geben Sie eine korrekte Postleitzahl ein.", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
+		}
+		return pruefe;
+	}
+
+	// es wird geprüft, ob ein Feld leer ist
+	private boolean felderPruefen(JTextField textField) {
+		boolean pruefe = true;
+		if (textField.getText() == null){
+			pruefe = false;
+		}
+		else if(textField.getText().equals("")) {
+			pruefe = false;
+		}
+		else if(textField.getText().isEmpty() == true) {
+			pruefe = false;
+		}
+		else if(textField.getText().equals(" ")) {
+			pruefe = false;
+		}
+		return pruefe;
+	}
+
+	private void showMitglied(Mitglied mitglied) {
+		textFieldMitgliedId.setText(Integer.toString(mitglied.getId()));
+		textFieldVorname.setText(mitglied.getVorname());
+		textFieldNachname.setText(mitglied.getNachname());
+		textFieldGeburtsdatum.setText(mitglied.getGeburtsdatum());
+		textFieldStrasse.setText(mitglied.getStrasse());
+		textFieldPostleitzahl.setText(mitglied.getPlz());
+		textFieldOrt.setText(mitglied.getOrt());
+	}
+
+	private void showBenutzer(Mitglied mitglied) {
+		textFieldBenutzerId.setText(Integer.toString(mitglied.getBenutzer().getId()));
+		textFieldBenutzername.setText(mitglied.getBenutzer().getUsername());
+		textFieldPasswort.setText(mitglied.getBenutzer().getPasswort());
+	}
+
+	private void showSucheBenutzer(Benutzer benutzer) {
+		textFieldBenutzerSucheID.setText(Integer.toString(benutzer.getId()));
+		textFieldBenutzerSucheName.setText(benutzer.getUsername());
+		textFieldBenutzerSuchePasswort.setText(benutzer.getPasswort());
+	}
+
 	private void felderLeeren() {
 		textFieldMitgliedId.setText("");
 		textFieldVorname.setText("");
@@ -754,29 +985,19 @@ public class JFrameMitglied extends JFrame {
 		textFieldBenutzername.setText("");
 		textFieldPasswort.setText("");
 	}
-	
-	// Wenn Button Aktualisieren gedrückt -> Daten in der Datenbank werden aktualisiert/update
-	protected void buttonDatenAktualisierenActionPerformed(ActionEvent e) {
-		Mitglied mitglied = create();
-		try {
-			mitgliedDao.update(mitglied);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-	}
-	// Methode benutzerSucheFelderLeeren() -> Löscht alle Eingaben in den jeweiligen Feldern
+
 	private void benutzerSucheFelderLeeren() {
 		textFieldBenutzerSucheID.setText("");
 		textFieldBenutzerSucheName.setText("");
 		textFieldBenutzerSuchePasswort.setText("");
 	}
 
-	// Wenn Button Benutzerprofil übernehmen gedrückt -> Benutzerprofil wird übernommen
-	protected void buttonBenutzerprofilUebernehmenActionPerformed(ActionEvent e) {
-		textFieldBenutzerId.setText(textFieldBenutzerSucheID.getText());
-		textFieldBenutzername.setText(textFieldBenutzerSucheName.getText());
-		textFieldPasswort.setText(textFieldBenutzerSuchePasswort.getText());
-		benutzerSucheFelderLeeren();
+	private void showErrorPane(Exception e) {
+		JOptionPane.showMessageDialog(this, e.getMessage(), "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+	}
+
+	private void showInfoPane(String text, int id) {
+		JOptionPane.showMessageDialog(this, text +" mit der ID " +id +" wurde hinzugefügt", "Informationsmeldung", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
 

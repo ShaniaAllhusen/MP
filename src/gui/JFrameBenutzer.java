@@ -60,7 +60,7 @@ public class JFrameBenutzer extends JFrame {
 	 * Create the frame.
 	 * @throws ClassNotFoundException 
 	 */
-	
+
 	//Konstruktor
 	public JFrameBenutzer() throws ClassNotFoundException {
 		benutzerDao = new BenutzerDao();
@@ -68,7 +68,7 @@ public class JFrameBenutzer extends JFrame {
 	}
 	private void initGUI() {
 		setTitle("Benutzer verwalten");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 259);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -82,7 +82,7 @@ public class JFrameBenutzer extends JFrame {
 			textFieldSuchen.setColumns(10);
 		}
 		{
-			
+
 			buttonSuchen = new JButton("Suchen");
 			buttonSuchen.setMnemonic('B');
 			buttonSuchen.setToolTipText("Hier k\u00F6nnen Sie ein Benutzerprofil nach der Id oder nem Benutzernamen suchen (Alt + B)");
@@ -247,7 +247,7 @@ public class JFrameBenutzer extends JFrame {
 	private void showInfoPane(String text, int id) {
 		JOptionPane.showMessageDialog(this, text +" mit der ID " +id +" wurde hinzugefügt", "Informationsmeldung", JOptionPane.INFORMATION_MESSAGE);
 	}
-	
+
 	//Wenn Button Hinzufügen gedrückt -> Benutzer wird hinzugefügt
 	protected void buttonHinzufuegenActionPerformed(ActionEvent e) {
 		String username = textFieldUsername.getText();
@@ -273,7 +273,7 @@ public class JFrameBenutzer extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	//Wenn Button Löschen gedrückt -> Benutzer wird gelöscht
 	protected void buttonLoeschenActionPerformed(ActionEvent e) {
 		Benutzer benutzer = create();
@@ -303,7 +303,7 @@ public class JFrameBenutzer extends JFrame {
 		textFieldUsername.setText("");
 		textFieldPasswort.setText("");
 	}
-	
+
 	// Ersten Benutzer anzeigen
 	protected void buttonActionPerformed(ActionEvent e) {
 		try {
@@ -316,27 +316,41 @@ public class JFrameBenutzer extends JFrame {
 	}
 	// vorherigen Benutzer anzeigen
 	protected void button_1ActionPerformed(ActionEvent e) {
-		Benutzer benutzerAktiv = create();
+		Benutzer benutzerAktiv = new Benutzer();
+		if(felderPruefen(textFieldID)==true) {
+			benutzerAktiv = create();
 
-		try {
-			Benutzer benutzerPrevious = benutzerDao.previous(benutzerAktiv);
-			showBenutzer(benutzerPrevious);
-		} catch (Exception e1) {
-			e1.printStackTrace();
+			try {
+				Benutzer benutzerPrevious = benutzerDao.previous(benutzerAktiv);
+				showBenutzer(benutzerPrevious);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie zuerst ein Benutzerprofil aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+		}
+
 	}
-	
+
 	// nächsten Benutzer anzeigen
 	protected void button_2ActionPerformed(ActionEvent e) {
-		Benutzer benutzerAktiv = create();
-		try {
-			Benutzer benutzerNext = benutzerDao.next(benutzerAktiv);
-			showBenutzer(benutzerNext);
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		if(felderPruefen(textFieldID)==true) {
+			Benutzer benutzerAktiv = create();
+			try {
+				Benutzer benutzerNext = benutzerDao.next(benutzerAktiv);
+				showBenutzer(benutzerNext);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bitte wählen Sie zuerst ein Benutzerprofil aus.",
+					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
+
 	// letzten Benutzer eintragen
 	protected void button_3ActionPerformed(ActionEvent e) {
 		try {
@@ -345,5 +359,23 @@ public class JFrameBenutzer extends JFrame {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+	}
+
+	// es wird geprüft, ob ein Feld leer ist
+	private boolean felderPruefen(JTextField textField) {
+		boolean pruefe = true;
+		if (textField.getText() == null){
+			pruefe = false;
+		}
+		else if(textField.getText().equals("")) {
+			pruefe = false;
+		}
+		else if(textField.getText().isEmpty() == true) {
+			pruefe = false;
+		}
+		else if(textField.getText().equals(" ")) {
+			pruefe = false;
+		}
+		return pruefe;
 	}
 }

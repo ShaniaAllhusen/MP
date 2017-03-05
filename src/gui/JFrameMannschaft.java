@@ -1,5 +1,6 @@
 package gui;
 
+//Imports
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -84,6 +85,8 @@ public class JFrameMannschaft extends JFrame {
 	 * Create the frame.
 	 * @throws ClassNotFoundException 
 	 */
+	
+	//Konstruktor
 	public JFrameMannschaft() throws ClassNotFoundException {
 		mannschaftDao = new MannschaftDao();
 		sportartDao = new SportartDao();
@@ -172,7 +175,7 @@ public class JFrameMannschaft extends JFrame {
 			buttonMannschaftLschen.setToolTipText("ausgew\u00E4hlte Mannschaft l\u00F6schen (Alt + L)");
 			buttonMannschaftLschen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					buttonMannschaftLschenActionPerformed(e);
+					buttonMannschaftLoeschenActionPerformed(e);
 				}
 			});
 			buttonMannschaftLschen.setBounds(10, 263, 276, 23);
@@ -184,7 +187,7 @@ public class JFrameMannschaft extends JFrame {
 			buttonMannschaftHinzufgen.setToolTipText("Neue Mannschaft hinzuf\u00FCgen (Alt + H)");
 			buttonMannschaftHinzufgen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					buttonMannschaftHinzufgenActionPerformed(e);
+					buttonMannschaftHinzufuegenActionPerformed(e);
 				}
 			});
 			buttonMannschaftHinzufgen.setBounds(10, 297, 276, 23);
@@ -348,7 +351,7 @@ public class JFrameMannschaft extends JFrame {
 				buttonSportartbernehmen.setToolTipText("Die ausgew\u00E4hlte Sportart wird zu der Mannschaft hinzugef\u00FCgt (Alt + \u00DC)");
 				buttonSportartbernehmen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						buttonSportartbernehmenActionPerformed(e);
+						buttonSportartUebernehmenActionPerformed(e);
 					}
 				});
 				buttonSportartbernehmen.setBounds(6, 184, 184, 23);
@@ -356,6 +359,7 @@ public class JFrameMannschaft extends JFrame {
 			}
 		}
 	}
+	// Wenn Button Suchen gedrückt -> Mannschaft wird gesucht
 	protected void buttonSuchenActionPerformed(ActionEvent e) {
 		String eingabe = textFieldSuche.getText();
 		Mannschaft mannschaftAktiv;
@@ -377,6 +381,8 @@ public class JFrameMannschaft extends JFrame {
 		}
 
 	}
+	
+	// Wenn Button Änderungen speichern gedrückt -> Änderungen werden gespeichert
 	protected void buttonaenderungenSpeichernActionPerformed(ActionEvent e) {
 		String name;
 		String sportartName;
@@ -398,7 +404,9 @@ public class JFrameMannschaft extends JFrame {
 		mannschaftAktiv.setSportart(sportart);
 		mannschaftDao.insert(mannschaftAktiv);
 	}
-	protected void buttonMannschaftLschenActionPerformed(ActionEvent e) {
+	
+	// Wenn Button Mannschaft löschen gedrückt -> Mannschaft wird gelöscht
+	protected void buttonMannschaftLoeschenActionPerformed(ActionEvent e) {
 		String mannschaftId;
 		int id;
 		
@@ -415,7 +423,8 @@ public class JFrameMannschaft extends JFrame {
 		}
 	}
 
-	protected void buttonMannschaftHinzufgenActionPerformed(ActionEvent e) {
+	// Wenn Button Mannschaft hinzufügen gedrückt -> Mannschaft wird hinzugefügt
+	protected void buttonMannschaftHinzufuegenActionPerformed(ActionEvent e) {
 		Mannschaft mannschaftAktiv;
 		try {
 			mannschaftAktiv = create();
@@ -427,6 +436,8 @@ public class JFrameMannschaft extends JFrame {
 		}
 
 	}
+	
+	//Erste Mannschaft anzeigen
 	protected void buttonFirstActionPerformed(ActionEvent e) {
 		try {
 			Mannschaft mannschaftFirst = new Mannschaft();
@@ -437,6 +448,7 @@ public class JFrameMannschaft extends JFrame {
 		}
 	}
 
+	//vorherige Mannschaft anzeigen
 	protected void buttonPreviousActionPerformed(ActionEvent e) {
 		Mannschaft mannschaftAktiv = new Mannschaft();
 		mannschaftAktiv = create();
@@ -448,6 +460,7 @@ public class JFrameMannschaft extends JFrame {
 		}
 	}
 
+	//nächste Mannschaft anzeigen
 	protected void buttonNextActionPerformed(ActionEvent e) {
 			Mannschaft mannschaftAktiv = new Mannschaft();
 			mannschaftAktiv = create();
@@ -459,6 +472,7 @@ public class JFrameMannschaft extends JFrame {
 		}
 	}
 
+	//letzte Mannschaft anzeigen
 	protected void buttonLastActionPerformed(ActionEvent e) {
 		try {
 			Mannschaft mannschaftLast = mannschaftDao.last();
@@ -468,6 +482,7 @@ public class JFrameMannschaft extends JFrame {
 		}
 	}
 
+	//Erste Sportart anzeigen
 	protected void buttonSportartFirstActionPerformed(ActionEvent e) {
 		try {
 			Sportart sportartFirst = sportartDao.first();
@@ -476,6 +491,7 @@ public class JFrameMannschaft extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	//vorherige Sportart anzeigen
 	protected void buttonSportartPreviousActionPerformed(ActionEvent e) {
 		Sportart sportartAktiv = new Sportart();
 		try{
@@ -492,6 +508,7 @@ public class JFrameMannschaft extends JFrame {
 		}
 	}
 
+	//nächste Sportart anzeigen
 	protected void buttonSportartNextActionPerformed(ActionEvent e) {
 		Sportart sportartAktiv = new Sportart();
 		try{
@@ -507,6 +524,7 @@ public class JFrameMannschaft extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	//letzte Sportart anzeigen
 	protected void buttonSportartLastActionPerformed(ActionEvent e) {
 		try {
 			Sportart sportartLast = sportartDao.last();
@@ -515,6 +533,7 @@ public class JFrameMannschaft extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	// Wenn Button Suchen gedrückt -> Sportart wird gesucht
 	protected void buttonSportartSuchenActionPerformed(ActionEvent e) {
 		String name = textFieldSportartSuchen.getText(); 
 		Sportart sportart;
@@ -526,7 +545,8 @@ public class JFrameMannschaft extends JFrame {
 			showErrorPane(e1);
 		}
 	}
-	protected void buttonSportartbernehmenActionPerformed(ActionEvent e) {
+	// Wenn Button Sportart übernehmen gedrückt -> Sportart wird übernommen
+	protected void buttonSportartUebernehmenActionPerformed(ActionEvent e) {
 		textFieldSportartName.setText(textFieldSportartSucheName.getText());
 		textFieldSportartId.setText(textFieldSportartSucheId.getText());
 		textFieldSportartSucheName.setText("");
@@ -534,6 +554,7 @@ public class JFrameMannschaft extends JFrame {
 		textFieldSportartSuchen.setText("");
 	}
 	
+	// Methode create() -> Neue Mannschaft wird erstellt
 	private Mannschaft create() {
 		Mannschaft mannschaftAktiv = new Mannschaft();
 		Sportart sportartAktiv = new Sportart();
@@ -549,13 +570,15 @@ public class JFrameMannschaft extends JFrame {
 		return mannschaftAktiv;
 	}
 
+	// Methode showMannschaft() -> Attribute von der jeweiligen Mannschaft werden angezeigt
 	private void showMannschaft(Mannschaft mannschaft) {
 		textFieldID.setText(Integer.toString(mannschaft.getId()));
 		textFieldName.setText(mannschaft.getName());
 		textFieldSportartId.setText(Integer.toString(mannschaft.getSportart().getId()));
 		textFieldSportartName.setText(mannschaft.getSportart().getName());
 	}
-
+	
+	// Methode showSportart() -> Attribute von der jeweiligen Sportart werden angezeigt
 	private void showSportart(Sportart sportart) {
 		textFieldSportartSucheId.setText(Integer.toString(sportart.getId()));
 		textFieldSportartSucheName.setText(sportart.getName());
